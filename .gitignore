@@ -7,3 +7,4 @@ server/prisma/*.db*
 .DS_Store
 .playwright-mcp/
 artifacts/
+.tools/
