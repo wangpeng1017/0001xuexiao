@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.env
+server/data/
+server/prisma/*.db*
+.DS_Store
+.playwright-mcp/
+artifacts/

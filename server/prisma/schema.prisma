@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  username      String    @unique
+  nickname      String
+  passwordHash  String
+  role          String
+  disabled      Boolean   @default(false)
+  mustChangePwd Boolean   @default(false)
+  failCount     Int       @default(0)
+  lockedUntil   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  projects        Project[] @relation("ProjectOwner")
+  updatedProjects Project[] @relation("ProjectUpdatedBy")
+
+  @@index([role])
+}
+
+model Project {
+  id          String    @id @default(cuid())
+  projectName String
+  remarks     String?
+  indexImage  String?
+  state       Int       @default(-1)
+  sortOrder   Int
+  content     String    @default("{}")
+  version     Int       @default(0)
+  ownerId     String
+  teamId      String?
+  updatedById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  owner     User  @relation("ProjectOwner", fields: [ownerId], references: [id])
+  updatedBy User? @relation("ProjectUpdatedBy", fields: [updatedById], references: [id])
+
+  @@index([ownerId])
+  @@index([sortOrder])
+  @@index([deletedAt])
+}
