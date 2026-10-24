@@ -12,7 +12,7 @@
 ### 0.2 总原则（开发全程遵守）
 1. **最小化满足**：只做 7 条需求要求的功能，每个功能都要能对应到 R1~R7 中的某一条；不参照、不照搬 iMAP 线上平台的功能范围。
 2. **最简单的技术方案**：一个前端（GoView 二开）、一个后端（Node.js 自研），**不用 Docker**，用安装脚本 + systemd 直接部署。不引入后台框架，账号权限自己写，够用即可。
-3. **完全离线**：学校服务器**不能访问外网**。所有前端资源、底图、字体、运行时（Node、GDAL、ZLMediaKit）都打进离线安装包，运行时零外网请求。
+3. **完全离线**：学校服务器**不能访问外网**。所有前端资源、底图、字体、运行时（Node、GDAL、ffmpeg）都打进离线安装包，运行时零外网请求。
 4. **可验收**：每条需求都写明“验收演示步骤”（见第六章），开发完成的标准是演示能一次走通。
 
 ### 0.3 需求条款编号
@@ -70,7 +70,7 @@
             ├─ /open/**  ：已发布大屏读取、数据集出口（免登录）
             └─ 内置 GDAL + py3dtiles 命令行（格式识别、转换、切片、点云转 3D Tiles）
           数据：/data/vis-platform/app.db（SQLite） + /data/vis-platform/files（文件）
- vis-zlm 服务（必选，ZLMediaKit 二进制，只监听本机）：摄像头 RTSP → HTTP-FLV，由 vis-platform 反向代理给浏览器
+ 视频：vis-platform 按需拉起 ffmpeg 子进程，RTSP → HTTP-FLV（只转封装不转码），同一路摄像头多人观看共用一个 ffmpeg
 ```
 
 ### 2.2 技术选型
@@ -86,7 +86,7 @@
 | 鉴权 | JWT + bcrypt，三个角色写死在代码里 | 登录与权限 | — |
 | 格式转换 | GDAL（micromamba 可移植环境，随安装包提供） | 200+ 栅格/矢量格式 → GeoJSON / XYZ 瓦片 | MIT |
 | 点云转换 | py3dtiles | LAS/LAZ 点云 → 3D Tiles | Apache 2.0 |
-| 视频转流（必选） | ZLMediaKit | 摄像头 RTSP → HTTP-FLV/HLS | MIT |
+| 视频转流（必选） | ffmpeg 静态二进制（后端按需拉起子进程） | 摄像头 RTSP → HTTP-FLV | LGPL/GPL（作为独立程序调用，随包附源码获取说明） |
 | 部署 | 离线 tar.gz 安装包 + `install.sh` + systemd（**不用 Docker**） | 一键部署 | — |
 
 > 不再使用 Snowy（小诺）：只需要三个固定角色的权限，自己写大约几百行代码，比引入一整套后台框架简单；同时也不用处理它的授权条款问题。
@@ -97,7 +97,7 @@
 - **D3 数据接入只有一个入口**：HTTP（RESTful，用于物联网平台）、MySQL 统一抽象成「数据集」，对外只暴露 `GET /open/dataset/{id}/data` 一个接口，GoView 组件复用自带的「动态请求」去拉。后端每种类型就是一个 provider，由注册表统一分发。
 - **D4 “格式直连”的实现方式**：上传任意 GDAL 支持的格式，后端自动识别后转成 Cesium 能直接加载的格式（矢量转 GeoJSON，栅格转 XYZ 瓦片）。
 - **D5 离线底图与学校数据**：内置 Cesium 自带的 NaturalEarthII 全球低精度底图作为兜底；学校采集的 LAS 点云上传后转成 3D Tiles，以三维模型图层加载（走 F014 → F010）。
-- **D7 视频只对接 RTSP**：浏览器不能直接播放 RTSP，所以 ZLMediaKit 是标配服务（二进制 + systemd）；用户只需要填 RTSP 地址，转流对用户透明。
+- **D7 视频只对接 RTSP**：浏览器不能直接播放 RTSP，所以由后端按需拉起 ffmpeg 子进程转封装为 HTTP-FLV（不再单独部署流媒体服务）；用户只需要填 RTSP 地址，转流对用户透明。
 - **D6 一个前端、一个后端、不用 Docker**：管理页并入 GoView 应用；后端同时负责托管静态资源，不需要单独的 Nginx；所有运行时都以免安装二进制形式随包提供，由 systemd 管理。
 
 ---
@@ -123,7 +123,7 @@
 | F010 | 三维场景 | 图层类型：栅格、矢量、三维模型、在线地图服务、360 街景 | R6 R2(GIS) | 🔴 | P0 |
 | F011 | 三维场景 | 三维模型摆放编辑（拾取定位 + 位置/旋转/缩放属性面板） | R6 | 🔴 | P1 |
 | F012 | 数据接入 | 数据集：RESTful API（物联网）、MySQL（数据库） | R2 | 🔴 | P0 |
-| F013 | 数据接入 | 视频组件：填 RTSP 地址即可播放（ZLMediaKit 转流） | R2 | 🔴 | P0 |
+| F013 | 数据接入 | 视频组件：填 RTSP 地址即可播放（ffmpeg 转封装） | R2 | 🔴 | P0 |
 | F014 | 数据文件 | 大文件分片上传 + 自动识别转换（GDAL 矢量/栅格、LAS 点云→3D Tiles）+ 支持格式清单页（≥200） | R3 | 🔴 | P0 |
 | F015 | 协作 | 团队管理：团队、成员、项目归属、成员协同编辑 | R3 | 🔴 | P0 |
 | F016 | 素材模板 | 素材库：模型、地图、二维素材 | R4 | 🔴 | P0 |
@@ -243,10 +243,10 @@
 ### F013: 视频组件
 - **验收标准**：
   - [ ] 组件库里新增「视频」组件，配置项：RTSP 地址、是否自动播放、是否静音
-  - [ ] 填好 RTSP 地址后，后端调用 ZLMediaKit 的 `addStreamProxy` 拉流，返回 HTTP-FLV 播放地址，前端用 mpegts.js 播放；从填好地址到出画面 ≤5 秒
+  - [ ] 填好 RTSP 地址后，后端登记该视频源并返回 streamId；播放时后端拉起 `ffmpeg -rtsp_transport tcp -i <rtsp> -c:v copy -an -f flv pipe:1`，以 HTTP-FLV 推给浏览器，前端用 mpegts.js 播放；从填好地址到出画面 ≤5 秒
   - [ ] 拉流失败（地址错误、摄像头不在线）时组件上显示明确的错误提示
-  - [ ] 没有人观看时 ZLMediaKit 自动断开拉流，节省带宽
-  - [ ] 演示环境用 ZLMediaKit 推一个本地 mp4 当作 RTSP 源来验证
+  - [ ] 最后一个观看者断开 30 秒后自动结束 ffmpeg，节省带宽
+  - [ ] 测试环境允许（仅开发配置开启）用本地 mp4 文件代替 RTSP 源来验证
 - **不在范围内**：GB28181 国标接入、云台控制、录像回放。
 
 ### F014: 数据文件与“200 种以上格式直连”
@@ -291,11 +291,11 @@
   - [ ] **不使用 Docker**，直接用命令部署。交付物是一个离线安装包 `vis-platform-<版本>-linux-<x64|arm64>.tar.gz`，解压后包含：
     - `runtime/node/`：Node.js 官方 Linux 二进制（免安装）
     - `runtime/geo/`：用 micromamba 打包的可移植环境（GDAL + Python + py3dtiles），解压即用，不依赖系统 apt/yum
-    - `runtime/zlm/`：ZLMediaKit 预编译二进制
+    - `runtime/ffmpeg/`：ffmpeg 静态二进制
     - `app/`：后端编译产物 + 生产依赖 node_modules（Prisma 引擎按目标平台预置 binaryTargets）+ 前端 dist
     - `install.sh`、`vis.env.example`、`seed/`（预置素材与模板）、`backup.sh`、`restore.sh`、`uninstall.sh`
   - [ ] 在一台全新的、不联网的 Linux 服务器上，以 root 执行 `./install.sh`，10 分钟内服务就绪
-  - [ ] 脚本做的事：检查 CPU 架构、磁盘和端口 → 复制到 `/opt/vis-platform`，数据目录放在 `/data/vis-platform` → 生成随机 JWT 密钥和初始管理员密码 → 初始化数据库 → 注册两个 systemd 服务（`vis-platform`、`vis-zlm`），设置开机自启 → 健康检查 → 输出访问地址和管理员账号
+  - [ ] 脚本做的事：检查 CPU 架构、磁盘和端口 → 复制到 `/opt/vis-platform`，数据目录放在 `/data/vis-platform` → 生成随机 JWT 密钥和初始管理员密码 → 初始化数据库 → 注册 systemd 服务 `vis-platform`，设置开机自启 → 健康检查 → 输出访问地址和管理员账号
   - [ ] 升级：`./install.sh --upgrade` 只替换程序文件，保留数据和配置
   - [ ] 运维：`systemctl status|restart vis-platform`；日志用 `journalctl -u vis-platform`
   - [ ] `backup.sh` / `restore.sh`：备份 SQLite 文件和文件目录
@@ -427,3 +427,4 @@
 | 2026-10-24 | 1.1 | 放弃 Snowy，改为 GoView + Node.js(Fastify/Prisma/SQLite) 自研、单容器部署；补充服务器配置建议、学校现场对接条件、大文件分片上传、RTSP 选配转流 | AI |
 | 2026-10-24 | 1.2 | 学校数据为 LAS 点云（py3dtiles 转 3D Tiles）；GIS 服务改为“GIS 产品”下拉框 + 4 种标准协议；摄像头只对接 RTSP（ZLMediaKit 改为必选）；物联网只对接 RESTful，删掉 MQTT | AI |
 | 2026-10-24 | 1.3 | 部署方式改为**不用 Docker**：离线 tar.gz 安装包（内含 Node、micromamba 打包的 GDAL/py3dtiles、ZLMediaKit 二进制）+ install.sh + systemd | AI |
+| 2026-10-25 | 1.4 | 视频转流由 ZLMediaKit 改为后端按需拉起 ffmpeg 子进程（少一个服务，开发机可直接测试） | AI |
