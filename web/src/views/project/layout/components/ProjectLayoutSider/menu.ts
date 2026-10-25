@@ -9,6 +9,7 @@ import { RoleEnum } from '@/enums/roleEnum'
 
 const { TvOutlineIcon, PersonIcon } = icon.ionicons5
 const { DevicesIcon } = icon.carbon
+const { ChartPieIcon, TableSplitIcon, ObjectStorageIcon, StoreIcon } = icon.carbon
 export const renderMenuLabel = (option: MenuOption | MenuGroupOption) => {
   return option.label
 }
@@ -47,6 +48,62 @@ export const menuOptionsInit = () => {
       ]
     }
   ]
+
+  menu.push(
+    {
+      key: 'divider-data',
+      type: 'divider'
+    },
+    {
+      label: () => h('span', null, { default: () => '数据' }),
+      key: 'data',
+      icon: renderIcon(ChartPieIcon),
+      children: [
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: PageEnum.BASE_HOME_DATASET_NAME
+                }
+              },
+              { default: () => '数据集' }
+            ),
+          key: PageEnum.BASE_HOME_DATASET_NAME,
+          icon: renderIcon(TableSplitIcon)
+        },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: PageEnum.BASE_HOME_DATAFILE_NAME
+                }
+              },
+              { default: () => '数据文件' }
+            ),
+          key: PageEnum.BASE_HOME_DATAFILE_NAME,
+          icon: renderIcon(ObjectStorageIcon)
+        },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: PageEnum.BASE_HOME_FORMATS_NAME
+                }
+              },
+              { default: () => '支持格式' }
+            ),
+          key: PageEnum.BASE_HOME_FORMATS_NAME,
+          icon: renderIcon(StoreIcon)
+        }
+      ]
+    }
+  )
 
   if (isAdmin) {
     menu.push(

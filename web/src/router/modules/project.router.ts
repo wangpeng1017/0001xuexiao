@@ -7,7 +7,10 @@ const importPath = {
   'PageEnum.BASE_HOME_ITEMS_NAME': () => import('@/views/project/items/index.vue'),
   'PageEnum.BASE_HOME_TEMPLATE_NAME': () => import('@/views/project/mtTemplate/index.vue'),
   'PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME': () => import('@/views/project/templateMarket/index.vue'),
-  'PageEnum.BASE_HOME_USER_NAME': () => import('@/views/user/index.vue')
+  'PageEnum.BASE_HOME_USER_NAME': () => import('@/views/user/index.vue'),
+  'PageEnum.BASE_HOME_DATASET_NAME': () => import('@/views/data/dataset/index.vue'),
+  'PageEnum.BASE_HOME_DATAFILE_NAME': () => import('@/views/data/datafile/index.vue'),
+  'PageEnum.BASE_HOME_FORMATS_NAME': () => import('@/views/data/formats/index.vue')
 }
 
 const projectRoutes: RouteRecordRaw = {
@@ -51,6 +54,30 @@ const projectRoutes: RouteRecordRaw = {
       meta: {
         title: '用户管理',
         requiresAdmin: true
+      }
+    },
+    {
+      path: PageEnum.BASE_HOME_DATASET,
+      name: PageEnum.BASE_HOME_DATASET_NAME,
+      component: importPath['PageEnum.BASE_HOME_DATASET_NAME'],
+      meta: {
+        title: '数据集'
+      }
+    },
+    {
+      path: PageEnum.BASE_HOME_DATAFILE,
+      name: PageEnum.BASE_HOME_DATAFILE_NAME,
+      component: importPath['PageEnum.BASE_HOME_DATAFILE_NAME'],
+      meta: {
+        title: '数据文件'
+      }
+    },
+    {
+      path: PageEnum.BASE_HOME_FORMATS,
+      name: PageEnum.BASE_HOME_FORMATS_NAME,
+      component: importPath['PageEnum.BASE_HOME_FORMATS_NAME'],
+      meta: {
+        title: '支持格式'
       }
     }
   ]
