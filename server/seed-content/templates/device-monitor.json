@@ -1,0 +1,1902 @@
+{
+  "name": "实训设备监控",
+  "category": "device",
+  "content": {
+    "editCanvasConfig": {
+      "projectName": "实训设备监控",
+      "remarks": "实训设备监控：展示温度趋势、设备负载、设备列表与摄像头视频占位。摄像头 RTSP 地址已留空，配置 RTSP 地址并连接后即可播放。设备数据为虚构演示数据。",
+      "width": 1920,
+      "height": 1080,
+      "filterShow": false,
+      "hueRotate": 0,
+      "saturate": 1,
+      "contrast": 1,
+      "brightness": 1,
+      "opacity": 1,
+      "rotateZ": 0,
+      "rotateX": 0,
+      "rotateY": 0,
+      "skewX": 0,
+      "skewY": 0,
+      "blendMode": "normal",
+      "background": "#050b18",
+      "backgroundImage": "{{material:images/bg-tech-wave.jpg}}",
+      "selectColor": false,
+      "chartThemeColor": "dark",
+      "chartThemeSetting": {
+        "title": {
+          "show": true,
+          "textStyle": {
+            "color": "#BFBFBF",
+            "fontSize": 18
+          },
+          "subtextStyle": {
+            "color": "#A2A2A2",
+            "fontSize": 14
+          }
+        },
+        "xAxis": {
+          "show": true,
+          "name": "",
+          "nameGap": 15,
+          "nameTextStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 12
+          },
+          "inverse": false,
+          "axisLabel": {
+            "show": true,
+            "fontSize": 12,
+            "color": "#B9B8CE",
+            "rotate": 0
+          },
+          "position": "bottom",
+          "axisLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#B9B8CE",
+              "width": 1
+            },
+            "onZero": true
+          },
+          "axisTick": {
+            "show": true,
+            "length": 5
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#484753",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "show": true,
+          "name": "",
+          "nameGap": 15,
+          "nameTextStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 12
+          },
+          "inverse": false,
+          "axisLabel": {
+            "show": true,
+            "fontSize": 12,
+            "color": "#B9B8CE",
+            "rotate": 0
+          },
+          "position": "left",
+          "axisLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#B9B8CE",
+              "width": 1
+            },
+            "onZero": true
+          },
+          "axisTick": {
+            "show": true,
+            "length": 5
+          },
+          "splitLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#484753",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "legend": {
+          "show": true,
+          "type": "scroll",
+          "x": "center",
+          "y": "top",
+          "icon": "circle",
+          "orient": "horizontal",
+          "textStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 18
+          },
+          "itemHeight": 15,
+          "itemWidth": 15,
+          "pageTextStyle": {
+            "color": "#B9B8CE"
+          }
+        },
+        "grid": {
+          "show": false,
+          "left": "10%",
+          "top": "60",
+          "right": "10%",
+          "bottom": "60"
+        },
+        "dataset": null,
+        "renderer": "svg"
+      },
+      "vChartThemeName": "vScreenVolcanoBlue",
+      "previewScaleType": "fit"
+    },
+    "requestGlobalConfig": {
+      "requestDataPond": [],
+      "requestOriginUrl": "",
+      "requestInterval": 30,
+      "requestIntervalUnit": "second",
+      "requestParams": {
+        "Body": {
+          "form-data": {},
+          "x-www-form-urlencoded": {},
+          "json": "",
+          "xml": ""
+        },
+        "Header": {},
+        "Params": {}
+      }
+    },
+    "componentList": [
+      {
+        "id": "device-temp-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "车间温度趋势",
+          "fontSize": 18,
+          "fontColor": "#4fd2dd",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 40,
+          "y": 100,
+          "w": 400,
+          "h": 32,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 0
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-temp-line",
+        "isGroup": false,
+        "key": "LineCommon",
+        "chartConfig": {
+          "key": "LineCommon",
+          "chartKey": "VLineCommon",
+          "conKey": "VCLineCommon",
+          "title": "折线图",
+          "category": "Lines",
+          "categoryName": "折线图",
+          "package": "Charts",
+          "chartFrame": "echarts",
+          "image": "line.png"
+        },
+        "option": {
+          "backgroundColor": "rgba(0,0,0,0)",
+          "tooltip": {
+            "show": true,
+            "trigger": "axis",
+            "axisPointer": {
+              "type": "line"
+            }
+          },
+          "xAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 12,
+              "color": "#B9B8CE",
+              "rotate": 0
+            },
+            "position": "bottom",
+            "axisLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#B9B8CE",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": true,
+              "length": 5
+            },
+            "splitLine": {
+              "show": false,
+              "lineStyle": {
+                "color": "#484753",
+                "width": 1,
+                "type": "solid"
+              }
+            },
+            "type": "category"
+          },
+          "yAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 12,
+              "color": "#B9B8CE",
+              "rotate": 0
+            },
+            "position": "left",
+            "axisLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#B9B8CE",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": true,
+              "length": 5
+            },
+            "splitLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#484753",
+                "width": 1,
+                "type": "solid"
+              }
+            },
+            "type": "value"
+          },
+          "legend": {
+            "show": true,
+            "type": "scroll",
+            "x": "center",
+            "y": "top",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 18
+            },
+            "itemHeight": 15,
+            "itemWidth": 15,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            }
+          },
+          "grid": {
+            "show": false,
+            "left": "10%",
+            "top": "60",
+            "right": "10%",
+            "bottom": "60"
+          },
+          "dataset": {
+            "dimensions": [
+              "时间",
+              "温度",
+              "湿度"
+            ],
+            "source": [
+              {
+                "时间": "08:00",
+                "温度": 21.5,
+                "湿度": 46
+              },
+              {
+                "时间": "10:00",
+                "温度": 23.2,
+                "湿度": 44
+              },
+              {
+                "时间": "12:00",
+                "温度": 26.8,
+                "湿度": 41
+              },
+              {
+                "时间": "14:00",
+                "温度": 28.4,
+                "湿度": 39
+              },
+              {
+                "时间": "16:00",
+                "温度": 27.1,
+                "湿度": 40
+              },
+              {
+                "时间": "18:00",
+                "温度": 24.6,
+                "湿度": 43
+              },
+              {
+                "时间": "20:00",
+                "温度": 22.3,
+                "湿度": 45
+              }
+            ]
+          },
+          "series": [
+            {
+              "type": "line",
+              "label": {
+                "show": true,
+                "position": "top",
+                "color": "#fff",
+                "fontSize": 12
+              },
+              "symbolSize": 5,
+              "itemStyle": {
+                "color": null,
+                "borderRadius": 0
+              },
+              "lineStyle": {
+                "type": "solid",
+                "width": 3,
+                "color": null
+              },
+              "name": "温度(℃)"
+            },
+            {
+              "type": "line",
+              "label": {
+                "show": true,
+                "position": "top",
+                "color": "#fff",
+                "fontSize": 12
+              },
+              "symbolSize": 5,
+              "itemStyle": {
+                "color": null,
+                "borderRadius": 0
+              },
+              "lineStyle": {
+                "type": "solid",
+                "width": 3,
+                "color": null
+              },
+              "name": "湿度(%)"
+            }
+          ]
+        },
+        "attr": {
+          "x": 40,
+          "y": 140,
+          "w": 900,
+          "h": 340,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 1
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-load-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "设备负载",
+          "fontSize": 18,
+          "fontColor": "#4fd2dd",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 980,
+          "y": 100,
+          "w": 400,
+          "h": 32,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 2
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-load-dial",
+        "isGroup": false,
+        "key": "Dial",
+        "chartConfig": {
+          "key": "Dial",
+          "chartKey": "VDial",
+          "conKey": "VCDial",
+          "title": "表盘",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Charts",
+          "chartFrame": "common",
+          "image": "dial.png"
+        },
+        "option": {
+          "backgroundColor": "#0E1327",
+          "dataset": 68,
+          "series": [
+            {
+              "type": "gauge",
+              "data": [
+                {
+                  "value": 68,
+                  "itemStyle": {
+                    "color": "#2AF4FF"
+                  }
+                }
+              ],
+              "min": 0,
+              "max": 100,
+              "splitNumber": 10,
+              "center": [
+                "50%",
+                "55%"
+              ],
+              "radius": "80%",
+              "axisLine": {
+                "lineStyle": {
+                  "color": [
+                    [
+                      0,
+                      "rgba(0,212,230,0.5)"
+                    ],
+                    [
+                      1,
+                      "rgba(28,128,245,0)"
+                    ]
+                  ],
+                  "width": 170
+                }
+              },
+              "axisLabel": {
+                "color": "#eee",
+                "fontSize": 14
+              },
+              "axisTick": {
+                "show": false
+              },
+              "splitLine": {
+                "show": false
+              },
+              "detail": {
+                "show": false
+              },
+              "pointer": {
+                "length": "80%",
+                "width": 4
+              },
+              "animationDuration": 2000
+            },
+            {
+              "name": "外部刻度",
+              "type": "gauge",
+              "center": [
+                "50%",
+                "55%"
+              ],
+              "radius": "90%",
+              "axisLine": {
+                "show": true,
+                "lineStyle": {
+                  "width": 25,
+                  "color": [
+                    [
+                      0,
+                      "#1369E380"
+                    ],
+                    [
+                      1,
+                      "#1369E380"
+                    ]
+                  ]
+                }
+              },
+              "axisLabel": {
+                "show": false
+              },
+              "axisTick": {
+                "splitNumber": 5,
+                "lineStyle": {
+                  "color": "#42E5FB",
+                  "width": 2
+                }
+              },
+              "splitLine": {
+                "length": 15,
+                "lineStyle": {
+                  "color": "#42E5FB"
+                }
+              }
+            }
+          ]
+        },
+        "attr": {
+          "x": 980,
+          "y": 140,
+          "w": 420,
+          "h": 340,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 3
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-icon-camera",
+        "isGroup": false,
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/icon-camera.svg}}",
+          "fit": "contain",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1430,
+          "y": 160,
+          "w": 52,
+          "h": 52,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 4
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-label-camera",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "摄像头",
+          "fontSize": 16,
+          "fontColor": "#b9cfe3",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 1490,
+          "y": 170,
+          "w": 160,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 5
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-icon-server",
+        "isGroup": false,
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/icon-server.svg}}",
+          "fit": "contain",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1430,
+          "y": 240,
+          "w": 52,
+          "h": 52,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 6
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-label-server",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "服务器",
+          "fontSize": 16,
+          "fontColor": "#b9cfe3",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 1490,
+          "y": 250,
+          "w": 160,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 7
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-icon-alarm",
+        "isGroup": false,
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/icon-alarm.svg}}",
+          "fit": "contain",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1430,
+          "y": 320,
+          "w": 52,
+          "h": 52,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 8
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-label-alarm",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "告警",
+          "fontSize": 16,
+          "fontColor": "#b9cfe3",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 1490,
+          "y": 330,
+          "w": 160,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 9
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-table-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "设备列表",
+          "fontSize": 18,
+          "fontColor": "#4fd2dd",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 40,
+          "y": 500,
+          "w": 400,
+          "h": 32,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 10
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-table",
+        "isGroup": false,
+        "key": "TablesBasic",
+        "chartConfig": {
+          "key": "TablesBasic",
+          "chartKey": "VTablesBasic",
+          "conKey": "VCTablesBasic",
+          "title": "基础分页表格",
+          "category": "Tables",
+          "categoryName": "表格",
+          "package": "Tables",
+          "chartFrame": "common",
+          "image": "tables_basic.png"
+        },
+        "option": {
+          "dataset": {
+            "dimensions": [
+              {
+                "title": "设备编号",
+                "key": "code"
+              },
+              {
+                "title": "设备名称",
+                "key": "name"
+              },
+              {
+                "title": "所在区域",
+                "key": "area"
+              },
+              {
+                "title": "状态",
+                "key": "status"
+              },
+              {
+                "title": "温度（℃）",
+                "key": "temperature"
+              },
+              {
+                "title": "负载（%）",
+                "key": "load"
+              }
+            ],
+            "source": [
+              {
+                "key": 0,
+                "code": "TR-001",
+                "name": "数控车床",
+                "area": "实训车间 A",
+                "status": "运行",
+                "temperature": 28.4,
+                "load": 68
+              },
+              {
+                "key": 1,
+                "code": "TR-002",
+                "name": "工业机器人",
+                "area": "实训车间 A",
+                "status": "运行",
+                "temperature": 26.9,
+                "load": 74
+              },
+              {
+                "key": 2,
+                "code": "TR-003",
+                "name": "3D 打印机",
+                "area": "实训车间 B",
+                "status": "空闲",
+                "temperature": 22.1,
+                "load": 12
+              },
+              {
+                "key": 3,
+                "code": "TR-004",
+                "name": "激光切割机",
+                "area": "实训车间 B",
+                "status": "运行",
+                "temperature": 31.2,
+                "load": 82
+              },
+              {
+                "key": 4,
+                "code": "TR-005",
+                "name": "PLC 实训台",
+                "area": "实训车间 C",
+                "status": "运行",
+                "temperature": 24.8,
+                "load": 55
+              },
+              {
+                "key": 5,
+                "code": "TR-006",
+                "name": "服务器机柜",
+                "area": "机房",
+                "status": "运行",
+                "temperature": 23.6,
+                "load": 61
+              }
+            ]
+          },
+          "pagination": {
+            "page": 1,
+            "pageSize": 5
+          },
+          "align": "center",
+          "style": {
+            "border": "on",
+            "singleColumn": "off",
+            "singleLine": "off",
+            "bottomBordered": "on",
+            "striped": "on",
+            "fontSize": 16,
+            "borderWidth": 0,
+            "borderColor": "black",
+            "borderStyle": "solid"
+          },
+          "inputShow": "none"
+        },
+        "attr": {
+          "x": 40,
+          "y": 540,
+          "w": 900,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 11
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-video-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "摄像头视频（占位）",
+          "fontSize": 18,
+          "fontColor": "#4fd2dd",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 980,
+          "y": 500,
+          "w": 400,
+          "h": 32,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 12
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-rtsp-video",
+        "isGroup": false,
+        "key": "RtspVideo",
+        "chartConfig": {
+          "key": "RtspVideo",
+          "chartKey": "VRtspVideo",
+          "conKey": "VCRtspVideo",
+          "title": "摄像头视频",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "video.png"
+        },
+        "option": {
+          "rtspUrl": "",
+          "streamId": "",
+          "autoplay": true,
+          "muted": true,
+          "fit": "contain"
+        },
+        "attr": {
+          "x": 980,
+          "y": 540,
+          "w": 420,
+          "h": 300,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 13
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-video-note",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "摄像头组件已预置，RTSP 地址留空作为占位。\n在右侧「数据」中填写 RTSP 地址并点击连接后即可播放。",
+          "fontSize": 16,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 1420,
+          "y": 540,
+          "w": 460,
+          "h": 200,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 14
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "device-main-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "实训设备监控",
+          "fontSize": 36,
+          "fontColor": "#7fe7ff",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "center",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 8,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 660,
+          "y": 20,
+          "w": 600,
+          "h": 60,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 15
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      }
+    ]
+  }
+}
