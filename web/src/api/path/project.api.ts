@@ -1,7 +1,7 @@
 import { http } from '@/api/http'
 import { httpErrorHandle } from '@/utils'
 import { ContentTypeEnum, RequestHttpEnum, ModuleTypeEnum } from '@/enums/httpEnum'
-import { ProjectItem, ProjectDetail } from './project'
+import { ProjectItem, ProjectDetail, ProjectTemplateParams } from './project'
 
 // * 项目列表
 export const projectListApi = async (data: object) => {
@@ -99,6 +99,53 @@ export const copyProjectApi = async (data: { id: string }) => {
 export const sortProjectApi = async (data: { ids: string[] }) => {
   try {
     const res = await http(RequestHttpEnum.PUT)(`${ModuleTypeEnum.PROJECT}/sort`, data)
+    return res
+  } catch {
+    httpErrorHandle()
+  }
+}
+
+// * 设为模板 / 取消模板
+export const setProjectTemplateApi = async (data: {
+  id: string
+  isTemplate: boolean
+  templateCategory?: string
+}) => {
+  try {
+    const res = await http(RequestHttpEnum.POST)(
+      `${ModuleTypeEnum.PROJECT}/setTemplate`,
+      data
+    )
+    return res
+  } catch {
+    httpErrorHandle()
+  }
+}
+
+// * 模板列表
+export const projectTemplatesApi = async (params: ProjectTemplateParams = {}) => {
+  try {
+    const res = await http(RequestHttpEnum.GET)<ProjectItem[]>(
+      `${ModuleTypeEnum.PROJECT}/templates`,
+      params
+    )
+    return res
+  } catch {
+    httpErrorHandle()
+  }
+}
+
+// * 从模板新建项目
+export const createFromTemplateApi = async (data: {
+  templateId: string
+  projectName: string
+  teamId?: string
+}) => {
+  try {
+    const res = await http(RequestHttpEnum.POST)<{ id: string }>(
+      `${ModuleTypeEnum.PROJECT}/createFromTemplate`,
+      data
+    )
     return res
   } catch {
     httpErrorHandle()

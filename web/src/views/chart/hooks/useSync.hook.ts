@@ -1,5 +1,6 @@
 import { onUnmounted } from 'vue';
 import html2canvas from 'html2canvas'
+import dayjs from 'dayjs'
 import { getUUID, httpErrorHandle, fetchRouteParamsLocation, base64toFile, JSONStringify, JSONParse } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum,
@@ -21,85 +22,14 @@ import { ResultEnum } from '@/enums/httpEnum'
 import { saveProjectApi, fetchProjectApi, uploadFile, updateProjectApi } from '@/api/path'
 // 画布枚举
 import { SyncEnum } from '@/enums/editPageEnum'
+import { canvasVersionUpdatePolyfill, componentMerge } from './chartMerge'
 import { CreateComponentType, CreateComponentGroupType, ConfigType } from '@/packages/index.d'
-import { BaseEvent, EventLife } from '@/enums/eventEnum'
 import { PublicGroupConfigClass } from '@/packages/public/publicConfig'
-import merge from 'lodash/merge'
 
-/**
- * * 画布-版本升级对旧数据无法兼容的补丁
- * @param object
- */
-const canvasVersionUpdatePolyfill = (object: any) => {
-  return object
-}
-
-/**
- * * 组件-版本升级对旧数据无法兼容的补丁
- * @param newObject
- * @param sources
- */
-const componentVersionUpdatePolyfill = (newObject: any, sources: any) => {
-  try {
-    // 判断是否是组件
-    if (sources.id) {
-      // 处理事件补丁
-      const hasVnodeBeforeMount = 'vnodeBeforeMount' in sources.events
-      const hasVnodeMounted = 'vnodeMounted' in sources.events
-
-      if (hasVnodeBeforeMount) {
-        newObject.events.advancedEvents.vnodeBeforeMount = sources?.events.vnodeBeforeMount
-      }
-      if (hasVnodeMounted) {
-        newObject.events.advancedEvents.vnodeMounted = sources?.events.vnodeMounted
-      }
-      if (hasVnodeBeforeMount || hasVnodeMounted) {
-        sources.events = {
-          baseEvent: {
-            [BaseEvent.ON_CLICK]: undefined,
-            [BaseEvent.ON_DBL_CLICK]: undefined,
-            [BaseEvent.ON_MOUSE_ENTER]: undefined,
-            [BaseEvent.ON_MOUSE_LEAVE]: undefined
-          },
-          advancedEvents: {
-            [EventLife.VNODE_MOUNTED]: undefined,
-            [EventLife.VNODE_BEFORE_MOUNT]: undefined
-          },
-          interactEvents: []
-        }
-      }
-      return newObject
-    }
-  } catch (error) {
-    return newObject
-  }
-}
-
-/**
- * * 合并处理
- * @param newObject 新的模板数据
- * @param sources 新拿到的数据
- * @returns object
- */
-const componentMerge = (newObject: any, sources: any, notComponent = false) => {
-  // 处理组件补丁
-  componentVersionUpdatePolyfill(newObject, sources)
-
-  // 非组件不处理
-  if (notComponent) return merge(newObject, sources)
-  // 组件排除 newObject
-  const option = sources.option
-  if (!option) return merge(newObject, sources)
-
-  // 为 undefined 的 sources 来源对象属性将被跳过详见 https://www.lodashjs.com/docs/lodash.merge
-  sources.option = undefined
-  if (option) {
-    return {
-      ...merge(newObject, sources),
-      option: option
-    }
-  }
-}
+// 乐观锁：编辑器内多个 useSync 实例共享同一份版本状态
+let projectVersion = 0
+let conflictPaused = false
+let conflictDialogVisible = false
 
 // 请求处理
 export const useSync = () => {
@@ -272,6 +202,8 @@ export const useSync = () => {
       if (res && res.code === ResultEnum.SUCCESS) {
         if (res.data) {
           updateStoreInfo(res.data)
+          projectVersion = Number((res.data as { version?: number }).version) || 0
+          conflictPaused = false
           // 更新全局数据
           await updateComponent(JSONParse(res.data.content))
           return
@@ -290,69 +222,136 @@ export const useSync = () => {
     }
   }
 
-  // * 数据保存
-  const dataSyncUpdate = throttle(async (updateImg = true) => {
-    if(!fetchRouteParamsLocation()) return
+  const formatConflictTime = (value?: string) => {
+    if (!value) return '-'
+    const date = dayjs(value)
+    return date.isValid() ? date.format('YYYY-MM-DD HH:mm') : value
+  }
 
-    let projectId = chartEditStore.getProjectInfo[ProjectInfoEnum.PROJECT_ID];
-    if(projectId === null || projectId === ''){
-      window['$message'].error('数据初未始化成功,请刷新页面！')
-      return
-    }
+  const showConflictDialog = (data: {
+    updateUserName?: string
+    updateTime?: string
+    version?: number
+  }) => {
+    conflictPaused = true
+    if (conflictDialogVisible) return
+    conflictDialogVisible = true
+    window['$dialog'].warning({
+      title: '保存冲突',
+      content: `该项目已被 ${data.updateUserName || '其他用户'} 于 ${formatConflictTime(data.updateTime)} 修改`,
+      positiveText: '覆盖保存',
+      negativeText: '重新加载',
+      closable: false,
+      maskClosable: false,
+      onPositiveClick: async () => {
+        conflictDialogVisible = false
+        conflictPaused = false
+        await performSave(false, true)
+      },
+      onNegativeClick: async () => {
+        conflictDialogVisible = false
+        conflictPaused = false
+        await dataSyncFetch()
+        window['$message'].success('已重新加载最新内容')
+      }
+    })
+  }
 
-    chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
-
-    // 异常处理：缩略图上传失败不影响JSON的保存
+  const uploadPreviewImage = async (projectId: string, previewFile: File) => {
     try {
-      if (updateImg) {
-        // 获取缩略图片
-        const range = document.querySelector('.go-edit-range') as HTMLElement
-        // 生成图片
-        const canvasImage: HTMLCanvasElement = await html2canvas(range, {
-          backgroundColor: null,
-          allowTaint: true,
-          useCORS: true
-        })
-
-        // 上传预览图
-        let uploadParams = new FormData()
-        uploadParams.append('object', base64toFile(canvasImage.toDataURL(), `${fetchRouteParamsLocation()}_index_preview.png`))
-        const uploadRes = await uploadFile(uploadParams)
-        // 保存预览图
-        if(uploadRes && uploadRes.code === ResultEnum.SUCCESS) {
-          if (uploadRes.data.fileurl) {
-            await updateProjectApi({
-              id: fetchRouteParamsLocation(),
-              indexImage: `${uploadRes.data.fileurl}`
-            })
-          } else {
-            await updateProjectApi({
-              id: fetchRouteParamsLocation(),
-              indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
-            })
-          }
+      const uploadParams = new FormData()
+      uploadParams.append('object', previewFile)
+      const uploadRes = await uploadFile(uploadParams)
+      if (uploadRes && uploadRes.code === ResultEnum.SUCCESS) {
+        if (uploadRes.data.fileurl) {
+          await updateProjectApi({ id: projectId, indexImage: `${uploadRes.data.fileurl}` })
+        } else {
+          await updateProjectApi({
+            id: projectId,
+            indexImage: `${systemStore.getFetchInfo.OSSUrl}${uploadRes.data.fileName}`
+          })
         }
       }
     } catch (e) {
       console.log(e)
     }
+  }
 
-    // 保存数据
-    let params = new FormData()
+  // * 数据保存（带乐观锁）
+  const performSave = async (updateImg = true, force = false) => {
+    if (!fetchRouteParamsLocation()) return
+
+    const projectId = chartEditStore.getProjectInfo[ProjectInfoEnum.PROJECT_ID]
+    if (projectId === null || projectId === '') {
+      window['$message'].error('数据初未始化成功,请刷新页面！')
+      return
+    }
+
+    // 冲突未处理时停止自动保存
+    if (conflictPaused && !force) {
+      chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
+      return
+    }
+
+    chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.START)
+
+    // 先取缩略图，保存成功后再上传，避免冲突时污染修改人信息
+    let previewFile: File | null = null
+    try {
+      if (updateImg) {
+        const range = document.querySelector('.go-edit-range') as HTMLElement
+        const canvasImage: HTMLCanvasElement = await html2canvas(range, {
+          backgroundColor: null,
+          allowTaint: true,
+          useCORS: true
+        })
+        previewFile = base64toFile(
+          canvasImage.toDataURL(),
+          `${fetchRouteParamsLocation()}_index_preview.png`
+        )
+      }
+    } catch (e) {
+      console.log(e)
+    }
+
+    const params = new FormData()
     params.append('projectId', projectId)
     params.append('content', JSONStringify(chartEditStore.getStorageInfo() || {}))
-    const res= await saveProjectApi(params)
+    params.append('version', String(projectVersion))
+    if (force) params.append('force', '1')
+
+    const res = await saveProjectApi(params)
+
+    if (res && res.code === 409) {
+      chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
+      showConflictDialog((res.data || {}) as {
+        updateUserName?: string
+        updateTime?: string
+        version?: number
+      })
+      return
+    }
 
     if (res && res.code === ResultEnum.SUCCESS) {
-      // 成功状态
+      const nextVersion = Number((res.data as { version?: number })?.version)
+      projectVersion = Number.isFinite(nextVersion) ? nextVersion : projectVersion + 1
+      if (force) {
+        window['$message'].success('已覆盖保存')
+      }
+      if (previewFile) {
+        await uploadPreviewImage(projectId, previewFile)
+      }
       setTimeout(() => {
         chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.SUCCESS)
       }, 1000)
       return
     }
-    // 失败状态
+
     chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
-  }, 3000)
+  }
+
+  // * 数据保存
+  const dataSyncUpdate = throttle((updateImg = true) => performSave(updateImg, false), 3000)
 
   // * 定时处理
   const intervalDataSyncUpdate = () => {

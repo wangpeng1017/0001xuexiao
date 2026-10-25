@@ -41,6 +41,46 @@ export type ProjectItem = {
    * 排序值
    */
   sortOrder: number
+  /**
+   * 所属团队 id（空串表示个人项目）
+   */
+  teamId: string
+  /**
+   * 所属团队名称
+   */
+  teamName: string
+  /**
+   * 是否模板
+   */
+  isTemplate: boolean
+  /**
+   * 模板分类
+   */
+  templateCategory: string
+  /**
+   * 数据版本号（乐观锁）
+   */
+  version: number
+  /**
+   * 最后修改人姓名
+   */
+  updateUserName: string
+}
+
+export type ProjectTemplateCategory = 'campus' | 'device' | 'data' | 'other'
+
+export interface ProjectTemplateParams {
+  category?: ProjectTemplateCategory
+}
+
+export interface ProjectSaveResult {
+  version: number
+}
+
+export interface ProjectSaveConflict {
+  updateUserName: string
+  updateTime: string
+  version: number
 }
 
 export interface ProjectDetail extends ProjectItem {

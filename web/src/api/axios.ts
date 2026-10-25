@@ -34,17 +34,20 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // 白名单校验
-    if (includes(fetchAllowList, config.url)) return config
-    // 获取 token
+    // 获取 token：白名单接口（如预览 getData）也带上 token，有权限时才能拿到完整数据
     const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
+    const userInfo = info?.[SystemStoreEnum.USER_INFO]
+    if (userInfo?.[SystemStoreUserInfoEnum.USER_TOKEN]) {
+      config.headers[userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token'] =
+        userInfo[SystemStoreUserInfoEnum.USER_TOKEN]
+    }
+    // 白名单校验（未登录也可访问）
+    if (includes(fetchAllowList, config.url)) return config
     // 重新登录
     if (!info) {
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)
       return config
     }
-    const userInfo = info[SystemStoreEnum.USER_INFO]
-    config.headers[userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token'] =  userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
     return config
   },
   (error: AxiosError) => {

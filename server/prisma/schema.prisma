@@ -22,6 +22,9 @@ model User {
 
   projects        Project[] @relation("ProjectOwner")
   updatedProjects Project[] @relation("ProjectUpdatedBy")
+  ledTeams        Team[]         @relation("TeamLeader")
+  teamMemberships TeamMember[]
+  materials       Material[]     @relation("MaterialOwner")
 
   @@index([role])
 }
@@ -42,10 +45,61 @@ model Project {
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
 
+  isTemplate       Boolean   @default(false)
+  templateCategory String?
+
   owner     User  @relation("ProjectOwner", fields: [ownerId], references: [id])
   updatedBy User? @relation("ProjectUpdatedBy", fields: [updatedById], references: [id])
+  team      Team? @relation(fields: [teamId], references: [id], onDelete: SetNull)
 
   @@index([ownerId])
   @@index([sortOrder])
   @@index([deletedAt])
+  @@index([teamId])
+  @@index([isTemplate])
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  leaderId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  leader   User         @relation("TeamLeader", fields: [leaderId], references: [id])
+  members  TeamMember[]
+  projects Project[]
+
+  @@index([leaderId])
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  teamId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, userId])
+  @@index([userId])
+}
+
+model Material {
+  id        String   @id @default(cuid())
+  category  String
+  name      String
+  url       String
+  thumb     String   @default("")
+  scope     String   @default("private")
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner User @relation("MaterialOwner", fields: [ownerId], references: [id])
+
+  @@index([category])
+  @@index([ownerId])
+  @@index([scope])
 }

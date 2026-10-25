@@ -1,12 +1,23 @@
 import { Prisma, type PrismaClient } from '@prisma/client';
 import { BizError } from '../lib/resp.js';
 import type { AuthUser } from '../types.js';
+import {
+  assertTeamMembership,
+  canDeleteProject,
+  canReadProject,
+  canWriteProject,
+  getMemberTeamIds,
+  projectListWhere,
+  type ProjectScope
+} from './project-access.js';
 
-const projectInclude = {
-  owner: { select: { username: true, nickname: true } }
+export const projectInclude = {
+  owner: { select: { username: true, nickname: true } },
+  updatedBy: { select: { username: true, nickname: true } },
+  team: { select: { id: true, name: true, leaderId: true } }
 } satisfies Prisma.ProjectInclude;
 
-type ProjectRow = Prisma.ProjectGetPayload<{ include: typeof projectInclude }>;
+export type ProjectRow = Prisma.ProjectGetPayload<{ include: typeof projectInclude }>;
 
 export interface ProjectItem {
   id: string;
@@ -19,6 +30,12 @@ export interface ProjectItem {
   createUserName: string;
   remarks: string;
   sortOrder: number;
+  teamId: string;
+  teamName: string;
+  isTemplate: boolean;
+  templateCategory: string;
+  version: number;
+  updateUserName: string;
 }
 
 export interface ProjectDetail extends ProjectItem {
@@ -35,6 +52,7 @@ export interface CreateProjectInput {
   projectName: string;
   remarks?: string;
   indexImage?: string;
+  teamId?: string;
 }
 
 export interface EditProjectInput {
@@ -44,7 +62,34 @@ export interface EditProjectInput {
   remarks?: string;
 }
 
-function toProjectItem(project: ProjectRow): ProjectItem {
+export interface SaveProjectOptions {
+  version?: number;
+  force?: boolean;
+}
+
+export interface VersionConflictData {
+  updateUserName: string;
+  updateTime: string;
+  version: number;
+}
+
+export class VersionConflictError extends Error {
+  readonly code = 409;
+  readonly data: VersionConflictData;
+
+  constructor(data: VersionConflictData) {
+    super('项目已被他人修改');
+    this.name = 'VersionConflictError';
+    this.data = data;
+  }
+}
+
+function displayName(user: { nickname: string; username: string } | null): string {
+  if (!user) return '';
+  return user.nickname || user.username;
+}
+
+export function toProjectItem(project: ProjectRow): ProjectItem {
   return {
     id: project.id,
     projectName: project.projectName,
@@ -53,9 +98,15 @@ function toProjectItem(project: ProjectRow): ProjectItem {
     updateTime: project.updatedAt.toISOString(),
     indexImage: project.indexImage ?? '',
     createUserId: project.ownerId,
-    createUserName: project.owner.nickname || project.owner.username,
+    createUserName: displayName(project.owner),
     remarks: project.remarks ?? '',
-    sortOrder: project.sortOrder
+    sortOrder: project.sortOrder,
+    teamId: project.teamId ?? '',
+    teamName: project.team?.name ?? '',
+    isTemplate: project.isTemplate,
+    templateCategory: project.templateCategory ?? '',
+    version: project.version,
+    updateUserName: displayName(project.updatedBy)
   };
 }
 
@@ -66,17 +117,11 @@ function toProjectDetail(project: ProjectRow): ProjectDetail {
   };
 }
 
-function canManage(user: AuthUser, ownerId: string): boolean {
-  return user.role === 'admin' || user.id === ownerId;
+function assertProjectPermission(allowed: boolean, message: string): void {
+  if (!allowed) throw new BizError(403, message);
 }
 
-function assertCanManage(user: AuthUser, ownerId: string): void {
-  if (!canManage(user, ownerId)) {
-    throw new BizError(403, '无权限操作该项目');
-  }
-}
-
-async function findProjectOrThrow(
+export async function findProjectOrThrow(
   prisma: PrismaClient,
   projectId: string
 ): Promise<ProjectRow> {
@@ -88,9 +133,16 @@ async function findProjectOrThrow(
   return project;
 }
 
-async function nextSortOrder(prisma: PrismaClient, user: AuthUser): Promise<number> {
-  const where: Prisma.ProjectWhereInput = { deletedAt: null };
-  if (user.role !== 'admin') where.ownerId = user.id;
+export function accessTargetOf(project: ProjectRow) {
+  return {
+    ownerId: project.ownerId,
+    teamId: project.teamId,
+    teamLeaderId: project.team?.leaderId ?? null
+  };
+}
+
+export async function nextSortOrder(prisma: PrismaClient, user: AuthUser): Promise<number> {
+  const where = await projectListWhere(prisma, user, 'mine');
   const result = await prisma.project.aggregate({
     where,
     _min: { sortOrder: true }
@@ -101,10 +153,9 @@ async function nextSortOrder(prisma: PrismaClient, user: AuthUser): Promise<numb
 export async function listProjects(
   prisma: PrismaClient,
   user: AuthUser,
-  params: { page: number; limit: number }
+  params: { page: number; limit: number; scope?: ProjectScope; teamId?: string }
 ): Promise<{ data: ProjectItem[]; count: number }> {
-  const where: Prisma.ProjectWhereInput = { deletedAt: null };
-  if (user.role !== 'admin') where.ownerId = user.id;
+  const where = await projectListWhere(prisma, user, params.scope, params.teamId);
 
   const [rows, count] = await Promise.all([
     prisma.project.findMany({
@@ -125,6 +176,12 @@ export async function createProject(
   user: AuthUser,
   input: CreateProjectInput
 ): Promise<{ id: string }> {
+  let teamId: string | null = null;
+  if (input.teamId) {
+    await assertTeamMembership(prisma, user.id, input.teamId);
+    teamId = input.teamId;
+  }
+
   const project = await prisma.project.create({
     data: {
       projectName: input.projectName,
@@ -135,6 +192,7 @@ export async function createProject(
       content: '{}',
       version: 0,
       ownerId: user.id,
+      teamId,
       updatedById: user.id
     }
   });
@@ -147,34 +205,86 @@ export async function getProjectData(
   projectId: string
 ): Promise<ProjectDetail | LimitedProjectData> {
   const project = await findProjectOrThrow(prisma, projectId);
-  const hasFullAccess = currentUser !== null && canManage(currentUser, project.ownerId);
+  let hasFullAccess = false;
+  if (currentUser) {
+    const memberTeamIds = await getMemberTeamIds(prisma, currentUser.id);
+    hasFullAccess = canReadProject(currentUser, accessTargetOf(project), memberTeamIds);
+  }
   if (!hasFullAccess && project.state !== 1) {
     return { id: project.id, state: -1, content: '' };
   }
   return toProjectDetail(project);
 }
 
+function assertWritable(
+  user: AuthUser,
+  project: ProjectRow,
+  memberTeamIds: ReadonlySet<string>
+): void {
+  assertProjectPermission(
+    canWriteProject(user, accessTargetOf(project), memberTeamIds),
+    '无权限操作该项目'
+  );
+}
+
+async function findWritableProject(
+  prisma: PrismaClient,
+  user: AuthUser,
+  projectId: string
+): Promise<ProjectRow> {
+  const project = await findProjectOrThrow(prisma, projectId);
+  const memberTeamIds = await getMemberTeamIds(prisma, user.id);
+  assertWritable(user, project, memberTeamIds);
+  return project;
+}
+
+function conflictDataOf(project: ProjectRow): VersionConflictData {
+  return {
+    updateUserName: displayName(project.updatedBy) || displayName(project.owner),
+    updateTime: project.updatedAt.toISOString(),
+    version: project.version
+  };
+}
+
 export async function saveProjectContent(
   prisma: PrismaClient,
   user: AuthUser,
   projectId: string,
-  content: string
-): Promise<void> {
-  const project = await prisma.project.findFirst({
-    where: { id: projectId, deletedAt: null },
-    select: { id: true, ownerId: true }
-  });
-  if (!project) throw new BizError(404, '项目不存在');
-  assertCanManage(user, project.ownerId);
+  content: string,
+  options: SaveProjectOptions = {}
+): Promise<{ version: number }> {
+  const project = await findWritableProject(prisma, user, projectId);
+  const updateData = {
+    content,
+    version: { increment: 1 },
+    updatedById: user.id
+  };
 
-  await prisma.project.update({
-    where: { id: project.id },
-    data: {
-      content,
-      version: { increment: 1 },
-      updatedById: user.id
-    }
+  if (options.version === undefined || options.force) {
+    const updated = await prisma.project.update({
+      where: { id: project.id },
+      data: updateData,
+      select: { version: true }
+    });
+    return { version: updated.version };
+  }
+
+  const updated = await prisma.$transaction(async (tx) => {
+    const result = await tx.project.updateMany({
+      where: { id: project.id, deletedAt: null, version: options.version },
+      data: updateData
+    });
+    if (result.count === 0) return null;
+    return tx.project.findUniqueOrThrow({
+      where: { id: project.id },
+      select: { version: true }
+    });
   });
+
+  if (updated) return { version: updated.version };
+
+  const current = await findProjectOrThrow(prisma, project.id);
+  throw new VersionConflictError(conflictDataOf(current));
 }
 
 export async function editProject(
@@ -182,8 +292,7 @@ export async function editProject(
   user: AuthUser,
   input: EditProjectInput
 ): Promise<void> {
-  const project = await findProjectOrThrow(prisma, input.id);
-  assertCanManage(user, project.ownerId);
+  const project = await findWritableProject(prisma, user, input.id);
 
   const data: Prisma.ProjectUncheckedUpdateInput = { updatedById: user.id };
   if (input.projectName !== undefined) data.projectName = input.projectName;
@@ -203,12 +312,16 @@ export async function deleteProjects(
 
   const projects = await prisma.project.findMany({
     where: { id: { in: uniqueIds }, deletedAt: null },
-    select: { id: true, ownerId: true }
+    include: projectInclude
   });
   if (projects.length === 0) throw new BizError(404, '项目不存在');
 
+  const memberTeamIds = await getMemberTeamIds(prisma, user.id);
   for (const project of projects) {
-    assertCanManage(user, project.ownerId);
+    assertProjectPermission(
+      canDeleteProject(user, accessTargetOf(project), memberTeamIds),
+      '无权限删除该项目'
+    );
   }
 
   await prisma.project.updateMany({
@@ -223,8 +336,7 @@ export async function setProjectState(
   projectId: string,
   state: 1 | -1
 ): Promise<void> {
-  const project = await findProjectOrThrow(prisma, projectId);
-  assertCanManage(user, project.ownerId);
+  const project = await findWritableProject(prisma, user, projectId);
 
   await prisma.project.update({
     where: { id: project.id },
@@ -237,8 +349,7 @@ export async function copyProject(
   user: AuthUser,
   projectId: string
 ): Promise<{ id: string }> {
-  const source = await findProjectOrThrow(prisma, projectId);
-  assertCanManage(user, source.ownerId);
+  const source = await findWritableProject(prisma, user, projectId);
 
   const copy = await prisma.project.create({
     data: {
@@ -250,6 +361,7 @@ export async function copyProject(
       content: source.content,
       version: 0,
       ownerId: user.id,
+      teamId: null,
       updatedById: user.id
     }
   });
@@ -264,17 +376,16 @@ export async function sortProjects(
   const uniqueIds = [...new Set(ids)];
   if (uniqueIds.length === 0) return;
 
-  const where: Prisma.ProjectWhereInput = {
-    id: { in: uniqueIds },
-    deletedAt: null
-  };
-  if (user.role !== 'admin') where.ownerId = user.id;
-
   const projects = await prisma.project.findMany({
-    where,
-    select: { id: true }
+    where: { id: { in: uniqueIds }, deletedAt: null },
+    include: projectInclude
   });
-  const allowed = new Set(projects.map((project) => project.id));
+  const memberTeamIds = await getMemberTeamIds(prisma, user.id);
+  const allowed = new Set(
+    projects
+      .filter((project) => canWriteProject(user, accessTargetOf(project), memberTeamIds))
+      .map((project) => project.id)
+  );
   const updates = uniqueIds
     .filter((id) => allowed.has(id))
     .map((id, index) =>

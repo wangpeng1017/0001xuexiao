@@ -1,48 +1,111 @@
 <template>
-  <n-modal v-model:show="showRef" class="go-create-modal" @afterLeave="closeHandle">
-    <n-space size="large">
-      <n-card class="card-box" hoverable>
-        <template #header>
-          <n-text class="card-box-tite">{{ $t('project.create_tip') }}</n-text>
+  <n-modal
+    v-model:show="showRef"
+    preset="card"
+    :title="$t('project.create_tip')"
+    style="width: 720px"
+    :bordered="false"
+    @afterLeave="closeHandle"
+  >
+    <n-space vertical size="large">
+      <n-form-item label="项目归属" :show-feedback="false">
+        <n-select
+          v-model:value="teamId"
+          :options="ownerOptions"
+          :loading="teamsLoading"
+          placeholder="个人"
+        />
+      </n-form-item>
+
+      <n-space v-if="!templateMode" justify="center">
+        <n-button size="large" :loading="creating" @click="createBlank">
+          <template #icon>
+            <n-icon size="18"><FishIcon /></n-icon>
+          </template>
+          空白大屏
+        </n-button>
+        <n-button size="large" type="primary" @click="openTemplateMode">
+          <template #icon>
+            <n-icon size="18"><AlbumsIcon /></n-icon>
+          </template>
+          从模板新建
+        </n-button>
+      </n-space>
+
+      <template v-else>
+        <div class="template-head">
+          <n-text strong>选择模板</n-text>
+          <n-button text @click="backToBlank">返回</n-button>
+        </div>
+        <n-spin :show="templatesLoading">
+          <div class="template-grid">
+            <n-card
+              v-for="item in templates"
+              :key="item.id"
+              size="small"
+              hoverable
+              class="template-card"
+              :class="{ 'is-active': selectedTemplate?.id === item.id }"
+              @click="selectTemplate(item)"
+            >
+              <div class="template-thumb">
+                <n-image
+                  v-if="item.indexImage"
+                  object-fit="contain"
+                  height="90"
+                  width="240"
+                  preview-disabled
+                  :src="item.indexImage"
+                />
+                <n-icon v-else size="30" depth="3"><AlbumsIcon /></n-icon>
+              </div>
+              <n-ellipsis class="template-name">{{ item.projectName }}</n-ellipsis>
+              <n-tag size="tiny" :bordered="false" type="info">
+                {{ templateCategoryLabel(item.templateCategory) }}
+              </n-tag>
+            </n-card>
+            <n-empty
+              v-if="!templates.length && !templatesLoading"
+              description="暂无模板"
+              class="template-empty"
+            />
+          </div>
+        </n-spin>
+
+        <template v-if="selectedTemplate">
+          <n-input
+            v-model:value.trim="projectName"
+            maxlength="50"
+            show-count
+            placeholder="请输入项目名称"
+          />
+          <n-space justify="end">
+            <n-button type="primary" :loading="creating" @click="createFromTemplate">
+              创建并打开
+            </n-button>
+          </n-space>
         </template>
-        <template #header-extra>
-          <n-text @click="closeHandle">
-            <n-icon size="20">
-              <component :is="CloseIcon"></component>
-            </n-icon>
-          </n-text>
-        </template>
-        <n-space class="card-box-content" justify="center">
-          <n-button
-            size="large"
-            :disabled="item.disabled"
-            v-for="item in typeList"
-            :key="item.key"
-            @click="btnHandle(item.key)"
-          >
-            <component :is="item.title"></component>
-            <template #icon>
-              <n-icon size="18">
-                <component :is="item.icon"></component>
-              </n-icon>
-            </template>
-          </n-button>
-        </n-space>
-        <template #action></template>
-      </n-card>
+      </template>
     </n-space>
   </n-modal>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, shallowRef } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { icon } from '@/plugins'
 import { ChartEnum } from '@/enums/pageEnum'
 import { ResultEnum } from '@/enums/httpEnum'
-import { fetchPathByName, routerTurnByPath, renderLang, getUUID } from '@/utils'
-import { createProjectApi } from '@/api/path'
+import { fetchPathByName, routerTurnByPath, getUUID } from '@/utils'
+import {
+  createProjectApi,
+  createFromTemplateApi,
+  projectTemplatesApi
+} from '@/api/path'
+import type { ProjectItem } from '@/api/path/project'
+import { useTeamOptions } from '@/hooks'
+import { templateCategoryLabel } from '@/views/project/template/category'
 
-const { FishIcon, CloseIcon } = icon.ionicons5
+const { FishIcon, AlbumsIcon } = icon.ionicons5
 const showRef = ref(false)
 
 const emit = defineEmits(['close'])
@@ -50,76 +113,162 @@ const props = defineProps({
   show: Boolean
 })
 
-const typeList = shallowRef([
-  {
-    title: renderLang('project.new_project'),
-    key: ChartEnum.CHART_HOME_NAME,
-    icon: FishIcon,
-    disabled: false
-  },
+const { teams, loading: teamsLoading, fetchTeams } = useTeamOptions()
+const teamId = ref<string>('')
+const ownerOptions = computed(() => [
+  { label: '个人', value: '' },
+  ...teams.value.map(team => ({ label: `团队：${team.name}`, value: team.id }))
 ])
 
-watch(() => props.show, newValue => {
-  showRef.value = newValue
-})
+const creating = ref(false)
+const templateMode = ref(false)
+const templatesLoading = ref(false)
+const templates = ref<ProjectItem[]>([])
+const selectedTemplate = ref<ProjectItem | null>(null)
+const projectName = ref('')
+
+watch(
+  () => props.show,
+  newValue => {
+    showRef.value = newValue
+    if (newValue) {
+      templateMode.value = false
+      selectedTemplate.value = null
+      projectName.value = ''
+      teamId.value = ''
+      fetchTeams()
+    }
+  }
+)
 
 // 关闭对话框
 const closeHandle = () => {
   emit('close', false)
 }
 
-// 处理按钮点击
-const btnHandle = async (key: string) => {
-  switch (key) {
-    case ChartEnum.CHART_HOME_NAME:
-      try {
-        // 新增项目
-        const res = await createProjectApi({
-          // 项目名称
-          projectName: getUUID(),
-          // remarks
-          remarks: null,
-          // 图片地址
-          indexImage: null,
-        })
-        if(res && res.code === ResultEnum.SUCCESS) {
-          window['$message'].success(window['$t']('project.create_success'))
+const openTemplateMode = async () => {
+  templateMode.value = true
+  templatesLoading.value = true
+  try {
+    const res = await projectTemplatesApi()
+    templates.value = res?.data || []
+  } finally {
+    templatesLoading.value = false
+  }
+}
 
-          const { id } = res.data
-          const path = fetchPathByName(ChartEnum.CHART_HOME_NAME, 'href')
-          routerTurnByPath(path, [id], undefined, true)
-          closeHandle()
-        }
-      } catch (error) {
-        window['$message'].error(window['$t']('project.create_failure'))
-      }
-      break;
+const backToBlank = () => {
+  templateMode.value = false
+  selectedTemplate.value = null
+  projectName.value = ''
+}
+
+const selectTemplate = (item: ProjectItem) => {
+  selectedTemplate.value = item
+  const suffix = '（副本）'
+  projectName.value =
+    item.projectName.length + suffix.length > 50
+      ? `${item.projectName.slice(0, 50 - suffix.length)}${suffix}`
+      : `${item.projectName}${suffix}`
+}
+
+const openEditor = (id: string) => {
+  const path = fetchPathByName(ChartEnum.CHART_HOME_NAME, 'href')
+  routerTurnByPath(path, [id], undefined, true)
+  closeHandle()
+}
+
+// 新建空白项目
+const createBlank = async () => {
+  creating.value = true
+  try {
+    const res = await createProjectApi({
+      projectName: getUUID(),
+      ...(teamId.value ? { teamId: teamId.value } : {})
+    })
+    if (res && res.code === ResultEnum.SUCCESS) {
+      window['$message'].success(window['$t']('project.create_success'))
+      openEditor(res.data.id)
+      return
+    }
+    window['$message'].error(window['$t']('project.create_failure'))
+  } catch (error) {
+    window['$message'].error(window['$t']('project.create_failure'))
+  } finally {
+    creating.value = false
+  }
+}
+
+// 从模板新建
+const createFromTemplate = async () => {
+  if (!selectedTemplate.value) return
+  if (!projectName.value) {
+    window['$message'].warning('请输入项目名称')
+    return
+  }
+  creating.value = true
+  try {
+    const res = await createFromTemplateApi({
+      templateId: selectedTemplate.value.id,
+      projectName: projectName.value,
+      ...(teamId.value ? { teamId: teamId.value } : {})
+    })
+    if (res && res.code === ResultEnum.SUCCESS) {
+      window['$message'].success(window['$t']('project.create_success'))
+      openEditor(res.data.id)
+      return
+    }
+    window['$message'].error(window['$t']('project.create_failure'))
+  } catch (error) {
+    window['$message'].error(window['$t']('project.create_failure'))
+  } finally {
+    creating.value = false
   }
 }
 </script>
-<style lang="scss" scoped>
-$cardWidth: 570px;
 
-@include go('create-modal') {
-  position: fixed;
-  top: 200px;
-  left: 50%;
-  transform: translateX(-50%);
-  .card-box {
-    width: $cardWidth;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0);
-    @extend .go-transition;
-    &:hover {
-      @include hover-border-color('hover-border-color');
-    }
-    &-tite {
-      font-size: 14px;
-    }
-    &-content {
-      padding: 0px 10px;
-      width: 100%;
-    }
+<style lang="scss" scoped>
+.template-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 2px;
+}
+
+.template-card {
+  cursor: pointer;
+  border: 1px solid transparent;
+
+  &.is-active {
+    border-color: var(--primary-color);
   }
+}
+
+.template-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.08);
+}
+
+.template-name {
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.template-empty {
+  grid-column: 1 / -1;
+  padding: 30px 0;
 }
 </style>

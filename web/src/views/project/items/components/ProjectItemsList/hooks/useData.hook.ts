@@ -1,6 +1,6 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useClipboard } from '@vueuse/core'
-import { goDialog, httpErrorHandle, previewPath } from '@/utils'
+import { goDialog, httpErrorHandle, previewPath, getStoredRole } from '@/utils'
 import { DialogEnum } from '@/enums/pluginEnum'
 import {
   projectListApi,
@@ -8,15 +8,27 @@ import {
   changeProjectReleaseApi,
   copyProjectApi,
   updateProjectApi,
-  sortProjectApi
+  sortProjectApi,
+  setProjectTemplateApi
 } from '@/api/path'
 import { Chartype, ChartList } from '../../../index.d'
 import { ResultEnum } from '@/enums/httpEnum'
+import { useTeamOptions } from '@/hooks'
+
+export type ProjectScopeFilter = 'mine' | 'team' | 'all'
 
 // 数据初始化
 export const useDataListInit = () => {
   const loading = ref(true)
   const { copy, isSupported } = useClipboard({ legacy: true })
+  const { teams, fetchTeams } = useTeamOptions()
+
+  const scope = ref<ProjectScopeFilter>('mine')
+  const teamId = ref<string | null>(null)
+  const isAdmin = getStoredRole() === 'admin'
+  const teamOptions = computed(() =>
+    teams.value.map(team => ({ label: team.name, value: team.id }))
+  )
 
   const paginat = reactive({
     // 当前页数
@@ -32,11 +44,19 @@ export const useDataListInit = () => {
 
   // 数据请求
   const fetchList = async () => {
+    if (scope.value === 'team' && !teamId.value) {
+      list.value = []
+      paginat.count = 0
+      loading.value = false
+      return
+    }
     loading.value = true
     try {
       const res = await projectListApi({
         page: paginat.page,
-        limit: paginat.limit
+        limit: paginat.limit,
+        scope: scope.value,
+        ...(scope.value === 'team' ? { teamId: teamId.value } : {})
       })
       if (res && res.data) {
         paginat.count = res.count || 0
@@ -49,7 +69,13 @@ export const useDataListInit = () => {
             updateTime,
             indexImage,
             createUserId,
-            createUserName
+            createUserName,
+            teamId: itemTeamId,
+            teamName,
+            isTemplate,
+            templateCategory,
+            version,
+            updateUserName
           } = e
           return {
             id,
@@ -58,7 +84,13 @@ export const useDataListInit = () => {
             createUserName,
             time: updateTime || createTime,
             image: indexImage,
-            release: state !== -1
+            release: state !== -1,
+            teamId: itemTeamId || '',
+            teamName: teamName || '',
+            isTemplate: !!isTemplate,
+            templateCategory: templateCategory || '',
+            version: version ?? 0,
+            updateUserName: updateUserName || createUserName
           }
         })
         return
@@ -67,6 +99,18 @@ export const useDataListInit = () => {
     } finally {
       loading.value = false
     }
+  }
+
+  const changeScope = (value: ProjectScopeFilter) => {
+    scope.value = value
+    paginat.page = 1
+    fetchList()
+  }
+
+  const changeTeam = (value: string | null) => {
+    teamId.value = value
+    paginat.page = 1
+    fetchList()
   }
 
   // 修改页数
@@ -171,21 +215,49 @@ export const useDataListInit = () => {
     window['$message'].error('排序保存失败，已恢复原顺序')
   }
 
+  // 设为模板 / 取消模板
+  const setTemplateHandle = async (
+    cardData: Chartype,
+    isTemplate: boolean,
+    templateCategory?: string
+  ) => {
+    const res = await setProjectTemplateApi({
+      id: cardData.id,
+      isTemplate,
+      ...(templateCategory ? { templateCategory } : {})
+    })
+    if (res && res.code === ResultEnum.SUCCESS) {
+      window['$message'].success(isTemplate ? '已设为模板' : '已取消模板')
+      await fetchList()
+      return true
+    }
+    httpErrorHandle()
+    return false
+  }
+
   // 立即请求
   fetchList()
+  fetchTeams()
 
   return {
     loading,
     paginat,
     list,
+    scope,
+    teamId,
+    isAdmin,
+    teamOptions,
     fetchList,
     releaseHandle,
     copyHandle,
     renameHandle,
+    setTemplateHandle,
     sortStartHandle,
     sortEndHandle,
     changeSize,
     changePage,
+    changeScope,
+    changeTeam,
     deleteHandle
   }
 }

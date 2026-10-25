@@ -1,5 +1,22 @@
 <template>
   <div class="go-items-list">
+    <!-- 筛选 -->
+    <div class="list-toolbar">
+      <n-radio-group v-model:value="scope" @update:value="changeScope">
+        <n-radio-button value="mine">我的</n-radio-button>
+        <n-radio-button value="team">团队</n-radio-button>
+        <n-radio-button v-if="isAdmin" value="all">全部</n-radio-button>
+      </n-radio-group>
+      <n-select
+        v-if="scope === 'team'"
+        v-model:value="teamId"
+        :options="teamOptions"
+        placeholder="选择团队"
+        style="width: 220px"
+        clearable
+        @update:value="changeTeam"
+      />
+    </div>
     <!-- 加载 -->
     <div v-show="loading">
       <go-loading></go-loading>
@@ -26,10 +43,15 @@
             @edit="editHandle"
             @copy="copyHandle(element)"
             @rename="openRename(element)"
+            @template="handleTemplate"
           ></project-items-card>
         </template>
       </draggable>
-      <n-empty v-if="!list.length" description="暂无大屏项目" class="empty-box" />
+      <n-empty
+        v-if="!list.length"
+        :description="scope === 'team' && !teamId ? '请先选择团队' : '暂无大屏项目'"
+        class="empty-box"
+      />
     </div>
 
     <!-- 分页 -->
@@ -71,15 +93,35 @@
       </n-space>
     </template>
   </n-modal>
+
+  <!-- 设为模板 -->
+  <n-modal v-model:show="templateShow" preset="card" title="设为模板" style="width: 420px">
+    <n-space vertical>
+      <n-text depth="3">
+        模板会出现在“模板库”中，所有登录用户都可以基于它新建大屏。
+      </n-text>
+      <n-select v-model:value="templateCategory" :options="templateCategoryOptions" />
+    </n-space>
+    <template #footer>
+      <n-space justify="end">
+        <n-button @click="templateShow = false">取消</n-button>
+        <n-button type="primary" :loading="templateSaving" @click="confirmTemplate">
+          确定
+        </n-button>
+      </n-space>
+    </template>
+  </n-modal>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { NRadioButton } from 'naive-ui'
 import draggable from 'vuedraggable'
 import { ProjectItemsCard } from '../ProjectItemsCard/index'
 import { ProjectItemsModalCard } from '../ProjectItemsModalCard/index'
 import { useModalDataInit } from './hooks/useModal.hook'
 import { useDataListInit } from './hooks/useData.hook'
+import { TEMPLATE_CATEGORY_OPTIONS } from '../../../template/category'
 import type { Chartype } from '../../index.d'
 
 const { modalData, modalShow, closeModal, previewHandle, resizeHandle, editHandle } = useModalDataInit()
@@ -87,12 +129,19 @@ const {
   loading,
   paginat,
   list,
+  scope,
+  teamId,
+  isAdmin,
+  teamOptions,
   changeSize,
   changePage,
+  changeScope,
+  changeTeam,
   releaseHandle,
   deleteHandle,
   copyHandle,
   renameHandle,
+  setTemplateHandle,
   sortStartHandle,
   sortEndHandle
 } = useDataListInit()
@@ -101,6 +150,12 @@ const renameShow = ref(false)
 const renaming = ref(false)
 const renameName = ref('')
 const renameTarget = ref<Chartype | null>(null)
+
+const templateShow = ref(false)
+const templateSaving = ref(false)
+const templateTarget = ref<Chartype | null>(null)
+const templateCategory = ref('campus')
+const templateCategoryOptions = TEMPLATE_CATEGORY_OPTIONS
 
 const openRename = (cardData: Chartype) => {
   renameTarget.value = cardData
@@ -122,6 +177,31 @@ const confirmRename = async () => {
     renaming.value = false
   }
 }
+
+const handleTemplate = async (cardData: Chartype) => {
+  if (cardData.isTemplate) {
+    await setTemplateHandle(cardData, false)
+    return
+  }
+  templateTarget.value = cardData
+  templateCategory.value = 'campus'
+  templateShow.value = true
+}
+
+const confirmTemplate = async () => {
+  if (!templateTarget.value) return
+  templateSaving.value = true
+  try {
+    const ok = await setTemplateHandle(
+      templateTarget.value,
+      true,
+      templateCategory.value
+    )
+    if (ok) templateShow.value = false
+  } finally {
+    templateSaving.value = false
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -140,6 +220,13 @@ $contentHeight: 250px;
     justify-content: flex-end;
     margin-top: 20px;
   }
+}
+
+.list-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
 }
 
 .items-grid {

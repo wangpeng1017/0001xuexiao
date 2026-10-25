@@ -55,6 +55,18 @@ export enum PageEnum {
   BASE_HOME_USER = '/project/user',
   BASE_HOME_USER_NAME = 'Project-User',
 
+  // 模板库（M4）
+  BASE_HOME_TEMPLATE_LIBRARY = '/project/template-library',
+  BASE_HOME_TEMPLATE_LIBRARY_NAME = 'Project-Template-Library',
+
+  // 团队管理（M4）
+  BASE_HOME_TEAM = '/project/team',
+  BASE_HOME_TEAM_NAME = 'Project-Team',
+
+  // 素材库（M4）
+  BASE_HOME_MATERIAL = '/project/material',
+  BASE_HOME_MATERIAL_NAME = 'Project-Material',
+
   // 修改密码
   CHANGE_PASSWORD = '/change-password',
   CHANGE_PASSWORD_NAME = 'ChangePassword',

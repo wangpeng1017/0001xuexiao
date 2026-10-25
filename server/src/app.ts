@@ -9,9 +9,12 @@ import { loadConfig, MAX_BODY_BYTES, type AppConfig } from './config.js';
 import { createTokenService } from './lib/jwt.js';
 import { BizError, fail } from './lib/resp.js';
 import authPlugin from './plugins/auth.js';
+import materialRoutes from './routes/material.js';
 import projectRoutes from './routes/project.js';
 import staticRoutes from './routes/static.js';
 import sysRoutes from './routes/sys.js';
+import teamRoutes from './routes/team.js';
+import templateRoutes from './routes/template.js';
 import userRoutes from './routes/user.js';
 
 export interface BuildAppOptions {
@@ -104,6 +107,9 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   await app.register(sysRoutes, { prefix: '/api/goview' });
   await app.register(userRoutes, { prefix: '/api/goview' });
   await app.register(projectRoutes, { prefix: '/api/goview' });
+  await app.register(templateRoutes, { prefix: '/api/goview' });
+  await app.register(teamRoutes, { prefix: '/api/goview' });
+  await app.register(materialRoutes, { prefix: '/api/goview' });
   await app.register(staticRoutes);
 
   return app;
