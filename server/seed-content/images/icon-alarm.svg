@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <title>告警</title>
+  <defs>
+    <linearGradient id="ic-alarm" x1="12" y1="8" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD1A6"/><stop offset="0.4" stop-color="#FF9B4A"/><stop offset="1" stop-color="#E6543E"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#ic-alarm)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 42C18 26 21 18 32 18C43 18 46 26 46 42L51 49H13L18 42Z"/>
+    <path d="M27 53C29 57 35 57 37 53"/>
+    <path d="M8 17C4 25 4 34 7 42" stroke-opacity="0.55"/>
+    <path d="M56 17C60 25 60 34 57 42" stroke-opacity="0.55"/>
+    <path d="M32 26V36" stroke-width="3"/>
+  </g>
+  <circle cx="32" cy="42" r="2.2" fill="#FF7B5A"/>
+</svg>

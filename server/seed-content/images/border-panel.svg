@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" fill="none">
+  <title>面板科技边框</title>
+  <desc>透明背景的面板边框，适合作为图表或信息卡片的外框，程序生成。</desc>
+  <defs>
+    <linearGradient id="bp-line" x1="40" y1="0" x2="760" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1A6E9E" stop-opacity="0.15"/>
+      <stop offset="0.25" stop-color="#3CD0F5" stop-opacity="0.8"/>
+      <stop offset="0.5" stop-color="#9CF6FF" stop-opacity="0.5"/>
+      <stop offset="0.75" stop-color="#3CD0F5" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#1A6E9E" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="bp-corner" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A6F8FF"/>
+      <stop offset="0.6" stop-color="#2EB9E8"/>
+      <stop offset="1" stop-color="#0D4E7A" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <g stroke-linecap="square" vector-effect="non-scaling-stroke">
+    <path d="M24 92V44L68 1H184" stroke="url(#bp-corner)" stroke-width="2"/>
+    <path d="M42 106V60L82 20H184" stroke="#3DCCF5" stroke-opacity="0.26"/>
+    <path d="M776 92V44L732 1H616" stroke="url(#bp-corner)" stroke-width="2"/>
+    <path d="M758 106V60L718 20H616" stroke="#3DCCF5" stroke-opacity="0.26"/>
+    <path d="M24 508V556L68 599H184" stroke="url(#bp-corner)" stroke-width="2"/>
+    <path d="M776 508V556L732 599H616" stroke="url(#bp-corner)" stroke-width="2"/>
+    <path d="M164 1H636" stroke="url(#bp-line)" stroke-width="1.5"/>
+    <path d="M120 599H680" stroke="url(#bp-line)" stroke-width="1" stroke-opacity="0.45"/>
+    <path d="M1 144V456M799 144V456" stroke="#2EB9E8" stroke-opacity="0.2"/>
+    <rect x="20" y="88" width="8" height="8" fill="#93F5FF"/>
+    <rect x="772" y="88" width="8" height="8" fill="#93F5FF"/>
+    <rect x="20" y="504" width="8" height="8" fill="#4FDBFF" fill-opacity="0.75"/>
+    <rect x="772" y="504" width="8" height="8" fill="#4FDBFF" fill-opacity="0.75"/>
+    <path d="M340 1H460" stroke="#A6F8FF" stroke-width="2"/>
+    <path d="M392 0V8M408 0V8" stroke="#A6F8FF" stroke-opacity="0.6"/>
+    <circle cx="400" cy="599" r="2.5" fill="#4FDBFF"/>
+  </g>
+</svg>

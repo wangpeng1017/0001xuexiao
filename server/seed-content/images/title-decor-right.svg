@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="88" viewBox="0 0 800 88" fill="none">
+  <title>标题栏右侧装饰</title>
+  <desc>与左侧装饰镜像对称的标题栏装饰，程序生成。</desc>
+  <defs>
+    <linearGradient id="tdr-line" x1="20" y1="44" x2="780" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B5E9C" stop-opacity="0"/>
+      <stop offset="0.52" stop-color="#36BEEF" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#A6F8FF"/>
+    </linearGradient>
+    <linearGradient id="tdr-fade" x1="0" y1="24" x2="0" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#36C9F5" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#36C9F5" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#36C9F5" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="tdr-glow" x="-20%" y="-100%" width="140%" height="300%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+  </defs>
+  <g transform="translate(800 0) scale(-1 1)">
+    <g filter="url(#tdr-glow)" opacity="0.55">
+      <path d="M20 44H620" stroke="url(#tdr-line)" stroke-width="5"/>
+    </g>
+    <path d="M8 44H624" stroke="url(#tdr-line)" stroke-width="1.5"/>
+    <path d="M352 67H574" stroke="url(#tdr-fade)" stroke-width="1"/>
+    <path d="M430 21H584" stroke="url(#tdr-fade)" stroke-width="1"/>
+    <path d="M524 26H650L708 44L650 62H524" stroke="url(#tdr-line)" stroke-width="1.5"/>
+    <path d="M566 35H646L678 44L646 53H566" stroke="#58D8FF" stroke-opacity="0.55"/>
+    <path d="M708 44L746 21V67L708 44Z" fill="#0B2A43" stroke="#83EEFF" stroke-width="1.2"/>
+    <path d="M746 44L760 34V54L746 44Z" fill="#5FE3FF" fill-opacity="0.75"/>
+    <circle cx="774" cy="44" r="3.5" fill="#B8FBFF"/>
+    <circle cx="774" cy="44" r="8" stroke="#5FE3FF" stroke-opacity="0.35"/>
+    <path d="M96 30H152M96 58H152" stroke="#3BA9D8" stroke-opacity="0.35"/>
+    <path d="M112 30V58M136 30V58" stroke="#3BA9D8" stroke-opacity="0.2"/>
+  </g>
+</svg>

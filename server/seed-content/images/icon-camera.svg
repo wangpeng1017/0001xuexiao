@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <title>摄像头</title>
+  <defs>
+    <linearGradient id="ic-camera" x1="10" y1="12" x2="54" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CF6FF"/><stop offset="1" stop-color="#248FE6"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#ic-camera)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="7" y="17" width="35" height="25" rx="4"/>
+    <path d="M42 26L55 20V39L42 33"/>
+    <circle cx="24" cy="29" r="5"/>
+    <path d="M15 42L12 51H27L25 42"/>
+    <path d="M30 51H38"/>
+    <path d="M50 10C54 12 56 15 57 19" stroke-opacity="0.55"/>
+    <path d="M47 6C53 8 57 12 59 18" stroke-opacity="0.3"/>
+  </g>
+  <circle cx="35" cy="22" r="2" fill="#FF6B6B"/>
+</svg>

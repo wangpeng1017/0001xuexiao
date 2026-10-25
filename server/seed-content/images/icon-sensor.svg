@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <title>传感器</title>
+  <defs>
+    <linearGradient id="ic-sensor" x1="8" y1="50" x2="56" y2="12" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D7ED0"/><stop offset="1" stop-color="#9CF6FF"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#ic-sensor)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 31C27 26 37 26 42 31"/>
+    <path d="M16 24C25 15 39 15 48 24" stroke-opacity="0.75"/>
+    <path d="M10 17C23 5 41 5 54 17" stroke-opacity="0.45"/>
+    <circle cx="32" cy="40" r="6"/>
+    <path d="M32 46V55M21 55H43"/>
+    <path d="M26 40H38M32 34V46" stroke-opacity="0.55"/>
+  </g>
+  <circle cx="32" cy="40" r="2.5" fill="#9CF6FF"/>
+</svg>

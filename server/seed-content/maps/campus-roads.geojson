@@ -1,0 +1,332 @@
+{
+  "type": "FeatureCollection",
+  "name": "启明大学校园道路",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3008,
+            40.0028
+          ],
+          [
+            116.3045,
+            40.0031
+          ],
+          [
+            116.3085,
+            40.0033
+          ],
+          [
+            116.3125,
+            40.0031
+          ],
+          [
+            116.316,
+            40.0028
+          ],
+          [
+            116.3192,
+            40.0029
+          ]
+        ]
+      },
+      "properties": {
+        "name": "学府大道",
+        "kind": "arterial",
+        "width_m": 16
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3105,
+            39.9908
+          ],
+          [
+            116.3107,
+            39.9945
+          ],
+          [
+            116.3109,
+            39.9985
+          ],
+          [
+            116.311,
+            40.0025
+          ],
+          [
+            116.3108,
+            40.006
+          ],
+          [
+            116.3109,
+            40.0092
+          ]
+        ]
+      },
+      "properties": {
+        "name": "明理路",
+        "kind": "arterial",
+        "width_m": 12
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3181,
+            39.9912
+          ],
+          [
+            116.3183,
+            39.995
+          ],
+          [
+            116.3185,
+            39.9995
+          ],
+          [
+            116.3184,
+            40.0034
+          ],
+          [
+            116.3182,
+            40.007
+          ],
+          [
+            116.318,
+            40.009
+          ]
+        ]
+      },
+      "properties": {
+        "name": "东环路",
+        "kind": "secondary",
+        "width_m": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3024,
+            39.9912
+          ],
+          [
+            116.3023,
+            39.9955
+          ],
+          [
+            116.3025,
+            40.0
+          ],
+          [
+            116.3027,
+            40.0045
+          ],
+          [
+            116.3026,
+            40.0088
+          ]
+        ]
+      },
+      "properties": {
+        "name": "西环路",
+        "kind": "secondary",
+        "width_m": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3026,
+            40.0085
+          ],
+          [
+            116.306,
+            40.0084
+          ],
+          [
+            116.3108,
+            40.0086
+          ],
+          [
+            116.315,
+            40.0084
+          ],
+          [
+            116.3182,
+            40.0086
+          ]
+        ]
+      },
+      "properties": {
+        "name": "北环路",
+        "kind": "secondary",
+        "width_m": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3024,
+            39.9914
+          ],
+          [
+            116.306,
+            39.9913
+          ],
+          [
+            116.3105,
+            39.9915
+          ],
+          [
+            116.315,
+            39.9914
+          ],
+          [
+            116.3182,
+            39.9913
+          ]
+        ]
+      },
+      "properties": {
+        "name": "南环路",
+        "kind": "secondary",
+        "width_m": 8
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3109,
+            40.005
+          ],
+          [
+            116.313,
+            40.0052
+          ],
+          [
+            116.315,
+            40.005
+          ],
+          [
+            116.3178,
+            40.0051
+          ]
+        ]
+      },
+      "properties": {
+        "name": "博学路",
+        "kind": "secondary",
+        "width_m": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3025,
+            39.9972
+          ],
+          [
+            116.305,
+            39.9973
+          ],
+          [
+            116.3072,
+            39.9971
+          ],
+          [
+            116.3106,
+            39.9972
+          ]
+        ]
+      },
+      "properties": {
+        "name": "求实路",
+        "kind": "secondary",
+        "width_m": 7
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3148,
+            40.0031
+          ],
+          [
+            116.3149,
+            40.005
+          ],
+          [
+            116.3148,
+            40.0072
+          ],
+          [
+            116.3147,
+            40.0084
+          ]
+        ]
+      },
+      "properties": {
+        "name": "实训路",
+        "kind": "path",
+        "width_m": 6
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.3108,
+            39.9948
+          ],
+          [
+            116.3132,
+            39.9949
+          ],
+          [
+            116.3155,
+            39.9948
+          ],
+          [
+            116.3182,
+            39.9947
+          ]
+        ]
+      },
+      "properties": {
+        "name": "公寓路",
+        "kind": "secondary",
+        "width_m": 7
+      }
+    }
+  ]
+}

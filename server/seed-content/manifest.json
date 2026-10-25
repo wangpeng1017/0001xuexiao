@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "materials": [
+    {
+      "file": "models/teaching-building.glb",
+      "category": "model",
+      "name": "教学楼模型"
+    },
+    {
+      "file": "models/tree.glb",
+      "category": "model",
+      "name": "景观树模型"
+    },
+    {
+      "file": "models/signpost.glb",
+      "category": "model",
+      "name": "监控立杆模型"
+    },
+    {
+      "file": "models/server-rack.glb",
+      "category": "model",
+      "name": "服务器机柜模型"
+    },
+    {
+      "file": "maps/campus-roads.geojson",
+      "category": "map",
+      "name": "校园道路矢量"
+    },
+    {
+      "file": "maps/campus-buildings.geojson",
+      "category": "map",
+      "name": "校园建筑轮廓矢量"
+    },
+    {
+      "file": "maps/campus-poi.geojson",
+      "category": "map",
+      "name": "校园兴趣点矢量"
+    },
+    {
+      "file": "maps/campus-tiles.zip",
+      "category": "map",
+      "name": "校园离线示意瓦片（z14–17）"
+    },
+    {
+      "file": "images/bg-tech-grid.jpg",
+      "category": "image2d",
+      "name": "科技网格大屏背景"
+    },
+    {
+      "file": "images/bg-tech-aurora.jpg",
+      "category": "image2d",
+      "name": "极光粒子大屏背景"
+    },
+    {
+      "file": "images/bg-tech-wave.jpg",
+      "category": "image2d",
+      "name": "数据波动大屏背景"
+    },
+    {
+      "file": "images/title-decor-left.svg",
+      "category": "image2d",
+      "name": "标题栏左侧装饰"
+    },
+    {
+      "file": "images/title-decor-right.svg",
+      "category": "image2d",
+      "name": "标题栏右侧装饰"
+    },
+    {
+      "file": "images/border-corners.svg",
+      "category": "image2d",
+      "name": "大屏四角边框"
+    },
+    {
+      "file": "images/border-panel.svg",
+      "category": "image2d",
+      "name": "面板科技边框"
+    },
+    {
+      "file": "images/icon-camera.svg",
+      "category": "image2d",
+      "name": "摄像头图标"
+    },
+    {
+      "file": "images/icon-sensor.svg",
+      "category": "image2d",
+      "name": "传感器图标"
+    },
+    {
+      "file": "images/icon-server.svg",
+      "category": "image2d",
+      "name": "服务器图标"
+    },
+    {
+      "file": "images/icon-alarm.svg",
+      "category": "image2d",
+      "name": "告警图标"
+    },
+    {
+      "file": "images/panorama-demo.jpg",
+      "category": "image2d",
+      "name": "校园 360° 全景示例图"
+    }
+  ]
+}
