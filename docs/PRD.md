@@ -427,5 +427,5 @@
 | 2026-10-24 | 1.1 | 放弃 Snowy，改为 GoView + Node.js(Fastify/Prisma/SQLite) 自研、单容器部署；补充服务器配置建议、学校现场对接条件、大文件分片上传、RTSP 选配转流 | AI |
 | 2026-10-24 | 1.2 | 学校数据为 LAS 点云（py3dtiles 转 3D Tiles）；GIS 服务改为“GIS 产品”下拉框 + 4 种标准协议；摄像头只对接 RTSP（ZLMediaKit 改为必选）；物联网只对接 RESTful，删掉 MQTT | AI |
 | 2026-10-24 | 1.3 | 部署方式改为**不用 Docker**：离线 tar.gz 安装包（内含 Node、micromamba 打包的 GDAL/py3dtiles、ZLMediaKit 二进制）+ install.sh + systemd | AI |
-| 2026-10-25 | 1.5 | M1~M5 开发完成（F001~F017、F019 待王老师手工验收），F020 暂缓 | AI |
 | 2026-10-25 | 1.4 | 视频转流由 ZLMediaKit 改为后端按需拉起 ffmpeg 子进程（少一个服务，开发机可直接测试） | AI |
+| 2026-10-25 | 1.5 | M1~M5 开发完成（F001~F017、F019 待王老师手工验收），F020 暂缓 | AI |
