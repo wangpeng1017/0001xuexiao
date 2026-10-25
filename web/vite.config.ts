@@ -5,6 +5,7 @@ import { OUTPUT_DIR, brotliSize, chunkSizeWarningLimit, terserOptions, rollupOpt
 import viteCompression from 'vite-plugin-compression'
 import { axiosPre } from './src/settings/httpSetting'
 import monacoEditorPlugin from 'vite-plugin-monaco-editor'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -81,6 +82,13 @@ export default ({ mode }) => defineConfig({
       threshold: 10240,
       algorithm: 'gzip',
       ext: '.gz'
+    }),
+    // Cesium 离线资源：开发由中间件提供，构建时复制到 dist/static/cesium
+    viteStaticCopy({
+      targets: ['Workers', 'Assets', 'ThirdParty', 'Widgets'].map(name => ({
+        src: `node_modules/cesium/Build/Cesium/${name}`,
+        dest: 'static/cesium'
+      }))
     })
   ],
   build: {
