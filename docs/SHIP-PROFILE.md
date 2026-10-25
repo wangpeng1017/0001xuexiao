@@ -1,36 +1,28 @@
 # SHIP-PROFILE — 多源数据融合可视化平台（学校私有化版）发版档案
 
-> 一键验收脚本：`bash scripts/ship-check.sh`（L1 → 构建 → 启动测试环境 → L2 业务链路 → 汇总表）
+> 一键验收脚本：`bash scripts/ship-check.sh`（L1 → 启动本机测试环境 → L2 接口业务链路 → 汇总；L1 失败即停）
+> 浏览器 UI 验证由王老师手工完成（2026-10-25 决定），清单见 `docs/手工测试清单.md`
 
 ## 构建与静态检查
 - 后端类型检查：`cd server && pnpm typecheck`
-- 前端类型检查：`cd web && pnpm exec vue-tsc --noEmit`（GoView 原有代码有遗留错误；口径为**新增错误数 = 0**，基线记在 `scripts/vue-tsc-baseline.txt`）
+- 前端类型检查：`cd web && pnpm exec vue-tsc --noEmit`；口径为 **src 下新增错误 = 0**（`node_modules/@types/lodash` 与旧版 TS 不兼容的 4 条为既有基线）
 - Lint：未配置
-- 构建：`cd web && pnpm build`；`cd server && pnpm build`
+- 构建：`cd web && pnpm build`（脚本内置 4GB 堆内存）；`cd server && pnpm build`
 
 ## 测试矩阵（全绿定义，任何一项失败都禁止发版）
 | 层 | 命令 | 覆盖内容 |
 |----|------|---------|
-| L1 后端单测 | `cd server && pnpm test` | 路由鉴权守卫（全量枚举）、登录与锁定、强制改密码、用户管理与 CSV 导入、项目全生命周期、越权、上传 |
-| L1 前端构建 | `cd web && pnpm build` + vue-tsc 新增错误为 0 | 编译通过 |
-| L1 离线检查 | `scripts/ship-check.sh` 内置：grep `web/dist` 中的外网地址，与白名单比对 | 运行时零外网请求 |
-| L2 业务链路 | `node scripts/e2e-m1.mjs`（Playwright，无头 Chromium） | 见下方“业务链路” |
-
-- UI 改动验证方式：L2 Playwright 脚本 + 关键页面截图存到 `artifacts/`
-
-### L2 业务链路（M1）
-1. admin 首次登录 → 被强制修改密码 → 修改成功后进入项目页
-2. admin 新建用户；CSV 批量导入 2 个学生（其中 1 行故意写错）→ 结果正确
-3. 学生登录（强制改密码）→ 新建大屏 → 编辑器里拖入一个柱状图 → 保存
-4. 项目列表：重命名 → 复制 → 拖拽排序 → 刷新后顺序保持
-5. 发布 → 无痕上下文匿名打开预览链接，能看到图表 → 取消发布 → 匿名打开显示“未发布”
-6. 学生 B 看不到学生 A 的项目；直接调用接口编辑 A 的项目返回 403
-7. 删除项目 → 从列表消失
+| L1 后端单测 | `cd server && pnpm test` | 鉴权守卫（全量枚举路由）、外部命令唯一入口守卫、登录锁定、强制改密、用户与 CSV、项目全生命周期与越权、团队与乐观锁、素材、模板、数据集 SQL 白名单、分片上传与转换队列、FLV 解析、健康检查 |
+| L1 前端 | `cd web && pnpm build` + vue-tsc | 构建成功、src 新增类型错误 0 |
+| L1 离线检查 | ship-check.sh 内置：`web/dist` 中出现的外网主机不得超出 `scripts/offline-host-baseline.txt` | 防止新引入外网依赖（运行时的最终确认由手工清单的 Network 面板检查完成） |
+| L1 部署脚本 | `bash deploy/test/run.sh` | 语法检查、参数解析、env 生成、dry-run |
+| L2 接口业务链路 | `node scripts/smoke-api.mjs`（ship-check.sh 自动执行） | 健康检查 → admin 强制改密 → 建学生 → 学生按 GoView 原样参数建大屏并保存 → 未发布匿名不可读 → 发布可读 → 取消发布不可读 → 支持格式 ≥200 → RESTful 数据集公开出口 → 越权 403 → 删除 |
+| L3 浏览器手工 | 王老师按 `docs/手工测试清单.md` 执行 | 全部界面操作与离线网络检查 |
 
 ## 测试环境（本机直跑）
-- 部署命令：`bash scripts/ship-check.sh` 自动完成：web 打包 → server 打包 → 用全新临时 DATA_DIR 执行 `db:push` 和 `db:seed` → 以 `WEB_DIST=../web/dist PORT=3901` 启动后端
+- 部署命令：`bash scripts/ship-check.sh` 自动完成：web/server 构建 → 用全新临时 DATA_DIR 执行 `db push` 和 `db:seed` → 以 `WEB_DIST=web/dist PORT=3901` 启动后端 → 跑完自动结束进程并清理
 - 地址：http://localhost:3901
-- 冒烟方式：`curl /api/goview/sys/getOssInfo` 返回 code 200 → 执行 L2 脚本
+- 冒烟方式：轮询 `/api/goview/health` → 执行 L2 接口脚本
 - 测试数据：每次都用全新的临时目录，跑完自动清理，不污染开发库
 
 ## 生产环境
