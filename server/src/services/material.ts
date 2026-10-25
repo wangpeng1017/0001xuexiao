@@ -199,9 +199,7 @@ async function finalizeModel(
     throw new BizError(400, '模型素材只支持 .glb 文件或包含 .gltf 的 zip 压缩包');
   }
 
-  const extractDir = path.join(targetDir, '_unzip');
-  await mkdir(extractDir, { recursive: true });
-  const files = await extractZip(input.buffer, extractDir);
+  const files = await extractZip(input.buffer, targetDir);
   const gltfFiles = files.filter((file) => /\.gltf$/i.test(file));
   if (gltfFiles.length === 0) {
     throw new BizError(400, 'zip 压缩包中未找到 .gltf 文件');

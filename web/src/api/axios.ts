@@ -48,6 +48,8 @@ axiosInstance.interceptors.request.use(
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)
       return config
     }
+    const userInfo = info[SystemStoreEnum.USER_INFO]
+    config.headers[userInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token'] =  userInfo[SystemStoreUserInfoEnum.USER_TOKEN] || ''
     return config
   },
   (error: AxiosError) => {
@@ -96,6 +98,11 @@ axiosInstance.interceptors.response.use(
     // 固定错误码重定向
     if (ErrorPageNameMap.get(code)) {
       redirectErrorPage(code)
+      return Promise.resolve(res.data)
+    }
+
+    // 保存冲突交给调用方处理
+    if (code === ResultEnum.CONFLICT) {
       return Promise.resolve(res.data)
     }
 

@@ -122,6 +122,14 @@ describe('素材库 F016', () => {
     );
     expect(gltfZip.code).toBe(200);
     expect(gltfZip.data.url).toBe(`/files/materials/${gltfZip.data.id}/scene.gltf`);
+    expect(
+      existsSync(
+        path.join(ctx.dir, 'data', 'files', 'materials', gltfZip.data.id, 'scene.gltf')
+      )
+    ).toBe(true);
+    expect(
+      existsSync(path.join(ctx.dir, 'data', 'files', 'materials', gltfZip.data.id, 'scene.bin'))
+    ).toBe(true);
 
     const geojson = await upload(
       adminToken,

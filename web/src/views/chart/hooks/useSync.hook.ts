@@ -322,7 +322,7 @@ export const useSync = () => {
 
     const res = await saveProjectApi(params)
 
-    if (res && res.code === 409) {
+    if (res && res.code === ResultEnum.CONFLICT) {
       chartEditStore.setEditCanvas(EditCanvasTypeEnum.SAVE_STATUS, SyncEnum.FAILURE)
       showConflictDialog((res.data || {}) as {
         updateUserName?: string
