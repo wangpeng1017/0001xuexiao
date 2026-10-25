@@ -1,0 +1,1320 @@
+{
+  "name": "智慧校园三维总览",
+  "category": "campus",
+  "content": {
+    "editCanvasConfig": {
+      "projectName": "智慧校园三维总览",
+      "remarks": "智慧校园三维总览：校园离线瓦片底图，叠加建筑、道路、兴趣点矢量，摆放教学楼与景观树模型，并提供图书馆门前 360° 街景。所有校园数据均为虚构演示数据。",
+      "width": 1920,
+      "height": 1080,
+      "filterShow": false,
+      "hueRotate": 0,
+      "saturate": 1,
+      "contrast": 1,
+      "brightness": 1,
+      "opacity": 1,
+      "rotateZ": 0,
+      "rotateX": 0,
+      "rotateY": 0,
+      "skewX": 0,
+      "skewY": 0,
+      "blendMode": "normal",
+      "background": "#050b18",
+      "backgroundImage": "{{material:images/bg-tech-grid.jpg}}",
+      "selectColor": false,
+      "chartThemeColor": "dark",
+      "chartThemeSetting": {
+        "title": {
+          "show": true,
+          "textStyle": {
+            "color": "#BFBFBF",
+            "fontSize": 18
+          },
+          "subtextStyle": {
+            "color": "#A2A2A2",
+            "fontSize": 14
+          }
+        },
+        "xAxis": {
+          "show": true,
+          "name": "",
+          "nameGap": 15,
+          "nameTextStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 12
+          },
+          "inverse": false,
+          "axisLabel": {
+            "show": true,
+            "fontSize": 12,
+            "color": "#B9B8CE",
+            "rotate": 0
+          },
+          "position": "bottom",
+          "axisLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#B9B8CE",
+              "width": 1
+            },
+            "onZero": true
+          },
+          "axisTick": {
+            "show": true,
+            "length": 5
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#484753",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "show": true,
+          "name": "",
+          "nameGap": 15,
+          "nameTextStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 12
+          },
+          "inverse": false,
+          "axisLabel": {
+            "show": true,
+            "fontSize": 12,
+            "color": "#B9B8CE",
+            "rotate": 0
+          },
+          "position": "left",
+          "axisLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#B9B8CE",
+              "width": 1
+            },
+            "onZero": true
+          },
+          "axisTick": {
+            "show": true,
+            "length": 5
+          },
+          "splitLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#484753",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "legend": {
+          "show": true,
+          "type": "scroll",
+          "x": "center",
+          "y": "top",
+          "icon": "circle",
+          "orient": "horizontal",
+          "textStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 18
+          },
+          "itemHeight": 15,
+          "itemWidth": 15,
+          "pageTextStyle": {
+            "color": "#B9B8CE"
+          }
+        },
+        "grid": {
+          "show": false,
+          "left": "10%",
+          "top": "60",
+          "right": "10%",
+          "bottom": "60"
+        },
+        "dataset": null,
+        "renderer": "svg"
+      },
+      "vChartThemeName": "vScreenVolcanoBlue",
+      "previewScaleType": "fit"
+    },
+    "requestGlobalConfig": {
+      "requestDataPond": [],
+      "requestOriginUrl": "",
+      "requestInterval": 30,
+      "requestIntervalUnit": "second",
+      "requestParams": {
+        "Body": {
+          "form-data": {},
+          "x-www-form-urlencoded": {},
+          "json": "",
+          "xml": ""
+        },
+        "Header": {},
+        "Params": {}
+      }
+    },
+    "componentList": [
+      {
+        "id": "campus-scene-border",
+        "isGroup": false,
+        "key": "Border01",
+        "chartConfig": {
+          "key": "Border01",
+          "chartKey": "VBorder01",
+          "conKey": "VCBorder01",
+          "title": "边框-01",
+          "category": "Borders",
+          "categoryName": "边框",
+          "package": "Decorates",
+          "chartFrame": "static",
+          "image": "border01.png"
+        },
+        "option": {
+          "dur": 0.5,
+          "colors": [
+            "#2f8cff",
+            "#4fd2dd"
+          ],
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 440,
+          "y": 100,
+          "w": 1040,
+          "h": 820,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 0
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "campus-scene3d",
+        "isGroup": false,
+        "key": "Scene3D",
+        "chartConfig": {
+          "key": "Scene3D",
+          "chartKey": "VScene3D",
+          "conKey": "VCScene3D",
+          "title": "三维场景",
+          "category": "Scene",
+          "categoryName": "场景",
+          "package": "Scenes",
+          "chartFrame": "static",
+          "image": "scene3d.svg"
+        },
+        "option": {
+          "sceneMode": "3D",
+          "camera": {
+            "lon": 116.311,
+            "lat": 39.9992,
+            "height": 1800,
+            "heading": 15,
+            "pitch": -55,
+            "roll": 0
+          },
+          "baseLayer": "naturalEarth",
+          "layerSets": [
+            {
+              "id": "campus-base",
+              "name": "校园底图",
+              "visible": true,
+              "layers": [
+                {
+                  "id": "campus-tiles",
+                  "name": "校园离线瓦片",
+                  "type": "raster",
+                  "source": {
+                    "from": "material",
+                    "refId": "",
+                    "url": "{{material:maps/campus-tiles.zip}}"
+                  },
+                  "visible": true,
+                  "opacity": 1,
+                  "style": {
+                    "fill": "#51d6a9",
+                    "stroke": "#0b3f56",
+                    "strokeWidth": 3,
+                    "pointColor": "#ffd166",
+                    "pointSize": 2,
+                    "colorBy": "rgb"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "campus-features",
+              "name": "校园要素",
+              "visible": true,
+              "layers": [
+                {
+                  "id": "campus-buildings",
+                  "name": "建筑轮廓",
+                  "type": "vector",
+                  "source": {
+                    "from": "material",
+                    "refId": "",
+                    "url": "{{material:maps/campus-buildings.geojson}}"
+                  },
+                  "visible": true,
+                  "opacity": 0.85,
+                  "style": {
+                    "fill": "#2f6f8f",
+                    "stroke": "#7fe7ff",
+                    "strokeWidth": 2,
+                    "pointColor": "#7fe7ff",
+                    "pointSize": 2,
+                    "colorBy": "rgb"
+                  }
+                },
+                {
+                  "id": "campus-roads",
+                  "name": "校园道路",
+                  "type": "vector",
+                  "source": {
+                    "from": "material",
+                    "refId": "",
+                    "url": "{{material:maps/campus-roads.geojson}}"
+                  },
+                  "visible": true,
+                  "opacity": 1,
+                  "style": {
+                    "fill": "#1b3c52",
+                    "stroke": "#ffd166",
+                    "strokeWidth": 4,
+                    "pointColor": "#ffd166",
+                    "pointSize": 2,
+                    "colorBy": "rgb"
+                  }
+                },
+                {
+                  "id": "campus-poi",
+                  "name": "兴趣点",
+                  "type": "vector",
+                  "source": {
+                    "from": "material",
+                    "refId": "",
+                    "url": "{{material:maps/campus-poi.geojson}}"
+                  },
+                  "visible": true,
+                  "opacity": 1,
+                  "style": {
+                    "fill": "#5a2d2d",
+                    "stroke": "#ff7a59",
+                    "strokeWidth": 2,
+                    "pointColor": "#ff7a59",
+                    "pointSize": 2,
+                    "colorBy": "rgb"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "campus-models",
+              "name": "三维模型",
+              "visible": true,
+              "layers": [
+                {
+                  "id": "campus-teaching-building",
+                  "name": "教学楼",
+                  "type": "model",
+                  "source": {
+                    "from": "material",
+                    "refId": "",
+                    "url": "{{material:models/teaching-building.glb}}",
+                    "format": "gltf",
+                    "position": {
+                      "lon": 116.3112,
+                      "lat": 39.9994,
+                      "height": 0
+                    },
+                    "rotation": {
+                      "heading": 20,
+                      "pitch": 0,
+                      "roll": 0
+                    },
+                    "scale": 1
+                  },
+                  "visible": true,
+                  "opacity": 1,
+                  "style": {
+                    "fill": "#51d6a9",
+                    "stroke": "#0b3f56",
+                    "strokeWidth": 3,
+                    "pointColor": "#ffd166",
+                    "pointSize": 2,
+                    "colorBy": "rgb"
+                  }
+                },
+                {
+                  "id": "campus-tree-east",
+                  "name": "景观树（东）",
+                  "type": "model",
+                  "source": {
+                    "from": "material",
+                    "refId": "",
+                    "url": "{{material:models/tree.glb}}",
+                    "format": "gltf",
+                    "position": {
+                      "lon": 116.3126,
+                      "lat": 40.0002,
+                      "height": 0
+                    },
+                    "rotation": {
+                      "heading": 0,
+                      "pitch": 0,
+                      "roll": 0
+                    },
+                    "scale": 1.4
+                  },
+                  "visible": true,
+                  "opacity": 1,
+                  "style": {
+                    "fill": "#51d6a9",
+                    "stroke": "#0b3f56",
+                    "strokeWidth": 3,
+                    "pointColor": "#ffd166",
+                    "pointSize": 2,
+                    "colorBy": "rgb"
+                  }
+                },
+                {
+                  "id": "campus-tree-west",
+                  "name": "景观树（西）",
+                  "type": "model",
+                  "source": {
+                    "from": "material",
+                    "refId": "",
+                    "url": "{{material:models/tree.glb}}",
+                    "format": "gltf",
+                    "position": {
+                      "lon": 116.3102,
+                      "lat": 39.9986,
+                      "height": 0
+                    },
+                    "rotation": {
+                      "heading": 45,
+                      "pitch": 0,
+                      "roll": 0
+                    },
+                    "scale": 1.2
+                  },
+                  "visible": true,
+                  "opacity": 1,
+                  "style": {
+                    "fill": "#51d6a9",
+                    "stroke": "#0b3f56",
+                    "strokeWidth": 3,
+                    "pointColor": "#ffd166",
+                    "pointSize": 2,
+                    "colorBy": "rgb"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "campus-panorama-set",
+              "name": "360 街景",
+              "visible": true,
+              "layers": [
+                {
+                  "id": "campus-panorama",
+                  "name": "图书馆门前街景",
+                  "type": "panorama",
+                  "source": {
+                    "points": [
+                      {
+                        "id": "campus-panorama-1",
+                        "name": "图书馆门前",
+                        "lon": 116.3109,
+                        "lat": 39.9996,
+                        "imageUrl": "{{material:images/panorama-demo.jpg}}"
+                      }
+                    ]
+                  },
+                  "visible": true,
+                  "opacity": 1,
+                  "style": {
+                    "fill": "#51d6a9",
+                    "stroke": "#0b3f56",
+                    "strokeWidth": 3,
+                    "pointColor": "#ffd166",
+                    "pointSize": 2,
+                    "colorBy": "rgb"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "attr": {
+          "x": 460,
+          "y": 120,
+          "w": 1000,
+          "h": 780,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 1
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "campus-energy-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "各楼宇能耗（kWh）",
+          "fontSize": 18,
+          "fontColor": "#4fd2dd",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 40,
+          "y": 110,
+          "w": 380,
+          "h": 34,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 2
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "campus-energy-bar",
+        "isGroup": false,
+        "key": "BarCommon",
+        "chartConfig": {
+          "key": "BarCommon",
+          "chartKey": "VBarCommon",
+          "conKey": "VCBarCommon",
+          "title": "柱状图",
+          "category": "Bars",
+          "categoryName": "柱状图",
+          "package": "Charts",
+          "chartFrame": "echarts",
+          "image": "bar_x.png"
+        },
+        "option": {
+          "backgroundColor": "rgba(0,0,0,0)",
+          "tooltip": {
+            "show": true,
+            "trigger": "axis",
+            "axisPointer": {
+              "show": true,
+              "type": "shadow"
+            }
+          },
+          "xAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 12,
+              "color": "#B9B8CE",
+              "rotate": 0
+            },
+            "position": "bottom",
+            "axisLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#B9B8CE",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": true,
+              "length": 5
+            },
+            "splitLine": {
+              "show": false,
+              "lineStyle": {
+                "color": "#484753",
+                "width": 1,
+                "type": "solid"
+              }
+            },
+            "type": "category"
+          },
+          "yAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 12,
+              "color": "#B9B8CE",
+              "rotate": 0
+            },
+            "position": "left",
+            "axisLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#B9B8CE",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": true,
+              "length": 5
+            },
+            "splitLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#484753",
+                "width": 1,
+                "type": "solid"
+              }
+            },
+            "type": "value"
+          },
+          "legend": {
+            "show": true,
+            "type": "scroll",
+            "x": "center",
+            "y": "top",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 18
+            },
+            "itemHeight": 15,
+            "itemWidth": 15,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            }
+          },
+          "grid": {
+            "show": false,
+            "left": "10%",
+            "top": "60",
+            "right": "10%",
+            "bottom": "60"
+          },
+          "dataset": {
+            "dimensions": [
+              "楼宇",
+              "能耗"
+            ],
+            "source": [
+              {
+                "楼宇": "教学楼A",
+                "能耗": 1860
+              },
+              {
+                "楼宇": "实验楼",
+                "能耗": 2420
+              },
+              {
+                "楼宇": "图书馆",
+                "能耗": 1680
+              },
+              {
+                "楼宇": "体育馆",
+                "能耗": 2140
+              },
+              {
+                "楼宇": "食堂",
+                "能耗": 1520
+              },
+              {
+                "楼宇": "宿舍楼",
+                "能耗": 2360
+              }
+            ]
+          },
+          "series": [
+            {
+              "type": "bar",
+              "barWidth": 15,
+              "label": {
+                "show": true,
+                "position": "top",
+                "color": "#fff",
+                "fontSize": 12
+              },
+              "itemStyle": {
+                "color": null,
+                "borderRadius": 2
+              },
+              "name": "能耗"
+            }
+          ]
+        },
+        "attr": {
+          "x": 40,
+          "y": 150,
+          "w": 380,
+          "h": 360,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 3
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "campus-type-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "建筑类型占比",
+          "fontSize": 18,
+          "fontColor": "#4fd2dd",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 1,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 1500,
+          "y": 110,
+          "w": 380,
+          "h": 34,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 4
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "campus-type-pie",
+        "isGroup": false,
+        "key": "PieCommon",
+        "chartConfig": {
+          "key": "PieCommon",
+          "chartKey": "VPieCommon",
+          "conKey": "VCPieCommon",
+          "title": "饼图",
+          "category": "Pies",
+          "categoryName": "饼图",
+          "package": "Charts",
+          "chartFrame": "echarts",
+          "image": "pie.png"
+        },
+        "option": {
+          "isCarousel": false,
+          "type": "ring",
+          "backgroundColor": "rgba(0,0,0,0)",
+          "tooltip": {
+            "show": true,
+            "trigger": "item"
+          },
+          "legend": {
+            "show": true,
+            "type": "scroll",
+            "x": "center",
+            "y": "top",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 18
+            },
+            "itemHeight": 15,
+            "itemWidth": 15,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            }
+          },
+          "dataset": {
+            "dimensions": [
+              "类型",
+              "数量"
+            ],
+            "source": [
+              {
+                "类型": "教学楼",
+                "数量": 12
+              },
+              {
+                "类型": "宿舍楼",
+                "数量": 8
+              },
+              {
+                "类型": "实验楼",
+                "数量": 5
+              },
+              {
+                "类型": "体育馆",
+                "数量": 2
+              },
+              {
+                "类型": "食堂",
+                "数量": 3
+              }
+            ]
+          },
+          "series": [
+            {
+              "type": "pie",
+              "radius": [
+                "40%",
+                "65%"
+              ],
+              "center": [
+                "50%",
+                "60%"
+              ],
+              "roseType": false,
+              "avoidLabelOverlap": false,
+              "itemStyle": {
+                "show": true,
+                "borderRadius": 10,
+                "borderColor": "#fff",
+                "borderWidth": 2
+              },
+              "label": {
+                "show": false,
+                "position": "center",
+                "formatter": "{b}",
+                "fontWeight": "normal",
+                "fontSize": 14,
+                "color": "#454E54",
+                "textBorderColor": "#ffffff",
+                "textBorderWidth": 1
+              },
+              "emphasis": {
+                "label": {
+                  "show": true,
+                  "fontSize": 40,
+                  "fontWeight": "bold"
+                }
+              },
+              "labelLine": {
+                "show": false
+              }
+            }
+          ]
+        },
+        "attr": {
+          "x": 1500,
+          "y": 150,
+          "w": 380,
+          "h": 360,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 5
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "campus-main-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "智慧校园三维总览",
+          "fontSize": 36,
+          "fontColor": "#7fe7ff",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "center",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 8,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 560,
+          "y": 20,
+          "w": 800,
+          "h": 60,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 6
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      },
+      {
+        "id": "campus-sub-title",
+        "isGroup": false,
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "QIMING CAMPUS · DIGITAL TWIN",
+          "fontSize": 14,
+          "fontColor": "#6e9dc0",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "center",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 5,
+          "letterSpacing": 6,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 660,
+          "y": 78,
+          "w": 600,
+          "h": 28,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 7
+        },
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        }
+      }
+    ]
+  }
+}

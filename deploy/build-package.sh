@@ -324,6 +324,7 @@ stage_app() {
   step "打包" "后端编译产物与生产依赖"
   cp -a "${REPO_ROOT}/web/dist" "${STAGE_APP}/web/dist"
   cp -a "${REPO_ROOT}/server/dist" "${STAGE_APP}/server/dist"
+  cp -a "${REPO_ROOT}/server/seed-content" "${STAGE_APP}/server/seed-content"
   cp "${REPO_ROOT}/server/package.json" "${STAGE_APP}/server/package.json"
   cp "${REPO_ROOT}/server/pnpm-lock.yaml" "${STAGE_APP}/server/pnpm-lock.yaml"
   {

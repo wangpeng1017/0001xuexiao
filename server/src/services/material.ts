@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { mkdir, readdir, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import AdmZip from 'adm-zip';
 import type { PrismaClient } from '@prisma/client';
@@ -252,20 +252,20 @@ async function finalizeImage2d(
   return { url, thumb: url };
 }
 
-export async function uploadMaterial(
+export interface CreateMaterialFromFileInput {
+  filePath: string;
+  fileName: string;
+  category: MaterialCategory;
+  name: string;
+  scope: MaterialScope;
+}
+
+async function createMaterialFromBuffer(
   prisma: PrismaClient,
   user: AuthUser,
   dataDir: string,
   input: UploadMaterialInput
 ): Promise<MaterialItem> {
-  if (input.scope === 'public' && !isAdmin(user)) {
-    throw new BizError(403, '只有管理员可以上传公共素材');
-  }
-  if (input.buffer.byteLength === 0) throw new BizError(400, '上传文件为空');
-  if (input.buffer.byteLength > MAX_MATERIAL_BYTES) {
-    throw new BizError(400, '素材文件不能超过 200MB');
-  }
-
   const id = randomUUID();
   const targetDir = materialDir(dataDir, id);
   await mkdir(targetDir, { recursive: true });
@@ -299,6 +299,57 @@ export async function uploadMaterial(
   } catch (error) {
     await rm(targetDir, { recursive: true, force: true });
     throw error;
+  }
+}
+
+export async function createMaterialFromFile(
+  prisma: PrismaClient,
+  user: AuthUser,
+  dataDir: string,
+  input: CreateMaterialFromFileInput
+): Promise<MaterialItem> {
+  if (input.scope === 'public' && !isAdmin(user)) {
+    throw new BizError(403, '只有管理员可以上传公共素材');
+  }
+
+  const info = await stat(input.filePath).catch(() => null);
+  if (!info || !info.isFile()) throw new BizError(400, '素材文件不存在');
+  if (info.size === 0) throw new BizError(400, '上传文件为空');
+  if (info.size > MAX_MATERIAL_BYTES) {
+    throw new BizError(400, '素材文件不能超过 200MB');
+  }
+
+  const buffer = await readFile(input.filePath);
+  return createMaterialFromBuffer(prisma, user, dataDir, {
+    category: input.category,
+    name: input.name,
+    scope: input.scope,
+    filename: input.fileName,
+    buffer
+  });
+}
+
+export async function uploadMaterial(
+  prisma: PrismaClient,
+  user: AuthUser,
+  dataDir: string,
+  input: UploadMaterialInput
+): Promise<MaterialItem> {
+  await mkdir(dataDir, { recursive: true });
+  const tempDir = await mkdtemp(path.join(dataDir, 'material-upload-'));
+  const tempPath = path.join(tempDir, `upload${path.extname(input.filename).toLowerCase()}`);
+
+  try {
+    await writeFile(tempPath, input.buffer);
+    return await createMaterialFromFile(prisma, user, dataDir, {
+      filePath: tempPath,
+      fileName: input.filename,
+      category: input.category,
+      name: input.name,
+      scope: input.scope
+    });
+  } finally {
+    await rm(tempDir, { recursive: true, force: true });
   }
 }
 
