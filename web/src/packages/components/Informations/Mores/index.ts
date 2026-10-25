@@ -3,5 +3,6 @@ import { ImageCarouselConfig } from './ImageCarousel/index'
 import { IframeConfig } from './Iframe/index'
 import { VideoConfig } from './Video/index'
 import { WordCloudConfig } from './WordCloud/index'
+import { RtspVideoConfig } from './RtspVideo/index'
 
-export default [ImageConfig, ImageCarouselConfig, VideoConfig, IframeConfig, WordCloudConfig]
+export default [ImageConfig, ImageCarouselConfig, VideoConfig, IframeConfig, WordCloudConfig, RtspVideoConfig]
