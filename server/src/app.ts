@@ -11,6 +11,7 @@ import { BizError, fail } from './lib/resp.js';
 import authPlugin from './plugins/auth.js';
 import datafileRoutes from './routes/datafile.js';
 import datasetRoutes from './routes/dataset.js';
+import healthRoutes from './routes/health.js';
 import projectRoutes from './routes/project.js';
 import staticRoutes from './routes/static.js';
 import sysRoutes from './routes/sys.js';
@@ -110,6 +111,7 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   await app.register(datafileRoutes, { prefix: '/api/goview' });
   await app.register(datasetRoutes, { prefix: '/api/goview' });
   await app.register(videoRoutes, { prefix: '/api/goview' });
+  await app.register(healthRoutes, { prefix: '/api/goview' });
   await app.register(staticRoutes);
 
   return app;
