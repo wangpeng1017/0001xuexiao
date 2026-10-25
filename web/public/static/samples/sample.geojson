@@ -1,0 +1,129 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "天安门广场",
+        "kind": "point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3913,
+          39.9075
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "故宫博物院",
+        "kind": "point"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.397,
+          39.918
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "演示路线",
+        "kind": "line"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            116.365,
+            39.9
+          ],
+          [
+            116.385,
+            39.907
+          ],
+          [
+            116.405,
+            39.913
+          ],
+          [
+            116.425,
+            39.908
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "演示区域 A",
+        "kind": "polygon"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              116.35,
+              39.925
+            ],
+            [
+              116.375,
+              39.925
+            ],
+            [
+              116.375,
+              39.94
+            ],
+            [
+              116.35,
+              39.94
+            ],
+            [
+              116.35,
+              39.925
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "演示区域 B",
+        "kind": "polygon"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              116.405,
+              39.93
+            ],
+            [
+              116.43,
+              39.93
+            ],
+            [
+              116.43,
+              39.945
+            ],
+            [
+              116.405,
+              39.945
+            ],
+            [
+              116.405,
+              39.93
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

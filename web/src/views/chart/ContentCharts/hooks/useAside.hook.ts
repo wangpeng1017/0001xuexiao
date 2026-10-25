@@ -7,6 +7,7 @@ import { usePackagesStore } from '@/store/modules/packagesStore/packagesStore'
 import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 // 图标
 const { AirPlaneOutlineIcon, ImageIcon, BarChartIcon } = icon.ionicons5
+const { PawIcon } = icon.ionicons5
 const { TableSplitIcon, RoadmapIcon, ChartPieIcon, SpellCheckIcon, GraphicalDataFlowIcon } = icon.carbon
 
 // 图表
@@ -45,6 +46,10 @@ const packagesListObj = {
   [PackagesCategoryEnum.ICONS]: {
     icon: renderIcon(AirPlaneOutlineIcon),
     label: PackagesCategoryName.ICONS
+  },
+  [PackagesCategoryEnum.SCENES]: {
+    icon: renderIcon(PawIcon),
+    label: PackagesCategoryName.SCENES
   }
 }
 
