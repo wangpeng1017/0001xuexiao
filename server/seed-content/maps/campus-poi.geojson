@@ -1,0 +1,230 @@
+{
+  "type": "FeatureCollection",
+  "name": "启明大学校园兴趣点",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3183,
+          40.003
+        ]
+      },
+      "properties": {
+        "name": "东校门",
+        "type": "校门"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3107,
+          39.9908
+        ]
+      },
+      "properties": {
+        "name": "南校门",
+        "type": "校门"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3108,
+          40.009
+        ]
+      },
+      "properties": {
+        "name": "北校门",
+        "type": "校门"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3107,
+          40.002
+        ]
+      },
+      "properties": {
+        "name": "中心广场",
+        "type": "景观"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3095,
+          40.0024
+        ]
+      },
+      "properties": {
+        "name": "图书馆",
+        "type": "景观"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3095,
+          40.0005
+        ]
+      },
+      "properties": {
+        "name": "学府花园",
+        "type": "景观"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3058,
+          39.9929
+        ]
+      },
+      "properties": {
+        "name": "体育场",
+        "type": "运动"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3179,
+          40.0032
+        ]
+      },
+      "properties": {
+        "name": "监控点位-东门",
+        "type": "监控"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3046,
+          39.996
+        ]
+      },
+      "properties": {
+        "name": "监控点位-食堂",
+        "type": "监控"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3144,
+          39.993
+        ]
+      },
+      "properties": {
+        "name": "监控点位-宿舍区",
+        "type": "监控"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.316,
+          40.0061
+        ]
+      },
+      "properties": {
+        "name": "监控点位-实验楼",
+        "type": "监控"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3098,
+          40.0045
+        ]
+      },
+      "properties": {
+        "name": "空气监测站",
+        "type": "环境监测"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3165,
+          40.0008
+        ]
+      },
+      "properties": {
+        "name": "噪声监测点",
+        "type": "环境监测"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3118,
+          39.9988
+        ]
+      },
+      "properties": {
+        "name": "水质监测点",
+        "type": "环境监测"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3044,
+          40.0052
+        ]
+      },
+      "properties": {
+        "name": "消防栓-主楼",
+        "type": "消防"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.3065,
+          39.992
+        ]
+      },
+      "properties": {
+        "name": "气象观测点",
+        "type": "环境监测"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <title>服务器</title>
+  <defs>
+    <linearGradient id="ic-server" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9CF6FF"/><stop offset="1" stop-color="#247ED0"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#ic-server)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="12" y="7" width="40" height="50" rx="4"/>
+    <path d="M12 24H52M12 40H52"/>
+    <path d="M19 16H35M19 32H35M19 48H35"/>
+    <path d="M42 16H45M42 32H45M42 48H45"/>
+  </g>
+  <circle cx="19" cy="16" r="1.8" fill="#6BFFA8"/>
+  <circle cx="19" cy="32" r="1.8" fill="#6BFFA8"/>
+  <circle cx="19" cy="48" r="1.8" fill="#5FD8FF"/>
+</svg>
