@@ -38,8 +38,8 @@
 - M1~M4 的 ship 到“测试环境验证 + 推送 GitHub”为止，生产发版这一步标记为“不适用”
 
 ## GitHub
-- 远程：在王老师账号下新建 private 仓库（需要先安装 gh 并登录：`winget install GitHub.cli`，然后执行 `! gh auth login`）
-- 分支：`main`
+- 远程：`origin` = https://github.com/wangpeng1017/0001xuexiao.git（凭据走 Git Credential Manager）
+- 分支：`main`（推送命令 `git push -u origin main`）
 - 排除目录：`node_modules/`、`dist/`、`server/data/`、`artifacts/`、`*.db`
 
 ## 文档同步清单

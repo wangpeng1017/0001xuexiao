@@ -10,12 +10,16 @@ import { createTokenService } from './lib/jwt.js';
 import { BizError, fail } from './lib/resp.js';
 import authPlugin from './plugins/auth.js';
 import materialRoutes from './routes/material.js';
+import datafileRoutes from './routes/datafile.js';
+import datasetRoutes from './routes/dataset.js';
+import healthRoutes from './routes/health.js';
 import projectRoutes from './routes/project.js';
 import staticRoutes from './routes/static.js';
 import sysRoutes from './routes/sys.js';
 import teamRoutes from './routes/team.js';
 import templateRoutes from './routes/template.js';
 import userRoutes from './routes/user.js';
+import videoRoutes from './routes/video.js';
 
 export interface BuildAppOptions {
   config?: Partial<AppConfig>;
@@ -110,6 +114,10 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   await app.register(templateRoutes, { prefix: '/api/goview' });
   await app.register(teamRoutes, { prefix: '/api/goview' });
   await app.register(materialRoutes, { prefix: '/api/goview' });
+  await app.register(datafileRoutes, { prefix: '/api/goview' });
+  await app.register(datasetRoutes, { prefix: '/api/goview' });
+  await app.register(videoRoutes, { prefix: '/api/goview' });
+  await app.register(healthRoutes, { prefix: '/api/goview' });
   await app.register(staticRoutes);
 
   return app;

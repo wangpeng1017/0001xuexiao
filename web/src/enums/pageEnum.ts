@@ -66,6 +66,17 @@ export enum PageEnum {
   // 素材库（M4）
   BASE_HOME_MATERIAL = '/project/material',
   BASE_HOME_MATERIAL_NAME = 'Project-Material',
+  // 数据集
+  BASE_HOME_DATASET = '/project/dataset',
+  BASE_HOME_DATASET_NAME = 'Project-Dataset',
+
+  // 数据文件
+  BASE_HOME_DATAFILE = '/project/datafile',
+  BASE_HOME_DATAFILE_NAME = 'Project-Datafile',
+
+  // 支持格式
+  BASE_HOME_FORMATS = '/project/formats',
+  BASE_HOME_FORMATS_NAME = 'Project-Formats',
 
   // 修改密码
   CHANGE_PASSWORD = '/change-password',
