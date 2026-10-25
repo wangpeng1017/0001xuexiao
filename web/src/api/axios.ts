@@ -34,10 +34,15 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // 白名单校验
-    if (includes(fetchAllowList, config.url)) return config
     // 获取 token
     const info = getLocalStorage(StorageEnum.GO_SYSTEM_STORE)
+    // 白名单接口免登录，但已登录时仍要携带 token（如编辑器读取未发布项目的 getData）
+    if (includes(fetchAllowList, config.url)) {
+      const tokenInfo = info?.[SystemStoreEnum.USER_INFO]
+      const tokenValue = tokenInfo?.[SystemStoreUserInfoEnum.USER_TOKEN]
+      if (tokenValue) config.headers[tokenInfo[SystemStoreUserInfoEnum.TOKEN_NAME] || 'token'] = tokenValue
+      return config
+    }
     // 重新登录
     if (!info) {
       routerTurnByName(PageEnum.BASE_LOGIN_NAME)
