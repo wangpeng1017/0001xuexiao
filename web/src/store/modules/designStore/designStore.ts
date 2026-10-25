@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { theme } from '@/settings/designSetting'
 import { DesignStateType, AppThemeColorType } from './designStore.d'
-import { setLocalStorage, getLocalStorage } from '@/utils'
+import { setLocalStorage } from '@/utils'
 import { StorageEnum } from '@/enums/storageEnum'
 import { ThemeEnum } from '@/enums/styleEnum'
 
@@ -9,12 +9,10 @@ const { GO_DESIGN_STORE } = StorageEnum
 
 const { darkTheme, appTheme, appThemeDetail } = theme
 
-const storageDesign = getLocalStorage(GO_DESIGN_STORE)
-
 export const useDesignStore = defineStore({
   id: 'useDesignStore',
-  state: (): DesignStateType =>
-    storageDesign || {
+  // 固定默认主题：已去掉明暗与主题色切换，不再读取浏览器里残留的主题设置
+  state: (): DesignStateType => ({
       // 是否暗黑
       darkTheme,
       // 主题名称
@@ -22,7 +20,7 @@ export const useDesignStore = defineStore({
       // 颜色色号
       appTheme,
       appThemeDetail,
-    },
+    }),
   getters: {
     getDarkTheme(e): boolean {
       return this.darkTheme
