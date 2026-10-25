@@ -42,6 +42,7 @@ describe('路由鉴权声明守卫', () => {
 
     expect(publicRoutes).toEqual(
       [
+        'GET /api/goview/health',
         'GET /api/goview/project/getData',
         'GET /api/goview/sys/getOssInfo',
         'POST /api/goview/sys/login'
