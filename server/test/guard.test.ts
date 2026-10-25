@@ -42,6 +42,8 @@ describe('路由鉴权声明守卫', () => {
 
     expect(publicRoutes).toEqual(
       [
+        'GET /api/goview/open/dataset/:id/data',
+        'GET /api/goview/open/video/:streamId.flv',
         'GET /api/goview/project/getData',
         'GET /api/goview/sys/getOssInfo',
         'POST /api/goview/sys/login'

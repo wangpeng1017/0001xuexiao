@@ -22,6 +22,10 @@ model User {
 
   projects        Project[] @relation("ProjectOwner")
   updatedProjects Project[] @relation("ProjectUpdatedBy")
+  dataFiles       DataFile[] @relation("DataFileOwner")
+  uploadSessions  UploadSession[] @relation("UploadOwner")
+  datasets        Dataset[] @relation("DatasetOwner")
+  videoStreams    VideoStream[] @relation("VideoCreator")
 
   @@index([role])
 }
@@ -48,4 +52,67 @@ model Project {
   @@index([ownerId])
   @@index([sortOrder])
   @@index([deletedAt])
+}
+
+model DataFile {
+  id           String   @id @default(cuid())
+  name         String
+  originFormat String
+  kind         String   @default("")
+  status       String   @default("pending")
+  progress     Int      @default(0)
+  errorMsg     String   @default("")
+  srs          String?
+  outputUrl    String   @default("")
+  storedPath   String
+  size         BigInt   @default(0)
+  ownerId      String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  owner User @relation("DataFileOwner", fields: [ownerId], references: [id])
+
+  @@index([ownerId])
+  @@index([status])
+}
+
+model UploadSession {
+  id          String   @id @default(cuid())
+  fileName    String
+  size        BigInt
+  chunkSize   Int
+  totalChunks Int
+  ownerId     String
+  status      String   @default("uploading")
+  dataFileId  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner User @relation("UploadOwner", fields: [ownerId], references: [id])
+
+  @@index([ownerId, status])
+  @@index([createdAt])
+}
+
+model Dataset {
+  id        String   @id @default(cuid())
+  name      String
+  type      String
+  config    String
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner User @relation("DatasetOwner", fields: [ownerId], references: [id])
+
+  @@index([ownerId])
+}
+
+model VideoStream {
+  id        String   @id @default(cuid())
+  url       String   @unique
+  createdBy String
+  createdAt DateTime @default(now())
+
+  creator User @relation("VideoCreator", fields: [createdBy], references: [id])
 }
