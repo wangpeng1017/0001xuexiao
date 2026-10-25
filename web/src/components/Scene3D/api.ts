@@ -27,7 +27,7 @@ const listData = <T>(res: any): T[] | null => {
 export const fetchDataFileList = async (kind: string): Promise<DataFileItem[] | null> => {
   try {
     const res = await raw.get('/datafile/list', {
-      params: { page: 1, limit: 200, kind, status: 'success' }
+      params: { page: 1, limit: 100, kind, status: 'success' }
     })
     return listData<DataFileItem>(res)
   } catch {
@@ -38,7 +38,7 @@ export const fetchDataFileList = async (kind: string): Promise<DataFileItem[] | 
 export const fetchMaterialList = async (category: string): Promise<MaterialItem[] | null> => {
   try {
     const res = await raw.get('/material/list', {
-      params: { category, page: 1, limit: 200 }
+      params: { category, page: 1, limit: 100 }
     })
     return listData<MaterialItem>(res)
   } catch {

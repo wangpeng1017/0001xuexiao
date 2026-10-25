@@ -74,7 +74,10 @@ export class SceneSyncer {
     }
     this.baseLayer = null
     this.baseKind = null
-    if (kind !== 'naturalEarth') return
+    if (kind !== 'naturalEarth') {
+      this.baseKind = kind
+      return
+    }
     const layer = await addNaturalEarthBaseLayer(this.viewer)
     if (this.disposed || this.viewer.isDestroyed()) {
       if (layer && !this.viewer.isDestroyed()) this.viewer.imageryLayers.remove(layer, true)

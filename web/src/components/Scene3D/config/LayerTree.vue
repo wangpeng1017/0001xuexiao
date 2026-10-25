@@ -43,8 +43,35 @@
               title="显示 / 隐藏图层"
               @click.stop
             />
-            <span class="layer-name" :title="element.name">{{ element.name }}</span>
+            <n-input
+              v-if="editingId === element.id"
+              v-model:value="element.name"
+              size="tiny"
+              class="layer-name-input"
+              autofocus
+              @click.stop
+              @blur="finishRename(element)"
+              @keyup.enter="finishRename(element)"
+              @keyup.esc="finishRename(element)"
+            />
+            <span v-else class="layer-name" :title="element.name" @dblclick.stop="startRename(element.id)">
+              {{ element.name }}
+            </span>
             <span class="layer-type">{{ typeShort[element.type] }}</span>
+            <n-slider
+              v-model:value="element.opacity"
+              class="layer-opacity"
+              :min="0"
+              :max="1"
+              :step="0.05"
+              :tooltip="false"
+              title="透明度"
+              @click.stop
+              @mousedown.stop
+            />
+            <button class="layer-action" type="button" title="重命名" @click.stop="startRename(element.id)">
+              改名
+            </button>
             <button class="layer-action" type="button" title="定位到图层" @click.stop="locateLayer(element)">
               定位
             </button>
@@ -65,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { NPopconfirm } from 'naive-ui'
 import Draggable from 'vuedraggable'
 import { getSceneController } from '../registry'
@@ -78,6 +105,17 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['add-layer', 'select'])
+
+const editingId = ref('')
+
+const startRename = (layerId: string) => {
+  editingId.value = layerId
+}
+
+const finishRename = (layer: { name: string }) => {
+  layer.name = layer.name.trim() || '未命名图层'
+  editingId.value = ''
+}
 
 const typeShort: Record<string, string> = {
   raster: '栅格',
@@ -205,6 +243,15 @@ const locateLayer = (layer: SceneLayer) => {
   color: #84b8aa;
   border: 1px solid rgba(81, 214, 169, 0.28);
   border-radius: 3px;
+}
+.layer-opacity {
+  flex-shrink: 0;
+  width: 64px;
+  margin: 0 2px;
+}
+.layer-name-input {
+  flex: 1;
+  min-width: 0;
 }
 .layer-action {
   flex-shrink: 0;

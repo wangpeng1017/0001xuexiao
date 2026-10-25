@@ -85,10 +85,16 @@ export default ({ mode }) => defineConfig({
     }),
     // Cesium 离线资源：开发由中间件提供，构建时复制到 dist/static/cesium
     viteStaticCopy({
-      targets: ['Workers', 'Assets', 'ThirdParty', 'Widgets'].map(name => ({
-        src: `node_modules/cesium/Build/Cesium/${name}`,
-        dest: 'static/cesium'
-      }))
+      targets: [
+        ...['Workers', 'Assets', 'ThirdParty', 'Widgets'].map(name => ({
+          src: `node_modules/cesium/Build/Cesium/${name}`,
+          dest: 'static/cesium'
+        })),
+        {
+          src: 'node_modules/cesium/Build/Cesium/index.js',
+          dest: 'static/cesium'
+        }
+      ]
     })
   ],
   build: {
@@ -96,7 +102,15 @@ export default ({ mode }) => defineConfig({
     outDir: OUTPUT_DIR,
     // minify: 'terser', // 如果需要用terser混淆，可打开这两行
     // terserOptions: terserOptions,
-    rollupOptions: rollupOptions,
+    rollupOptions: {
+      ...rollupOptions,
+      // Cesium 作为外置依赖加载官方 ESM bundle，避免构建时解析整个 Cesium 源码树
+      external: ['cesium'],
+      output: {
+        ...rollupOptions.output,
+        paths: { cesium: '/static/cesium/index.js' }
+      }
+    },
     reportCompressedSize: brotliSize,
     chunkSizeWarningLimit: chunkSizeWarningLimit
   }

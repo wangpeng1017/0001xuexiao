@@ -49,7 +49,10 @@ export const addNaturalEarthBaseLayer = async (viewer: Viewer) => {
   if (!naturalEarthPromise) {
     naturalEarthPromise = TileMapServiceImageryProvider.fromUrl(
       buildModuleUrl('Assets/Textures/NaturalEarthII')
-    )
+    ).catch(error => {
+      naturalEarthPromise = null
+      throw error
+    })
   }
   const provider = await naturalEarthPromise
   if (viewer.isDestroyed()) return null

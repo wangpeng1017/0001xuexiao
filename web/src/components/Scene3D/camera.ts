@@ -4,7 +4,6 @@ import {
   HeadingPitchRoll,
   Math as CesiumMath,
   Matrix4,
-  Quaternion,
   Rectangle,
   SceneMode,
   Transforms,
@@ -89,8 +88,9 @@ export const buildModelMatrix = (
     CesiumMath.toRadians(Number(rotation.pitch) || 0),
     CesiumMath.toRadians(Number(rotation.roll) || 0)
   )
-  const quaternion = Quaternion.fromHeadingPitchRoll(headingPitchRoll)
   const safeScale = Math.max(Number(scale) || 1, 0.0001)
+  // 以局部东-北-天坐标系确定姿态，保证模型竖直方向跟随地球表面
+  const quaternion = Transforms.headingPitchRollQuaternion(translation, headingPitchRoll)
   return Matrix4.fromTranslationQuaternionRotationScale(
     translation,
     quaternion,
