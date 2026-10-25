@@ -13,6 +13,8 @@ export enum ResultEnum {
   SERVER_FORBIDDEN = 403,
   NOT_FOUND = 404,
   TOKEN_OVERDUE = 886,
+  // 保存冲突（乐观锁），由调用方弹窗处理，拦截器不提示
+  CONFLICT = 409,
   MUST_CHANGE_PASSWORD = 887,
   TIMEOUT = 60000,
 }

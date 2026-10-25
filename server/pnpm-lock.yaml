@@ -23,6 +23,9 @@ importers:
       '@prisma/client':
         specifier: 6.19.3
         version: 6.19.3(prisma@6.19.3(typescript@5.9.3))(typescript@5.9.3)
+      adm-zip:
+        specifier: ^0.6.1
+        version: 0.6.1
       bcryptjs:
         specifier: ^3.0.0
         version: 3.0.3
@@ -514,6 +517,10 @@ packages:
 
   abstract-logging@2.0.1:
     resolution: {integrity: sha512-2BjRTZxTPvheOvGbBslFSYOUkr+SjPtOnrLP33f+VIWLzezQpZcqVg7ja3L4dBXmzzgwT+a029jRx5PCi3JuiA==}
+
+  adm-zip@0.6.1:
+    resolution: {integrity: sha512-Xwrja8nx9e5o2N1my4DsKCeKpdrnACyr1wtbPxBDgGzKzKyE9kRtBFA8mWldI+RVlD7CBZNWY/wQ2+ydwOR6kQ==}
+    engines: {node: '>=14.0'}
 
   ajv-formats@3.0.1:
     resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
@@ -1490,6 +1497,8 @@ snapshots:
       tinyrainbow: 2.0.0
 
   abstract-logging@2.0.1: {}
+
+  adm-zip@0.6.1: {}
 
   ajv-formats@3.0.1(ajv@8.20.0):
     optionalDependencies:

@@ -7,7 +7,7 @@ import { icon } from '@/plugins'
 import { useSystemStore } from '@/store/modules/systemStore/systemStore'
 import { RoleEnum } from '@/enums/roleEnum'
 
-const { TvOutlineIcon, PersonIcon } = icon.ionicons5
+const { TvOutlineIcon, PersonIcon, AlbumsIcon, ConstructIcon, LayersIcon } = icon.ionicons5
 const { DevicesIcon } = icon.carbon
 const { ChartPieIcon, TableSplitIcon, ObjectStorageIcon, StoreIcon } = icon.carbon
 export const renderMenuLabel = (option: MenuOption | MenuGroupOption) => {
@@ -19,7 +19,9 @@ export const expandedKeys = () => ['all-project']
 export const menuOptionsInit = () => {
   const t = window['$t']
   const systemStore = useSystemStore()
-  const isAdmin = systemStore.getUserInfo.role === RoleEnum.ADMIN
+  const role = systemStore.getUserInfo.role
+  const isAdmin = role === RoleEnum.ADMIN
+  const isTeacher = role === RoleEnum.TEACHER
 
   const menu: any[] = [
     {
@@ -44,9 +46,23 @@ export const menuOptionsInit = () => {
             ),
           key: PageEnum.BASE_HOME_ITEMS_NAME,
           icon: renderIcon(TvOutlineIcon)
+        },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: PageEnum.BASE_HOME_TEMPLATE_LIBRARY_NAME
+                }
+              },
+              { default: () => '模板库' }
+            ),
+          key: PageEnum.BASE_HOME_TEMPLATE_LIBRARY_NAME,
+          icon: renderIcon(AlbumsIcon)
         }
       ]
-    }
+    },
   ]
 
   menu.push(
@@ -100,6 +116,52 @@ export const menuOptionsInit = () => {
             ),
           key: PageEnum.BASE_HOME_FORMATS_NAME,
           icon: renderIcon(StoreIcon)
+        }
+      ]
+    }
+  )
+
+  menu.push(
+    {
+      key: 'divider-m4',
+      type: 'divider'
+    },
+    {
+      label: () => h('span', null, { default: () => '协作与素材' }),
+      key: 'collaboration',
+      icon: renderIcon(LayersIcon),
+      children: [
+        ...(isAdmin || isTeacher
+          ? [
+              {
+                label: () =>
+                  h(
+                    RouterLink,
+                    {
+                      to: {
+                        name: PageEnum.BASE_HOME_TEAM_NAME
+                      }
+                    },
+                    { default: () => '团队管理' }
+                  ),
+                key: PageEnum.BASE_HOME_TEAM_NAME,
+                icon: renderIcon(ConstructIcon)
+              }
+            ]
+          : []),
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: PageEnum.BASE_HOME_MATERIAL_NAME
+                }
+              },
+              { default: () => '素材库' }
+            ),
+          key: PageEnum.BASE_HOME_MATERIAL_NAME,
+          icon: renderIcon(AlbumsIcon)
         }
       ]
     }

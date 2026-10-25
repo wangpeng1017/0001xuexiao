@@ -26,9 +26,19 @@
       <template #action>
         <div class="list-footer">
           <div class="list-footer-top">
-            <n-text class="list-title go-ellipsis-1">
-              {{ cardData.title || cardData.id || '未命名' }}
-            </n-text>
+            <div class="list-title-wrap">
+              <n-text class="list-title go-ellipsis-1">
+                {{ cardData.title || cardData.id || '未命名' }}
+              </n-text>
+              <n-tag
+                v-if="cardData.isTemplate"
+                size="tiny"
+                :bordered="false"
+                type="info"
+              >
+                模板
+              </n-tag>
+            </div>
             <n-text class="list-status">
               <n-badge
                 class="go-animation-twinkle"
@@ -39,9 +49,17 @@
             </n-text>
           </div>
           <div class="list-footer-bottom">
-            <n-text depth="3" class="list-meta">
-              创建人：{{ cardData.createUserName || '-' }} · 更新：{{ formatTime(cardData.time) }}
-            </n-text>
+            <div class="list-footer-info">
+              <n-text depth="3" class="list-meta go-ellipsis-1">
+                {{ cardData.teamName ? `团队：${cardData.teamName}` : '个人项目' }}
+              </n-text>
+              <n-text depth="3" class="list-meta go-ellipsis-1">
+                修改：{{ cardData.updateUserName || '-' }}
+              </n-text>
+              <n-text depth="3" class="list-time">
+                {{ formatTime(cardData.time) }}
+              </n-text>
+            </div>
             <n-space :size="6" :wrap="false">
               <n-tooltip placement="bottom" trigger="hover">
                 <template #trigger>
@@ -77,7 +95,7 @@
 <script setup lang="ts">
 import { computed, PropType } from 'vue'
 import dayjs from 'dayjs'
-import { renderIcon, requireErrorImg } from '@/utils'
+import { renderIcon, requireErrorImg, getStoredRole } from '@/utils'
 import { icon } from '@/plugins'
 import { MacOsControlBtn } from '@/components/Tips/MacOsControlBtn'
 import { Chartype } from '../../index.d'
@@ -89,13 +107,19 @@ const {
   PencilIcon,
   BrowsersOutlineIcon,
   HammerIcon,
-  SendIcon
+  SendIcon,
+  AlbumsIcon
 } = icon.ionicons5
 
-const emit = defineEmits(['preview', 'delete', 'resize', 'edit', 'release', 'copy', 'rename'])
+const emit = defineEmits(['preview', 'delete', 'resize', 'edit', 'release', 'copy', 'rename', 'template'])
 
 const props = defineProps({
   cardData: Object as PropType<Chartype>
+})
+
+const canTemplate = computed(() => {
+  const role = getStoredRole()
+  return role === 'admin' || role === 'teacher'
 })
 
 const imageUrl = computed(() => {
@@ -105,39 +129,53 @@ const imageUrl = computed(() => {
   return `${image}${image.includes('?') ? '&' : '?'}time=${Date.now()}`
 })
 
-const selectOptions = computed(() => [
-  {
-    label: window['$t']('global.r_preview'),
-    key: 'preview',
-    icon: renderIcon(BrowsersOutlineIcon)
-  },
-  {
-    label: props.cardData?.release
-      ? window['$t']('global.r_unpublish')
-      : window['$t']('global.r_publish'),
-    key: 'release',
-    icon: renderIcon(SendIcon)
-  },
-  {
-    label: window['$t']('global.r_copy'),
-    key: 'copy',
-    icon: renderIcon(CopyIcon)
-  },
-  {
-    label: window['$t']('global.r_rename'),
-    key: 'rename',
-    icon: renderIcon(PencilIcon)
-  },
-  {
-    type: 'divider',
-    key: 'divider'
-  },
-  {
-    label: window['$t']('global.r_delete'),
-    key: 'delete',
-    icon: renderIcon(TrashIcon)
+const selectOptions = computed(() => {
+  const options: any[] = [
+    {
+      label: window['$t']('global.r_preview'),
+      key: 'preview',
+      icon: renderIcon(BrowsersOutlineIcon)
+    },
+    {
+      label: props.cardData?.release
+        ? window['$t']('global.r_unpublish')
+        : window['$t']('global.r_publish'),
+      key: 'release',
+      icon: renderIcon(SendIcon)
+    },
+    {
+      label: window['$t']('global.r_copy'),
+      key: 'copy',
+      icon: renderIcon(CopyIcon)
+    },
+    {
+      label: window['$t']('global.r_rename'),
+      key: 'rename',
+      icon: renderIcon(PencilIcon)
+    }
+  ]
+
+  if (canTemplate.value) {
+    options.push({
+      label: props.cardData?.isTemplate ? '取消模板' : '设为模板',
+      key: 'template',
+      icon: renderIcon(AlbumsIcon)
+    })
   }
-])
+
+  options.push(
+    {
+      type: 'divider',
+      key: 'divider'
+    },
+    {
+      label: window['$t']('global.r_delete'),
+      key: 'delete',
+      icon: renderIcon(TrashIcon)
+    }
+  )
+  return options
+})
 
 const formatTime = (value?: string) => {
   if (!value) return '-'
@@ -161,6 +199,9 @@ const handleSelect = (key: string) => {
       break
     case 'rename':
       emit('rename', props.cardData)
+      break
+    case 'template':
+      emit('template', props.cardData)
       break
     case 'edit':
       editHandle()
@@ -249,8 +290,28 @@ $contentHeight: 180px;
       justify-content: space-between;
       gap: 8px;
     }
+    &-info {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      flex-direction: column;
+      gap: 2px;
+    }
   }
 }
+
+.list-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.list-time {
+  font-size: 12px;
+  line-height: 16px;
+}
+
 
 .list-title {
   min-width: 0;
@@ -268,6 +329,6 @@ $contentHeight: 180px;
   min-width: 0;
   font-size: 12px;
   line-height: 18px;
-  white-space: normal;
+  white-space: nowrap;
 }
 </style>

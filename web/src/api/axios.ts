@@ -101,6 +101,11 @@ axiosInstance.interceptors.response.use(
       return Promise.resolve(res.data)
     }
 
+    // 保存冲突交给调用方处理
+    if (code === ResultEnum.CONFLICT) {
+      return Promise.resolve(res.data)
+    }
+
     // 提示错误
     window['$message'].error(responseData?.msg || window['$t']('http.error_message'))
     return Promise.resolve(res.data)

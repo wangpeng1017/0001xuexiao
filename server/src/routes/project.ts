@@ -14,11 +14,12 @@ import {
   listProjects,
   saveProjectContent,
   setProjectState,
-  sortProjects
+  sortProjects,
+  VersionConflictError
 } from '../services/project.js';
 import { ALL_ROLES } from '../types.js';
 
-const pageQuerySchema = z.object({
+const listQuerySchema = z.object({
   page: z.coerce
     .number({ invalid_type_error: 'page 必须为数字' })
     .int('page 必须为整数')
@@ -29,7 +30,11 @@ const pageQuerySchema = z.object({
     .int('limit 必须为整数')
     .min(1, 'limit 必须大于 0')
     .max(100, 'limit 不能超过 100')
-    .default(10)
+    .default(10),
+  scope: z.enum(['mine', 'team', 'all'], {
+    errorMap: () => ({ message: 'scope 只能为 mine、team 或 all' })
+  }).optional(),
+  teamId: z.string().trim().min(1).optional()
 });
 
 const projectNameSchema = z
@@ -44,7 +49,8 @@ const indexImageSchema = z.string().max(2048, '封面地址不能超过 2048 个
 const createProjectSchema = z.object({
   projectName: projectNameSchema,
   remarks: remarksSchema.optional(),
-  indexImage: indexImageSchema.optional()
+  indexImage: indexImageSchema.optional(),
+  teamId: z.string().trim().min(1, 'teamId 不能为空').optional()
 });
 
 const idSchema = z.object({
@@ -61,7 +67,13 @@ const saveDataSchema = z.object({
   projectId: z
     .string({ required_error: 'projectId 不能为空' })
     .min(1, 'projectId 不能为空'),
-  content: z.string({ required_error: 'content 不能为空' })
+  content: z.string({ required_error: 'content 不能为空' }),
+  version: z.coerce
+    .number({ invalid_type_error: 'version 必须为数字' })
+    .int('version 必须为整数')
+    .min(0, 'version 不能为负数')
+    .optional(),
+  force: z.coerce.number().int().optional()
 });
 
 const editProjectSchema = z.object({
@@ -106,7 +118,7 @@ async function readSaveBody(request: FastifyRequest): Promise<Record<string, unk
 
 const projectRoutes: FastifyPluginAsync = async (fastify) => {
   fastify.get('/project/list', { config: { auth: ALL_ROLES } }, async (request) => {
-    const query = parseInput(pageQuerySchema, request.query);
+    const query = parseInput(listQuerySchema, request.query);
     const { data, count } = await listProjects(fastify.prisma, request.currentUser!, query);
     return ok(data, { count });
   });
@@ -136,13 +148,21 @@ const projectRoutes: FastifyPluginAsync = async (fastify) => {
       if (Buffer.byteLength(input.content, 'utf8') > MAX_BODY_BYTES) {
         throw new BizError(400, 'content 不能超过 50MB');
       }
-      await saveProjectContent(
-        fastify.prisma,
-        request.currentUser!,
-        input.projectId,
-        input.content
-      );
-      return ok({});
+      try {
+        const result = await saveProjectContent(
+          fastify.prisma,
+          request.currentUser!,
+          input.projectId,
+          input.content,
+          { version: input.version, force: input.force === 1 }
+        );
+        return ok(result);
+      } catch (error) {
+        if (error instanceof VersionConflictError) {
+          return { code: error.code, msg: error.message, data: error.data };
+        }
+        throw error;
+      }
     }
   );
 

@@ -8,6 +8,9 @@ const importPath = {
   'PageEnum.BASE_HOME_TEMPLATE_NAME': () => import('@/views/project/mtTemplate/index.vue'),
   'PageEnum.BASE_HOME_TEMPLATE_MARKET_NAME': () => import('@/views/project/templateMarket/index.vue'),
   'PageEnum.BASE_HOME_USER_NAME': () => import('@/views/user/index.vue'),
+  'PageEnum.BASE_HOME_TEMPLATE_LIBRARY_NAME': () => import('@/views/project/template/index.vue'),
+  'PageEnum.BASE_HOME_TEAM_NAME': () => import('@/views/team/index.vue'),
+  'PageEnum.BASE_HOME_MATERIAL_NAME': () => import('@/views/material/index.vue'),
   'PageEnum.BASE_HOME_DATASET_NAME': () => import('@/views/data/dataset/index.vue'),
   'PageEnum.BASE_HOME_DATAFILE_NAME': () => import('@/views/data/datafile/index.vue'),
   'PageEnum.BASE_HOME_FORMATS_NAME': () => import('@/views/data/formats/index.vue')
@@ -54,6 +57,30 @@ const projectRoutes: RouteRecordRaw = {
       meta: {
         title: '用户管理',
         requiresAdmin: true
+      }
+    },
+    {
+      path: PageEnum.BASE_HOME_TEMPLATE_LIBRARY,
+      name: PageEnum.BASE_HOME_TEMPLATE_LIBRARY_NAME,
+      component: importPath['PageEnum.BASE_HOME_TEMPLATE_LIBRARY_NAME'],
+      meta: {
+        title: '模板库'
+      }
+    },
+    {
+      path: PageEnum.BASE_HOME_TEAM,
+      name: PageEnum.BASE_HOME_TEAM_NAME,
+      component: importPath['PageEnum.BASE_HOME_TEAM_NAME'],
+      meta: {
+        title: '团队管理'
+      }
+    },
+    {
+      path: PageEnum.BASE_HOME_MATERIAL,
+      name: PageEnum.BASE_HOME_MATERIAL_NAME,
+      component: importPath['PageEnum.BASE_HOME_MATERIAL_NAME'],
+      meta: {
+        title: '素材库'
       }
     },
     {
