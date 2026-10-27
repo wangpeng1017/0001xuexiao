@@ -2,7 +2,7 @@
   <n-modal
     v-model:show="visible"
     preset="card"
-    :title="isEdit ? '编辑数据集' : '新建数据集'"
+    :title="isEdit ? '编辑第三方数据' : '新建第三方数据'"
     style="width: 680px; max-width: 94vw"
     :bordered="false"
   >
@@ -231,7 +231,7 @@ function buildConfig(): DatasetConfig | null {
 
 async function handleSave() {
   if (!form.name.trim()) {
-    window['$message'].error('请输入数据集名称')
+    window['$message'].error('请输入第三方数据名称')
     return
   }
   const config = buildConfig()

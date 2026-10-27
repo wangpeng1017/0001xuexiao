@@ -19,7 +19,7 @@ export function encryptJson(value: unknown, secret: string): string {
 export function decryptJson<T>(payload: string, secret: string): T {
   const parts = payload.split('.');
   if (parts.length !== 4 || parts[0] !== VERSION) {
-    throw new Error('数据集配置密文格式无效');
+    throw new Error('第三方数据配置密文格式无效');
   }
   const [, ivBase64, tagBase64, dataBase64] = parts;
   const key = deriveKey(secret);

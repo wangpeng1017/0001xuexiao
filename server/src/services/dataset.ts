@@ -61,7 +61,7 @@ async function findDataset(
   id: string
 ): Promise<DatasetRow> {
   const row = await prisma.dataset.findUnique({ where: { id }, include: datasetInclude });
-  if (!row) throw new BizError(404, '数据集不存在');
+  if (!row) throw new BizError(404, '第三方数据不存在');
   return row;
 }
 
@@ -112,7 +112,7 @@ export async function editDataset(
   input: { id: string; name?: string; config?: unknown }
 ): Promise<void> {
   const row = await findDataset(prisma, input.id);
-  if (!canManage(user, row.ownerId)) throw new BizError(403, '无权限修改该数据集');
+  if (!canManage(user, row.ownerId)) throw new BizError(403, '无权限修改该第三方数据');
 
   const data: Prisma.DatasetUpdateInput = {};
   if (input.name !== undefined) data.name = input.name;
@@ -139,9 +139,9 @@ export async function deleteDatasets(
     where: { id: { in: uniqueIds } },
     select: { id: true, ownerId: true }
   });
-  if (rows.length === 0) throw new BizError(404, '数据集不存在');
+  if (rows.length === 0) throw new BizError(404, '第三方数据不存在');
   for (const row of rows) {
-    if (!canManage(user, row.ownerId)) throw new BizError(403, '无权限删除该数据集');
+    if (!canManage(user, row.ownerId)) throw new BizError(403, '无权限删除该第三方数据');
   }
   await prisma.dataset.deleteMany({ where: { id: { in: rows.map((row) => row.id) } } });
 }
@@ -183,7 +183,7 @@ export async function testDataset(
   let config: DatasetConfig;
   if (input.id) {
     const row = await findDataset(prisma, input.id);
-    if (!canManage(user, row.ownerId)) throw new BizError(403, '无权限测试该数据集');
+    if (!canManage(user, row.ownerId)) throw new BizError(403, '无权限测试该第三方数据');
     type = row.type;
     config = decryptJson<DatasetConfig>(row.config, jwtSecret);
   } else {
@@ -201,6 +201,6 @@ export async function resolveDatasetForOpen(
   id: string
 ): Promise<{ dataset: Dataset; config: DatasetConfig }> {
   const dataset = await prisma.dataset.findUnique({ where: { id } });
-  if (!dataset) throw new BizError(404, '数据集不存在');
+  if (!dataset) throw new BizError(404, '第三方数据不存在');
   return { dataset, config: decryptJson<DatasetConfig>(dataset.config, jwtSecret) };
 }

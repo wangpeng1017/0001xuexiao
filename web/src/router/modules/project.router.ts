@@ -88,7 +88,7 @@ const projectRoutes: RouteRecordRaw = {
       name: PageEnum.BASE_HOME_DATASET_NAME,
       component: importPath['PageEnum.BASE_HOME_DATASET_NAME'],
       meta: {
-        title: '数据集'
+        title: '第三方数据'
       }
     },
     {

@@ -4,7 +4,7 @@
   "content": {
     "editCanvasConfig": {
       "projectName": "教学数据统计",
-      "remarks": "教学数据统计：展示学生、课程、访问、下载等指标，以及年级成绩、部门完成率、学习方式和作业提交率。资源访问趋势图已设置为动态请求，绑定数据集后在此粘贴接口地址（requestUrl 当前为空）。",
+      "remarks": "教学数据统计：展示学生、课程、访问、下载等指标，以及年级成绩、部门完成率、学习方式和作业提交率。资源访问趋势图已设置为动态请求，绑定第三方数据后在此粘贴接口地址（requestUrl 当前为空）。",
       "width": 1920,
       "height": 1080,
       "filterShow": false,
@@ -2861,7 +2861,7 @@
         "option": {
           "link": "",
           "linkHead": "http://",
-          "dataset": "模板备注\n\n「资源访问趋势」已设置为动态请求，requestUrl 目前为空。\n绑定数据集后，在该图表的数据请求地址中粘贴接口地址即可。",
+          "dataset": "模板备注\n\n「资源访问趋势」已设置为动态请求，requestUrl 目前为空。\n绑定第三方数据后，在该图表的数据请求地址中粘贴接口地址即可。",
           "fontSize": 17,
           "fontColor": "#9fc7e2",
           "paddingX": 0,

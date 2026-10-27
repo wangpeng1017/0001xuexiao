@@ -81,20 +81,6 @@ export const menuOptionsInit = () => {
               RouterLink,
               {
                 to: {
-                  name: PageEnum.BASE_HOME_DATASET_NAME
-                }
-              },
-              { default: () => '数据集' }
-            ),
-          key: PageEnum.BASE_HOME_DATASET_NAME,
-          icon: renderIcon(TableSplitIcon)
-        },
-        {
-          label: () =>
-            h(
-              RouterLink,
-              {
-                to: {
                   name: PageEnum.BASE_HOME_DATAFILE_NAME
                 }
               },
@@ -102,6 +88,20 @@ export const menuOptionsInit = () => {
             ),
           key: PageEnum.BASE_HOME_DATAFILE_NAME,
           icon: renderIcon(ObjectStorageIcon)
+        },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  name: PageEnum.BASE_HOME_DATASET_NAME
+                }
+              },
+              { default: () => '第三方数据' }
+            ),
+          key: PageEnum.BASE_HOME_DATASET_NAME,
+          icon: renderIcon(TableSplitIcon)
         },
         {
           label: () =>

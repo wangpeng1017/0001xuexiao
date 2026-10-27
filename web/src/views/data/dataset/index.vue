@@ -4,12 +4,12 @@
       <template #header>
         <div class="page-header">
           <div>
-            <div class="page-title">数据集</div>
+            <div class="page-title">第三方数据</div>
             <div class="page-desc">
               接入学校物联网 RESTful 接口或 MySQL 业务库，供大屏组件通过“动态请求”轮询使用。
             </div>
           </div>
-          <n-button type="primary" @click="openCreate">新建数据集</n-button>
+          <n-button type="primary" @click="openCreate">新建第三方数据</n-button>
         </div>
       </template>
 
@@ -18,7 +18,7 @@
           <n-input
             v-model:value.trim="keyword"
             clearable
-            placeholder="搜索数据集名称"
+            placeholder="搜索第三方数据名称"
             style="width: 260px"
             @keyup.enter="handleSearch"
             @clear="handleSearch"
@@ -240,7 +240,7 @@ async function copyUrl(row: DatasetItem) {
 function confirmDelete(row: DatasetItem) {
   goDialog({
     type: DialogEnum.DELETE,
-    message: `确定删除数据集「${row.name}」吗？`,
+    message: `确定删除第三方数据「${row.name}」吗？`,
     promise: true,
     onPositiveCallback: () => datasetDeleteApi([row.id]),
     promiseResCallback: (res: any) => {

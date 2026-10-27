@@ -265,7 +265,7 @@ const providers: Record<DatasetType, DatasetProvider> = {
 
 export function getDatasetProvider(type: string): DatasetProvider {
   const provider = providers[type as DatasetType];
-  if (!provider) throw new BizError(400, '不支持的数据集类型');
+  if (!provider) throw new BizError(400, '不支持的第三方数据类型');
   return provider;
 }
 

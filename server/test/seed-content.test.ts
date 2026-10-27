@@ -200,7 +200,7 @@ describe('预置内容 F018', () => {
             component.request?.requestDataType === 1 && component.request?.requestUrl === ''
         );
         expect(dynamic).toBeTruthy();
-        expect(project.remarks ?? '').toContain('绑定数据集后在此粘贴接口地址');
+        expect(project.remarks ?? '').toContain('绑定第三方数据后在此粘贴接口地址');
       }
     }
 
