@@ -9,6 +9,11 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DATA="$ROOT/.local-test"
 PORT=3901
 
+# 传给 Node/Prisma 的路径要用原生格式：Windows 的 Git Bash 路径（/d/...）Node 会当成 D:\d\...
+native_path() {
+  if command -v cygpath >/dev/null 2>&1; then cygpath -m "$1"; else printf '%s' "$1"; fi
+}
+
 for arg in "$@"; do
   case "$arg" in
     --reset) rm -rf "$DATA"; echo "已清空测试数据" ;;
@@ -23,12 +28,14 @@ done
 mkdir -p "$DATA"
 if [ ! -f "$DATA/admin-password.txt" ]; then
   # 随机初始密码：8 位字母 + 2 位数字，满足密码强度要求
-  echo "Vis$(LC_ALL=C tr -dc 'a-z' </dev/urandom | head -c 5)$((RANDOM % 90 + 10))" > "$DATA/admin-password.txt"
+  # 用 Node 生成：避免 `tr | head` 在 pipefail 下被 SIGPIPE 杀掉
+  node -e "const c=require('crypto');let s='Vis';for(let i=0;i<5;i++)s+=String.fromCharCode(97+c.randomInt(26));console.log(s+c.randomInt(10,100))" > "$DATA/admin-password.txt"
 fi
-[ -f "$DATA/jwt-secret.txt" ] || LC_ALL=C tr -dc 'a-f0-9' </dev/urandom | head -c 64 > "$DATA/jwt-secret.txt"
+[ -f "$DATA/jwt-secret.txt" ] || node -e "process.stdout.write(require('crypto').randomBytes(32).toString('hex'))" > "$DATA/jwt-secret.txt"
 
-export DATA_DIR="$DATA" DATABASE_URL="file:$DATA/app.db" JWT_SECRET="$(cat "$DATA/jwt-secret.txt")" \
-  ADMIN_INIT_PASSWORD="$(cat "$DATA/admin-password.txt")" WEB_DIST="$ROOT/web/dist" PORT=$PORT NODE_ENV=production
+NATIVE_DATA="$(native_path "$DATA")"
+export DATA_DIR="$NATIVE_DATA" DATABASE_URL="file:$NATIVE_DATA/app.db" JWT_SECRET="$(cat "$DATA/jwt-secret.txt")" \
+  ADMIN_INIT_PASSWORD="$(cat "$DATA/admin-password.txt")" WEB_DIST="$(native_path "$ROOT/web/dist")" PORT=$PORT NODE_ENV=production
 
 (cd "$ROOT/server" && pnpm -s prisma db push --skip-generate >/dev/null && pnpm -s db:seed >/dev/null)
 
