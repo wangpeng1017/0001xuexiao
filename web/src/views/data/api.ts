@@ -5,7 +5,8 @@ import type {
   DatasetConfig,
   DatasetItem,
   DatasetType,
-  FormatsResult
+  FormatsResult,
+  LocalAnchor
 } from './types'
 
 export const datasetListApi = (params: object) =>
@@ -29,7 +30,7 @@ export const dataFileListApi = (params: object) =>
 export const dataFileDeleteApi = (ids: string[]) =>
   http(RequestHttpEnum.DELETE)('datafile/delete', { ids: ids.join(',') })
 
-export const dataFileRetryApi = (data: { id: string; srs?: string }) =>
+export const dataFileRetryApi = (data: { id: string; srs?: string; anchor?: LocalAnchor }) =>
   http(RequestHttpEnum.POST)('datafile/retry', data)
 
 export const dataFileFormatsApi = () =>
@@ -42,5 +43,8 @@ export const datafileUploadInitApi = (data: { fileName: string; size: number }) 
     uploadedChunks: number[]
   }>('datafile/upload/init', data)
 
-export const datafileUploadCompleteApi = (data: { uploadId: string; srs?: string }) =>
-  http(RequestHttpEnum.POST)<{ id: string }>('datafile/upload/complete', data)
+export const datafileUploadCompleteApi = (data: {
+  uploadId: string
+  srs?: string
+  anchor?: LocalAnchor
+}) => http(RequestHttpEnum.POST)<{ id: string }>('datafile/upload/complete', data)

@@ -9,12 +9,13 @@
     <div class="srs-modal">
       <p class="srs-file" v-if="fileName">{{ fileName }}</p>
       <p class="srs-tip">
-        LAS/LAZ 文件头中能读到坐标系时会自动使用；读不到时请在这里指定，否则转换会失败。
+        LAS/LAZ 文件头中能读到坐标系时会自动使用；读不到时请在这里指定，否则转换会失败。若点云本身是没有坐标系的局部米制坐标，请选择“局部/工程坐标”。
       </p>
       <n-radio-group v-model:value="mode">
-        <n-space>
+        <n-space :wrap="true">
           <n-radio value="preset">从预置列表选择</n-radio>
           <n-radio value="custom">自定义 EPSG</n-radio>
+          <n-radio value="local">局部/工程坐标（不重投影）</n-radio>
         </n-space>
       </n-radio-group>
       <n-select
@@ -25,12 +26,29 @@
         placeholder="选择坐标系"
       />
       <n-input
-        v-else
+        v-else-if="mode === 'custom'"
         v-model:value="customValue"
         placeholder="例如 EPSG:4547"
         @keyup.enter="handleConfirm"
       />
-      <p class="srs-note">预置为 CGCS2000 高斯-克吕格投影带，若数据为其他坐标系请选择自定义。</p>
+      <div v-else class="local-fields">
+        <label class="local-field">
+          <span class="local-label">经度</span>
+          <n-input-number v-model:value="lon" :min="-180" :max="180" placeholder="116.31" />
+        </label>
+        <label class="local-field">
+          <span class="local-label">纬度</span>
+          <n-input-number v-model:value="lat" :min="-90" :max="90" placeholder="40.00" />
+        </label>
+        <label class="local-field">
+          <span class="local-label">高度（米）</span>
+          <n-input-number v-model:value="height" placeholder="0" />
+        </label>
+      </div>
+      <p class="srs-note" v-if="mode === 'local'">
+        用于文件没有坐标系的点云，点云原点将放到该经纬度，X 轴向东、Y 轴向北、Z 轴向上。
+      </p>
+      <p class="srs-note" v-else>预置为 CGCS2000 高斯-克吕格投影带，若数据为其他坐标系请选择自定义。</p>
     </div>
     <template #footer>
       <n-space justify="end">
@@ -44,6 +62,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import type { SelectOption } from 'naive-ui'
+import { DEFAULT_LOCAL_ANCHOR, parseLocalAnchor, type LocalAnchor } from '../../types'
 
 const props = defineProps<{
   show: boolean
@@ -53,7 +72,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (event: 'update:show', value: boolean): void
-  (event: 'confirm', srs?: string): void
+  (event: 'confirm', srs?: string, anchor?: LocalAnchor): void
 }>()
 
 const visible = computed({
@@ -61,9 +80,12 @@ const visible = computed({
   set: (value: boolean) => emit('update:show', value)
 })
 
-const mode = ref<'preset' | 'custom'>('preset')
+const mode = ref<'preset' | 'custom' | 'local'>('preset')
 const presetValue = ref('auto')
 const customValue = ref('')
+const lon = ref<number | null>(DEFAULT_LOCAL_ANCHOR.lon)
+const lat = ref<number | null>(DEFAULT_LOCAL_ANCHOR.lat)
+const height = ref<number | null>(DEFAULT_LOCAL_ANCHOR.height)
 
 const threeDegree: SelectOption[] = Array.from({ length: 21 }, (_, index) => {
   const zone = 25 + index
@@ -104,6 +126,14 @@ watch(
   (show) => {
     if (!show) return
     const srs = props.defaultSrs || ''
+    const anchor = srs ? parseLocalAnchor(srs) : null
+    if (anchor) {
+      mode.value = 'local'
+      lon.value = anchor.lon
+      lat.value = anchor.lat
+      height.value = anchor.height
+      return
+    }
     if (!srs) {
       mode.value = 'preset'
       presetValue.value = 'auto'
@@ -123,6 +153,23 @@ watch(
 function handleConfirm() {
   if (mode.value === 'preset') {
     emit('confirm', presetValue.value === 'auto' ? undefined : presetValue.value)
+    visible.value = false
+    return
+  }
+  if (mode.value === 'local') {
+    if (lon.value === null || !Number.isFinite(lon.value) || lon.value < -180 || lon.value > 180) {
+      window['$message'].error('请输入 -180 到 180 之间的经度')
+      return
+    }
+    if (lat.value === null || !Number.isFinite(lat.value) || lat.value < -90 || lat.value > 90) {
+      window['$message'].error('请输入 -90 到 90 之间的纬度')
+      return
+    }
+    if (height.value === null || !Number.isFinite(height.value)) {
+      window['$message'].error('请输入有效的高度（米）')
+      return
+    }
+    emit('confirm', 'LOCAL', { lon: lon.value, lat: lat.value, height: height.value })
     visible.value = false
     return
   }
@@ -153,6 +200,21 @@ function handleConfirm() {
     color: #8a8f99;
     font-size: 12px;
     line-height: 1.6;
+  }
+  .local-fields {
+    display: flex;
+    gap: 8px;
+    .local-field {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .local-label {
+      color: #8a8f99;
+      font-size: 12px;
+    }
   }
 }
 </style>

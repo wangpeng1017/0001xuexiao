@@ -1,6 +1,7 @@
 import { rm } from 'node:fs/promises';
 import path from 'node:path';
 import { Prisma, type DataFile, type PrismaClient } from '@prisma/client';
+import { LOCAL_SRS } from '../lib/local-frame.js';
 import { BizError } from '../lib/resp.js';
 import type { AuthUser } from '../types.js';
 
@@ -72,6 +73,7 @@ export function isPointCloudFormat(originFormat: string): boolean {
 export function normalizeSrs(value?: string | null): string | undefined {
   const raw = value?.trim();
   if (!raw) return undefined;
+  if (raw.toUpperCase() === LOCAL_SRS) return LOCAL_SRS;
   const match = /^(?:EPSG:)?(\d{4,6})$/i.exec(raw);
   if (!match) throw new BizError(400, '坐标系格式应为 EPSG:编号');
   return `EPSG:${match[1]}`;

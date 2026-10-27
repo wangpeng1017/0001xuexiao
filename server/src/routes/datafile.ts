@@ -2,6 +2,7 @@ import type { FastifyPluginAsync } from 'fastify';
 import { z } from 'zod';
 import { CHUNK_SIZE, cleanupExpiredUploads, initUpload, saveUploadChunk } from '../lib/chunk-upload.js';
 import { geoTools } from '../lib/geo-tools.js';
+import { encodeLocalSrs, LOCAL_SRS, validateLocalAnchor } from '../lib/local-frame.js';
 import { BizError, ok } from '../lib/resp.js';
 import { parseInput } from '../lib/validate.js';
 import {
@@ -37,9 +38,26 @@ const chunkQuerySchema = z.object({
   index: z.coerce.number({ invalid_type_error: 'index 必须为数字' }).int('index 必须为整数').min(0)
 });
 
+const localAnchorSchema = z
+  .object({
+    lon: z
+      .number({ required_error: '经度不能为空', invalid_type_error: '经度必须为数字' })
+      .min(-180, '经度应在 -180 到 180 之间')
+      .max(180, '经度应在 -180 到 180 之间'),
+    lat: z
+      .number({ required_error: '纬度不能为空', invalid_type_error: '纬度必须为数字' })
+      .min(-90, '纬度应在 -90 到 90 之间')
+      .max(90, '纬度应在 -90 到 90 之间'),
+    height: z
+      .number({ required_error: '高度不能为空', invalid_type_error: '高度必须为数字' })
+      .finite('高度必须为有限数字')
+  })
+  .optional();
+
 const completeSchema = z.object({
   uploadId: z.string({ required_error: 'uploadId 不能为空' }).min(1, 'uploadId 不能为空'),
-  srs: z.string().max(64).optional()
+  srs: z.string().max(64).optional(),
+  anchor: localAnchorSchema
 });
 
 const idQuerySchema = z.object({
@@ -52,8 +70,15 @@ const deleteQuerySchema = z.object({
 
 const retrySchema = z.object({
   id: z.string({ required_error: 'id 不能为空' }).min(1, 'id 不能为空'),
-  srs: z.string().max(64).optional()
+  srs: z.string().max(64).optional(),
+  anchor: localAnchorSchema
 });
+
+function resolveStoredSrs(input: { srs?: string; anchor?: z.infer<typeof localAnchorSchema> }): string | undefined {
+  const srs = normalizeSrs(input.srs);
+  if (srs !== LOCAL_SRS) return srs;
+  return encodeLocalSrs(validateLocalAnchor(input.anchor));
+}
 
 function parseIds(raw: string): string[] {
   return [...new Set(raw.split(',').map((id) => id.trim()).filter(Boolean))];
@@ -115,7 +140,7 @@ const datafileRoutes: FastifyPluginAsync = async (fastify) => {
 
   fastify.post('/datafile/upload/complete', { config: { auth: ALL_ROLES } }, async (request) => {
     const input = parseInput(completeSchema, request.body);
-    const srs = normalizeSrs(input.srs);
+    const srs = resolveStoredSrs(input);
     const result = await completeUploadToDataFile(
       fastify.prisma,
       fastify.config.dataDir,
@@ -154,7 +179,7 @@ const datafileRoutes: FastifyPluginAsync = async (fastify) => {
 
   fastify.post('/datafile/retry', { config: { auth: ALL_ROLES } }, async (request) => {
     const input = parseInput(retrySchema, request.body);
-    const srs = normalizeSrs(input.srs);
+    const srs = resolveStoredSrs(input);
     await resetDataFileForRetry(fastify.prisma, request.currentUser!, input.id, srs);
     queue.enqueue(input.id);
     return ok({});

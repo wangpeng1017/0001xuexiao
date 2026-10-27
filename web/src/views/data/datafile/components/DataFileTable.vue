@@ -18,7 +18,7 @@ import { DialogEnum } from '@/enums/pluginEnum'
 import { ResultEnum } from '@/enums/httpEnum'
 import { goDialog } from '@/utils'
 import { dataFileDeleteApi } from '../../api'
-import { kindLabelMap, statusLabelMap, type DataFileItem } from '../../types'
+import { formatSrsLabel, kindLabelMap, statusLabelMap, type DataFileItem } from '../../types'
 
 defineProps<{
   items: DataFileItem[]
@@ -83,8 +83,9 @@ const columns: DataTableColumns<DataFileItem> = [
   {
     title: '坐标系',
     key: 'srs',
-    width: 110,
-    render: (row) => row.srs || '-'
+    width: 150,
+    ellipsis: { tooltip: true },
+    render: (row) => formatSrsLabel(row.srs)
   },
   {
     title: '创建时间',

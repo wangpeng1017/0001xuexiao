@@ -64,6 +64,31 @@ export interface FormatsResult {
   groups: FormatGroup[]
 }
 
+export interface LocalAnchor {
+  lon: number
+  lat: number
+  height: number
+}
+
+export const DEFAULT_LOCAL_ANCHOR: LocalAnchor = { lon: 116.31, lat: 40, height: 0 }
+
+export function parseLocalAnchor(srs: string): LocalAnchor | null {
+  const raw = srs.trim()
+  if (raw.toUpperCase() === 'LOCAL') return { ...DEFAULT_LOCAL_ANCHOR }
+  const match = /^LOCAL:([^,]+),([^,]+),([^,]+)$/i.exec(raw)
+  if (!match) return null
+  const [lon, lat, height] = match.slice(1).map(Number)
+  if (![lon, lat, height].every((value) => Number.isFinite(value))) return null
+  return { lon, lat, height }
+}
+
+export function formatSrsLabel(srs: string): string {
+  if (!srs) return '-'
+  const anchor = parseLocalAnchor(srs)
+  if (!anchor) return srs
+  return `局部坐标（${anchor.lon}, ${anchor.lat}, ${anchor.height}）`
+}
+
 export const kindLabelMap: Record<string, string> = {
   vector: '矢量',
   raster: '栅格',

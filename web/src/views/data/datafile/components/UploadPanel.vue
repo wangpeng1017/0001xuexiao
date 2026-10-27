@@ -54,6 +54,7 @@
 import { computed, ref } from 'vue'
 import { CloudUploadOutline } from '@vicons/ionicons5'
 import { uploadFileInChunks, formatSpeed } from '../../upload'
+import type { LocalAnchor } from '../../types'
 import SrsModal from './SrsModal.vue'
 
 const emit = defineEmits<{ (event: 'uploaded', id: string): void }>()
@@ -64,6 +65,7 @@ const currentFile = ref<File | null>(null)
 const pendingFile = ref<File | null>(null)
 const srsShow = ref(false)
 const selectedSrs = ref<string | undefined>(undefined)
+const selectedAnchor = ref<LocalAnchor | undefined>(undefined)
 const status = ref<'idle' | 'uploading' | 'success' | 'failed'>('idle')
 const percent = ref(0)
 const speed = ref(0)
@@ -118,16 +120,17 @@ function handleFile(file: File) {
   void startUpload(file, undefined)
 }
 
-function handleSrsConfirm(srs?: string) {
+function handleSrsConfirm(srs?: string, anchor?: LocalAnchor) {
   const file = pendingFile.value
   srsShow.value = false
   pendingFile.value = null
-  if (file) void startUpload(file, srs)
+  if (file) void startUpload(file, srs, anchor)
 }
 
-async function startUpload(file: File, srs: string | undefined) {
+async function startUpload(file: File, srs: string | undefined, anchor?: LocalAnchor) {
   currentFile.value = file
   selectedSrs.value = srs
+  selectedAnchor.value = anchor
   status.value = 'uploading'
   percent.value = 0
   speed.value = 0
@@ -135,6 +138,7 @@ async function startUpload(file: File, srs: string | undefined) {
   try {
     const id = await uploadFileInChunks(file, {
       srs,
+      anchor,
       onResumed: (uploadedChunks, totalChunks) => {
         statusMessage.value = `检测到未完成上传，从第 ${uploadedChunks + 1}/${totalChunks} 片继续`
       },
@@ -157,7 +161,7 @@ async function startUpload(file: File, srs: string | undefined) {
 }
 
 function retry() {
-  if (currentFile.value) void startUpload(currentFile.value, selectedSrs.value)
+  if (currentFile.value) void startUpload(currentFile.value, selectedSrs.value, selectedAnchor.value)
 }
 </script>
 

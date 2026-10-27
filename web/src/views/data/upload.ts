@@ -1,4 +1,5 @@
 import { useSystemStore } from '@/store/modules/systemStore/systemStore'
+import type { LocalAnchor } from './types'
 import { datafileUploadCompleteApi, datafileUploadInitApi } from './api'
 
 const CONCURRENCY = 3
@@ -11,6 +12,7 @@ export interface UploadProgress {
 
 export interface UploadOptions {
   srs?: string
+  anchor?: LocalAnchor
   onResumed?: (uploadedChunks: number, totalChunks: number) => void
   onProgress?: (progress: UploadProgress) => void
 }
@@ -123,7 +125,11 @@ export async function uploadFileInChunks(file: File, options: UploadOptions = {}
     throw error
   }
 
-  const completeResponse = await datafileUploadCompleteApi({ uploadId, srs: options.srs })
+  const completeResponse = await datafileUploadCompleteApi({
+    uploadId,
+    srs: options.srs,
+    anchor: options.anchor
+  })
   if (!completeResponse || completeResponse.code !== 200 || !completeResponse.data) {
     throw new Error(completeResponse?.msg || '合并文件失败')
   }

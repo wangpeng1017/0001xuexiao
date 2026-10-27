@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import type { GeoTools, RunResult } from '../src/lib/geo-tools.js';
+import { enuToEcefMatrix } from '../src/lib/local-frame.js';
 import { convertDataFile, type ConversionContext } from '../src/services/datafile-converters.js';
 import { dataFileDirectory } from '../src/services/datafile.js';
 import { createZip } from './zip-fixture.js';
@@ -100,6 +101,50 @@ describe('数据文件转换器注册表', () => {
     expect(output.kind).toBe('pointcloud');
     expect(output.outputUrl).toBe('/files/datafiles/pc/3dtiles/tileset.json');
     expect(calls[0]![2]).toBe('EPSG:4547');
+  });
+
+  it('LOCAL 局部坐标以 EPSG:4978 透传，并把 tileset 的 root.transform 改写到锚点', async () => {
+    const filePath = path.join(dataDir, 'local.las');
+    await writeFile(filePath, 'las');
+    const anchor = { lon: 116.31, lat: 40, height: 8 };
+    let srsIn = '';
+    const tools = makeTools({
+      py3dtiles: async (input, output, srs) => {
+        srsIn = srs ?? '';
+        await mkdir(output, { recursive: true });
+        await writeFile(
+          path.join(output, 'tileset.json'),
+          JSON.stringify({
+            asset: { version: '1.0' },
+            geometricError: 0,
+            root: {
+              boundingVolume: { box: [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1] },
+              transform: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+            }
+          })
+        );
+        return ok('py3dtiles', [input, output]);
+      }
+    });
+    const ctx: ConversionContext = {
+      ...context('pc-local', 'local.las', dataDir, tools, 'LOCAL'),
+      localAnchor: anchor
+    };
+    const output = await convertDataFile(ctx);
+    expect(output.kind).toBe('pointcloud');
+    expect(srsIn).toBe('EPSG:4978');
+
+    const tileset = JSON.parse(
+      await readFile(path.join(dataFileDirectory(dataDir, 'pc-local'), '3dtiles', 'tileset.json'), 'utf8')
+    );
+    expect(tileset.asset).toEqual({ version: '1.0' });
+    expect(tileset.geometricError).toBe(0);
+    expect(tileset.root.boundingVolume.box).toHaveLength(12);
+    const expected = enuToEcefMatrix(anchor);
+    expect(tileset.root.transform).toHaveLength(16);
+    tileset.root.transform.forEach((value: number, index: number) => {
+      expect(value).toBeCloseTo(expected[index]!, 6);
+    });
   });
 
   it('zip 中包含 tileset.json 时直接作为 3D Tiles 输出', async () => {

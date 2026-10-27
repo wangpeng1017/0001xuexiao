@@ -213,6 +213,18 @@ describe('数据文件上传与转换', () => {
     expect(lasFailed.errorMsg).toContain('请指定坐标系');
   });
 
+  it('局部坐标锚点超出范围时 complete 返回 400', async () => {
+    const response = await ctx.app.inject({
+      method: 'POST',
+      url: '/api/goview/datafile/upload/complete',
+      headers: authHeaders(aliceToken),
+      payload: { uploadId: 'missing', srs: 'LOCAL', anchor: { lon: 200, lat: 40, height: 0 } }
+    });
+    const body = envelope<unknown>(response);
+    expect(body.code).toBe(400);
+    expect(body.msg).toContain('经度');
+  });
+
   it('超过 24 小时的未完成上传会被清理', async () => {
     const init = envelope<{ uploadId: string }>(
       await ctx.app.inject({

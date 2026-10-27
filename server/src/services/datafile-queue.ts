@@ -1,5 +1,6 @@
 import type { PrismaClient } from '@prisma/client';
 import type { GeoTools } from '../lib/geo-tools.js';
+import { parseStoredSrs } from '../lib/local-frame.js';
 import { convertDataFile } from './datafile-converters.js';
 import { truncateError } from './datafile.js';
 
@@ -53,12 +54,14 @@ export function createDataFileQueue(
     };
 
     try {
+      const storedSrs = parseStoredSrs(file.srs);
       const output = await convertDataFile({
         id,
         filePath: file.storedPath,
         fileName: file.name,
         dataDir,
-        srs: file.srs ?? undefined,
+        srs: storedSrs.srs,
+        localAnchor: storedSrs.anchor,
         tools,
         onProgress,
         signal: abort.signal

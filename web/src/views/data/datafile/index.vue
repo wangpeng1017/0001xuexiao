@@ -71,7 +71,7 @@
 import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { ResultEnum } from '@/enums/httpEnum'
 import { dataFileListApi, dataFileRetryApi } from '../api'
-import { statusLabelMap, type DataFileItem } from '../types'
+import { statusLabelMap, type DataFileItem, type LocalAnchor } from '../types'
 import UploadPanel from './components/UploadPanel.vue'
 import DataFileTable from './components/DataFileTable.vue'
 import SrsModal from './components/SrsModal.vue'
@@ -141,13 +141,13 @@ function handleRetry(row: DataFileItem) {
   void doRetry(row.id)
 }
 
-function handleRetrySrs(srs?: string) {
+function handleRetrySrs(srs?: string, anchor?: LocalAnchor) {
   const target = retryTarget.value
-  if (target) void doRetry(target.id, srs)
+  if (target) void doRetry(target.id, srs, anchor)
 }
 
-async function doRetry(id: string, srs?: string) {
-  const res = await dataFileRetryApi({ id, srs })
+async function doRetry(id: string, srs?: string, anchor?: LocalAnchor) {
+  const res = await dataFileRetryApi({ id, srs, anchor })
   if (res && res.code === ResultEnum.SUCCESS) {
     window['$message'].success('已重新加入转换队列')
     fetchList()

@@ -1,6 +1,12 @@
-import { access, mkdir, readdir, rename, rm, stat } from 'node:fs/promises';
+import { access, mkdir, readdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { GeoTools, RunResult } from '../lib/geo-tools.js';
+import {
+  applyLocalAnchorTransform,
+  DEFAULT_LOCAL_ANCHOR,
+  LOCAL_SRS,
+  type LocalAnchor
+} from '../lib/local-frame.js';
 import { dataFileDirectory, type DataFileKind } from './datafile.js';
 import { readLasSrs } from './datafile-las.js';
 import {
@@ -18,6 +24,7 @@ export interface ConversionContext {
   fileName: string;
   dataDir: string;
   srs?: string;
+  localAnchor?: LocalAnchor;
   tools: GeoTools;
   onProgress: (percent: number) => void;
   signal?: AbortSignal;
@@ -105,12 +112,23 @@ function outDir(ctx: ConversionContext): string {
   return dataFileDirectory(ctx.dataDir, ctx.id);
 }
 
+async function applyLocalAnchor(tilesetPath: string, anchor: LocalAnchor): Promise<void> {
+  const tileset = JSON.parse(await readFile(tilesetPath, 'utf8')) as {
+    root?: { transform?: number[] };
+  };
+  if (!tileset.root) throw new Error('tileset.json 缺少 root 节点');
+  tileset.root.transform = applyLocalAnchorTransform(tileset.root.transform, anchor);
+  await writeFile(tilesetPath, JSON.stringify(tileset));
+}
+
 function pointCloudConverter(): DataConverter {
   return {
     kind: 'pointcloud',
     detect: async (ctx) => ['.las', '.laz'].includes(path.extname(ctx.fileName).toLowerCase()),
     convert: async (ctx) => {
-      const srs = ctx.srs || (await readLasSrs(ctx.filePath));
+      const localAnchor =
+        ctx.srs === LOCAL_SRS ? ctx.localAnchor ?? DEFAULT_LOCAL_ANCHOR : undefined;
+      const srs = localAnchor ? 'EPSG:4978' : ctx.srs || (await readLasSrs(ctx.filePath));
       if (!srs) throw new Error('LAS 文件头中未读取到坐标系，请指定坐标系后重试');
 
       const targetDir = path.join(outDir(ctx), '3dtiles');
@@ -123,9 +141,11 @@ function pointCloudConverter(): DataConverter {
         onProgress: (percent) => report(ctx, 5 + percent * 0.9)
       });
       if (result.code !== 0) throw failureMessage('py3dtiles', result);
-      if (!(await exists(path.join(targetDir, 'tileset.json')))) {
+      const tilesetPath = path.join(targetDir, 'tileset.json');
+      if (!(await exists(tilesetPath))) {
         throw new Error('py3dtiles 未生成 tileset.json');
       }
+      if (localAnchor) await applyLocalAnchor(tilesetPath, localAnchor);
       return { kind: 'pointcloud', outputUrl: `/files/datafiles/${ctx.id}/3dtiles/tileset.json` };
     }
   };
