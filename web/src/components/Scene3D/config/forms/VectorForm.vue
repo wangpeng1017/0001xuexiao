@@ -38,6 +38,13 @@
     <n-form-item label="点颜色">
       <n-color-picker v-model:value="draft.style.pointColor" size="small" :show-alpha="false" />
     </n-form-item>
+    <n-form-item label="拉伸成立体">
+      <n-switch v-model:value="draft.style.extrude" size="small" />
+      <n-text depth="3" class="extrude-hint">按要素的 height 属性（米）拉伸，仅对面要素有效</n-text>
+    </n-form-item>
+    <n-form-item v-if="draft.style.extrude" label="拉伸倍数">
+      <n-input-number v-model:value="draft.style.extrudeScale" size="small" :min="0.1" :max="20" :step="0.5" />
+    </n-form-item>
   </n-form>
 </template>
 
@@ -55,3 +62,10 @@ const handleSelect = (payload: { url: string; refId: string }) => {
   props.draft.source.refId = payload.refId
 }
 </script>
+
+<style scoped>
+.extrude-hint {
+  margin-left: 8px;
+  font-size: 12px;
+}
+</style>

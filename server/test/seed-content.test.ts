@@ -1,4 +1,13 @@
-import { existsSync, readdirSync } from 'node:fs';
+import {
+  cpSync,
+  existsSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync
+} from 'node:fs';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
@@ -66,8 +75,8 @@ describe('预置内容 F018', () => {
 
   it('导入 20 个素材和 3 个模板，落盘且替换全部占位符，重复执行幂等', async () => {
     const first = await importContent();
-    expect(first.materials).toEqual({ created: 20, skipped: 0 });
-    expect(first.templates).toEqual({ created: 3, skipped: 0 });
+    expect(first.materials).toEqual({ created: 20, updated: 0, skipped: 0 });
+    expect(first.templates).toEqual({ created: 3, updated: 0, skipped: 0 });
 
     const materials = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
     expect(materials).toHaveLength(20);
@@ -198,8 +207,8 @@ describe('预置内容 F018', () => {
     const materialIds = materials.map((material) => material.id).sort();
     const projectIds = projects.map((project) => project.id).sort();
     const second = await importContent();
-    expect(second.materials).toEqual({ created: 0, skipped: 20 });
-    expect(second.templates).toEqual({ created: 0, skipped: 3 });
+    expect(second.materials).toEqual({ created: 0, updated: 0, skipped: 20 });
+    expect(second.templates).toEqual({ created: 0, updated: 0, skipped: 3 });
     expect(
       (await ctx.app.prisma.material.findMany({ select: { id: true } }))
         .map((material) => material.id)
@@ -210,6 +219,52 @@ describe('预置内容 F018', () => {
         .map((project) => project.id)
         .sort()
     ).toEqual(projectIds);
+  });
+
+  it('种子内容变化后再次导入会原位更新，id 与地址不变，未变化的继续跳过', async () => {
+    const workDir = mkdtempSync(path.join(tmpdir(), 'seed-update-'));
+    const changedSeed = path.join(workDir, 'seed-content');
+    try {
+      cpSync(seedDir, changedSeed, { recursive: true });
+      const options = { dataDir: ctx.app.config.dataDir, seedDir: changedSeed };
+      await importSeedContent(ctx.app.prisma, admin, options);
+      const before = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
+      const beforeIds = await ctx.app.prisma.project.findMany({
+        where: { isTemplate: true },
+        select: { id: true }
+      });
+
+      const templatePath = path.join(changedSeed, 'templates', 'campus-3d.json');
+      const template = JSON.parse(readFileSync(templatePath, 'utf8')) as {
+        content: { editCanvasConfig: { remarks: string } };
+      };
+      template.content.editCanvasConfig.remarks = '已更新的备注';
+      writeFileSync(templatePath, JSON.stringify(template));
+      writeFileSync(path.join(changedSeed, 'maps', 'campus-roads.geojson'), '{"type":"FeatureCollection","features":[]}');
+
+      const result = await importSeedContent(ctx.app.prisma, admin, options);
+      expect(result.materials).toEqual({ created: 0, updated: 1, skipped: 19 });
+      expect(result.templates).toEqual({ created: 0, updated: 1, skipped: 2 });
+
+      const after = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
+      expect(after.map((m) => [m.id, m.url])).toEqual(before.map((m) => [m.id, m.url]));
+      const roads = after.find((material) => material.url.endsWith('data.geojson') && material.name.includes('道路'));
+      expect(roads).toBeTruthy();
+      const stored = readFileSync(
+        path.join(ctx.app.config.dataDir, 'files', 'materials', roads!.id, 'data.geojson'),
+        'utf8'
+      );
+      expect(stored).toContain('"features":[]');
+
+      const templates = await ctx.app.prisma.project.findMany({
+        where: { isTemplate: true },
+        select: { id: true, projectName: true, remarks: true }
+      });
+      expect(templates.map((item) => item.id).sort()).toEqual(beforeIds.map((item) => item.id).sort());
+      expect(templates.find((item) => item.projectName === '智慧校园三维总览')?.remarks).toBe('已更新的备注');
+    } finally {
+      rmSync(workDir, { recursive: true, force: true });
+    }
   });
 
   it('模板可通过 HTTP 接口列出并从模板新建项目', async () => {

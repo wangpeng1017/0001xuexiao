@@ -27,7 +27,7 @@ export const buildLayerCreateKey = (layer: SceneLayer) => {
         source.tileMatrixSet
       ].join('|')
     case 'vector':
-      return ['vector', source.url].join('|')
+      return ['vector', source.url, layer.style.extrude ? 'extrude' : 'ground'].join('|')
     case 'model':
       return ['model', source.format, source.url].join('|')
     case 'panorama':

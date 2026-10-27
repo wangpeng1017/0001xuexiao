@@ -2,10 +2,11 @@
 """生成场景模板封面示意图（PNG）。
 
 输出到 server/seed-content/templates/：
-  campus-3d.png / device-monitor.png / teaching-stats.png
+  device-monitor.png / teaching-stats.png
 
 封面为纯程序绘制的布局示意图（深色底 + 标题 + 色块），
 不依赖任何外部图片，可离线重复生成。
+campus-3d.png 是模板预览的真实截图（1280×720），不在这里生成。
 """
 
 from __future__ import annotations
@@ -133,18 +134,6 @@ def main() -> None:
     orange = (255, 159, 122)
     green = (81, 214, 169)
 
-    make_cover(
-        "campus-3d.png",
-        "智慧校园三维总览",
-        "CAMPUS 3D OVERVIEW",
-        [
-            ((40, 180, 320, 500), "楼宇能耗", blue),
-            ((960, 180, 1240, 500), "建筑类型", cyan),
-            ((360, 175, 920, 645), "三维场景 · 图层 / 模型 / 街景", green),
-            ((40, 540, 320, 660), "校园离线瓦片", cyan),
-            ((960, 540, 1240, 660), "360° 街景", gold),
-        ],
-    )
     make_cover(
         "device-monitor.png",
         "实训设备监控",

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Write the campus GeoJSON files and a small XYZ tile package (z=14..17).
 
-The tiles are drawn locally from the same geometry as the GeoJSON. No online
+The tiles are a dark base map (grid + roads) drawn locally from the same road
+geometry as the GeoJSON; buildings and POIs are left to the vector layers. No online
 map service and no administrative boundary data are involved.
 """
 
@@ -14,7 +15,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-from campus_data import BBOX, BUILDINGS, POIS, ROADS, write_geojson_files
+from campus_data import BBOX, ROADS, write_geojson_files
 
 SEED_ROOT = Path(__file__).resolve().parents[1]
 MAP_DIR = SEED_ROOT / "maps"
@@ -23,33 +24,18 @@ ZOOMS = (14, 15, 16, 17)
 CENTER_LAT = (BBOX[1] + BBOX[3]) / 2.0
 CENTER_LON = (BBOX[0] + BBOX[2]) / 2.0
 
-GRID_COLOR = (228, 234, 242)
-BG_COLOR = (244, 247, 250)
-ROAD_CASING = (208, 219, 230)
+GRID_COLOR = (16, 40, 66)
+BG_COLOR = (7, 19, 36)
+ROAD_CASING = (14, 52, 84)
 ROAD_FILL = {
-    "arterial": (250, 224, 178),
-    "secondary": (255, 255, 255),
-    "path": (237, 243, 248),
+    "arterial": (24, 78, 118),
+    "secondary": (18, 58, 92),
+    "path": (14, 44, 72),
 }
 ROAD_CENTER = {
-    "arterial": (225, 183, 111),
-    "secondary": (222, 229, 236),
-    "path": (215, 225, 234),
-}
-BUILDING_STYLE = {
-    "教学楼": ((168, 202, 232), (94, 133, 172)),
-    "宿舍": ((239, 202, 168), (176, 130, 88)),
-    "食堂": ((245, 214, 146), (187, 149, 79)),
-    "实验楼": ((181, 216, 197), (102, 148, 124)),
-    "体育馆": ((210, 190, 232), (135, 109, 169)),
-}
-POI_STYLE = {
-    "校门": (47, 111, 213),
-    "景观": (104, 153, 72),
-    "运动": (219, 139, 50),
-    "监控": (214, 74, 61),
-    "环境监测": (42, 154, 116),
-    "消防": (190, 60, 56),
+    "arterial": (52, 122, 168),
+    "secondary": (34, 90, 130),
+    "path": (26, 66, 98),
 }
 
 
@@ -88,25 +74,11 @@ def make_zoom_geometry(zoom: int):
                 "width": width_px,
             }
         )
-    buildings = []
-    for building in BUILDINGS:
-        points = [world_pixel(lon, lat, zoom) for lon, lat in building["coords"]]
-        buildings.append(
-            {
-                "points": points,
-                "type": building["type"],
-                "name": building["name"],
-            }
-        )
-    pois = []
-    for poi in POIS:
-        lon, lat = poi["coords"]
-        pois.append({"xy": world_pixel(lon, lat, zoom), "type": poi["type"]})
-    return roads, buildings, pois
+    return roads
 
 
 def draw_tile(zoom: int, tx: int, ty: int, geometry) -> Image.Image:
-    roads, buildings, pois = geometry
+    roads = geometry
     origin_x, origin_y = tx * TILE_SIZE, ty * TILE_SIZE
     image = Image.new("RGB", (TILE_SIZE, TILE_SIZE), BG_COLOR)
     draw = ImageDraw.Draw(image)
@@ -118,15 +90,6 @@ def draw_tile(zoom: int, tx: int, ty: int, geometry) -> Image.Image:
 
     def local(points):
         return [(x - origin_x, y - origin_y) for x, y in points]
-
-    # Building drop shadows.
-    shadow = Image.new("RGBA", (TILE_SIZE, TILE_SIZE), (0, 0, 0, 0))
-    shadow_draw = ImageDraw.Draw(shadow)
-    for building in buildings:
-        poly = [(x - origin_x + 2.5, y - origin_y + 3.5) for x, y in building["points"]]
-        shadow_draw.polygon(poly, fill=(23, 42, 58, 32))
-    image = Image.alpha_composite(image.convert("RGBA"), shadow)
-    draw = ImageDraw.Draw(image)
 
     # Roads: draw every casing first, then every fill so junctions connect.
     for road in sorted(roads, key=lambda item: item["width"]):
@@ -145,28 +108,6 @@ def draw_tile(zoom: int, tx: int, ty: int, geometry) -> Image.Image:
                 width=max(1, round(road["width"] * 0.08)),
                 joint="curve",
             )
-
-    # Buildings.
-    for building in buildings:
-        fill, outline = BUILDING_STYLE.get(building["type"], ((200, 207, 214), (120, 130, 140)))
-        points = local(building["points"])
-        draw.polygon(points, fill=fill, outline=outline)
-        if zoom >= 16:
-            draw.line(points + [points[0]], fill=outline, width=2, joint="curve")
-
-    # POI dots with a white halo.
-    radius = {14: 2.0, 15: 2.4, 16: 3.0, 17: 3.8}[zoom]
-    for poi in pois:
-        x, y = poi["xy"][0] - origin_x, poi["xy"][1] - origin_y
-        color = POI_STYLE.get(poi["type"], (76, 102, 128))
-        draw.ellipse(
-            [x - radius - 1.6, y - radius - 1.6, x + radius + 1.6, y + radius + 1.6],
-            fill=(255, 255, 255),
-        )
-        draw.ellipse([x - radius, y - radius, x + radius, y + radius], fill=color)
-        if zoom >= 17:
-            dot = max(1.0, radius * 0.32)
-            draw.ellipse([x - dot, y - dot, x + dot, y + dot], fill=(255, 255, 255))
 
     return image.convert("RGB")
 

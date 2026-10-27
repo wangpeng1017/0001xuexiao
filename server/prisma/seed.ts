@@ -61,10 +61,10 @@ async function main(): Promise<void> {
   const result = await importSeedContent(prisma, toAuthUser(admin), { dataDir });
 
   console.log(
-    `预置素材：新增 ${result.materials.created} 个，跳过 ${result.materials.skipped} 个（已存在）`
+    `预置素材：新增 ${result.materials.created} 个，更新 ${result.materials.updated} 个，跳过 ${result.materials.skipped} 个（内容未变）`
   );
   console.log(
-    `预置模板：新增 ${result.templates.created} 个，跳过 ${result.templates.skipped} 个（已存在）`
+    `预置模板：新增 ${result.templates.created} 个，更新 ${result.templates.updated} 个，跳过 ${result.templates.skipped} 个（内容未变）`
   );
 }
 

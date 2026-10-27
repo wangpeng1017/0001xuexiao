@@ -13,7 +13,14 @@
         <n-tab-pane v-for="tab in tabs" :key="tab.value" :name="tab.value" :tab="tab.label">
           <n-spin :show="loading">
             <div class="material-grid">
-              <n-card v-for="item in list" :key="item.id" size="small" hoverable class="material-card">
+              <n-card
+                v-for="item in list"
+                :key="item.id"
+                size="small"
+                hoverable
+                class="material-card"
+                @click="openDetail(item)"
+              >
                 <div class="material-thumb">
                   <n-image
                     v-if="item.thumb"
@@ -46,7 +53,7 @@
                       text
                       type="primary"
                       size="small"
-                      @click="copyUrl(item)"
+                      @click.stop="copyUrl(item)"
                     >
                       复制地址
                     </n-button>
@@ -56,7 +63,7 @@
                       text
                       type="error"
                       size="small"
-                      @click="confirmDelete(item)"
+                      @click.stop="confirmDelete(item)"
                     >
                       删除
                     </n-button>
@@ -85,6 +92,43 @@
         </n-tab-pane>
       </n-tabs>
     </n-card>
+
+    <n-modal v-model:show="detailShow" preset="card" title="素材详情" style="width: 560px">
+      <template v-if="detailItem">
+        <div class="detail-preview">
+          <n-image
+            v-if="detailItem.category === 'image2d' || detailItem.thumb"
+            object-fit="contain"
+            height="240"
+            :src="detailItem.category === 'image2d' ? detailItem.url : detailItem.thumb"
+            :fallback-src="requireErrorImg()"
+          />
+          <n-icon v-else size="48" depth="3">
+            <ImagesIcon />
+          </n-icon>
+        </div>
+        <n-descriptions :column="1" label-placement="left" size="small" class="detail-desc">
+          <n-descriptions-item label="名称">{{ detailItem.name }}</n-descriptions-item>
+          <n-descriptions-item label="类型">
+            {{ tabs.find(tab => tab.value === detailItem?.category)?.label }}
+          </n-descriptions-item>
+          <n-descriptions-item label="可见范围">
+            {{ detailItem.scope === 'public' ? '公共' : '私有' }}
+          </n-descriptions-item>
+          <n-descriptions-item label="上传人">{{ detailItem.createUserName }}</n-descriptions-item>
+          <n-descriptions-item label="上传时间">
+            {{ formatTime(detailItem.createTime) }}
+          </n-descriptions-item>
+          <n-descriptions-item label="素材地址">{{ detailItem.url }}</n-descriptions-item>
+        </n-descriptions>
+      </template>
+      <template #footer>
+        <n-space justify="end">
+          <n-button @click="detailShow = false">关闭</n-button>
+          <n-button type="primary" @click="detailItem && copyUrl(detailItem)">复制地址</n-button>
+        </n-space>
+      </template>
+    </n-modal>
 
     <n-modal v-model:show="uploadShow" preset="card" title="上传素材" style="width: 480px">
       <n-space vertical size="large">
@@ -156,6 +200,9 @@ const loading = ref(false)
 const list = ref<MaterialItem[]>([])
 const paginat = reactive({ page: 1, limit: 12, count: 0 })
 
+const detailShow = ref(false)
+const detailItem = ref<MaterialItem | null>(null)
+
 const uploadShow = ref(false)
 const uploading = ref(false)
 const uploadCategory = ref<MaterialCategory>('model')
@@ -226,6 +273,11 @@ const canDelete = (item: MaterialItem) => isAdmin || item.createUserName === own
 const copyUrl = async (item: MaterialItem) => {
   await copy(`${window.location.origin}${item.url}`)
   window['$message'].success('素材地址已复制')
+}
+
+const openDetail = (item: MaterialItem) => {
+  detailItem.value = item
+  detailShow.value = true
 }
 
 const openUpload = () => {
@@ -336,6 +388,24 @@ onMounted(fetchList)
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
   min-height: 160px;
+}
+
+.material-card {
+  cursor: pointer;
+}
+
+.detail-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  border-radius: 6px;
+  background: rgba(128, 128, 128, 0.08);
+}
+
+.detail-desc {
+  margin-top: 12px;
+  word-break: break-all;
 }
 
 .material-thumb {

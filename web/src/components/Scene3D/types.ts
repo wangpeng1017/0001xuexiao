@@ -59,6 +59,13 @@ export interface LayerStyle {
   pointColor?: string
   pointSize?: number
   colorBy?: 'rgb' | 'height'
+  /** 矢量面：按要素属性 height（米）拉伸成立体 */
+  extrude?: boolean
+  /** 拉伸高度倍数，默认 1；大场景里可放大以增强立体感 */
+  extrudeScale?: number
+  /** 矢量：按该属性值从 colorMap 取色，取不到时用默认颜色 */
+  colorField?: string
+  colorMap?: Record<string, string>
 }
 
 export interface SceneLayer {

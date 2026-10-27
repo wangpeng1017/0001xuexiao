@@ -1,5 +1,6 @@
+import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
-import { copyFile, mkdir, readFile, readdir } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { PrismaClient } from '@prisma/client';
@@ -41,11 +42,27 @@ export interface ImportSeedContentOptions {
 }
 
 export interface ImportSeedContentResult {
-  materials: { created: number; skipped: number };
-  templates: { created: number; skipped: number };
+  materials: { created: number; updated: number; skipped: number };
+  templates: { created: number; updated: number; skipped: number };
 }
 
 const MATERIAL_PLACEHOLDER = /\{\{material:([^}]+)\}\}/g;
+// 记录上次导入时的种子内容哈希：哈希一致就跳过，不一致才更新，管理员后来手改的内容不会被无谓覆盖
+const SEED_HASH_SUFFIX = '.seed-hash';
+
+function sha256(...parts: Array<Buffer | string>): string {
+  const hash = createHash('sha256');
+  for (const part of parts) hash.update(part);
+  return hash.digest('hex');
+}
+
+async function readStoredHash(file: string): Promise<string> {
+  try {
+    return (await readFile(file, 'utf8')).trim();
+  } catch {
+    return '';
+  }
+}
 const TEMPLATE_CATEGORY_ALIASES: Record<string, TemplateCategory> = {
   campus: 'campus',
   校园三维: 'campus',
@@ -144,39 +161,53 @@ async function importMaterials(
   admin: AuthUser,
   seedDir: string,
   dataDir: string
-): Promise<{ materials: Map<string, SeedMaterialRef>; created: number; skipped: number }> {
+): Promise<{
+  materials: Map<string, SeedMaterialRef>;
+  created: number;
+  updated: number;
+  skipped: number;
+}> {
   const manifest = await readManifest(seedDir);
   const materials = new Map<string, SeedMaterialRef>();
   let created = 0;
+  let updated = 0;
   let skipped = 0;
 
   for (const item of manifest.materials) {
+    const filePath = assertInside(
+      seedDir,
+      path.join(seedDir, item.file),
+      `预置素材路径越界：${item.file}`
+    );
+    const hash = sha256(await readFile(filePath));
     const existing = await prisma.material.findFirst({
       where: { name: item.name, scope: 'public', category: item.category },
       select: { id: true, url: true }
     });
-    if (existing) {
+    const hashFile = (id: string) =>
+      path.join(dataDir, 'files', 'materials', id, SEED_HASH_SUFFIX);
+
+    if (existing && (await readStoredHash(hashFile(existing.id))) === hash) {
       materials.set(item.file, { id: existing.id, url: existing.url });
       skipped += 1;
       continue;
     }
 
     const material = await createMaterialFromFile(prisma, admin, dataDir, {
-      filePath: assertInside(
-        seedDir,
-        path.join(seedDir, item.file),
-        `预置素材路径越界：${item.file}`
-      ),
+      filePath,
       fileName: path.basename(item.file),
       category: item.category,
       name: item.name,
-      scope: 'public'
+      scope: 'public',
+      replaceId: existing?.id
     });
+    await writeFile(hashFile(material.id), hash);
     materials.set(item.file, { id: material.id, url: material.url });
-    created += 1;
+    if (existing) updated += 1;
+    else created += 1;
   }
 
-  return { materials, created, skipped };
+  return { materials, created, updated, skipped };
 }
 
 function replaceMaterialPlaceholders(
@@ -270,24 +301,17 @@ async function importTemplates(
   seedDir: string,
   dataDir: string,
   materials: Map<string, SeedMaterialRef>
-): Promise<{ created: number; skipped: number }> {
+): Promise<{ created: number; updated: number; skipped: number }> {
   const templates = await readTemplates(path.join(seedDir, 'templates'));
   const materialIdByUrl = new Map(
     [...materials.values()].map((material) => [material.url, material.id] as const)
   );
+  const coversDir = path.join(dataDir, 'files', 'templates');
   let created = 0;
+  let updated = 0;
   let skipped = 0;
 
   for (const { fileName, data } of templates) {
-    const existing = await prisma.project.findFirst({
-      where: { projectName: data.name, isTemplate: true, deletedAt: null },
-      select: { id: true }
-    });
-    if (existing) {
-      skipped += 1;
-      continue;
-    }
-
     const baseName = path.basename(fileName, '.json');
     if (!/^[A-Za-z0-9._-]+$/.test(baseName)) {
       throw new BizError(500, `模板文件名不合法：${fileName}`);
@@ -299,6 +323,17 @@ async function importTemplates(
     );
     if (!existsSync(coverSource)) {
       throw new BizError(500, `模板 ${data.name} 缺少封面图 ${baseName}.png`);
+    }
+
+    const hash = sha256(JSON.stringify(data.content), await readFile(coverSource));
+    const hashFile = path.join(coversDir, `${baseName}${SEED_HASH_SUFFIX}`);
+    const existing = await prisma.project.findFirst({
+      where: { projectName: data.name, isTemplate: true, deletedAt: null },
+      select: { id: true }
+    });
+    if (existing && (await readStoredHash(hashFile)) === hash) {
+      skipped += 1;
+      continue;
     }
 
     const replaced = replaceMaterialPlaceholders(data.content, materials) as Record<
@@ -323,31 +358,41 @@ async function importTemplates(
     const remarks = typeof canvas.remarks === 'string' ? canvas.remarks : '';
     applySceneMaterialRefs(replaced, materialIdByUrl);
 
-    const coversDir = path.join(dataDir, 'files', 'templates');
     await mkdir(coversDir, { recursive: true });
     const coverName = `${baseName}.png`;
     await copyFile(coverSource, path.join(coversDir, coverName));
     const indexImage = `/files/templates/${encodeURIComponent(coverName)}`;
+    const templateCategory = normalizeTemplateCategory(data.category);
+    const content = JSON.stringify(replaced);
 
-    await prisma.project.create({
-      data: {
-        projectName: data.name,
-        remarks,
-        indexImage,
-        state: -1,
-        sortOrder: 0,
-        isTemplate: true,
-        templateCategory: normalizeTemplateCategory(data.category),
-        content: JSON.stringify(replaced),
-        version: 0,
-        ownerId: admin.id,
-        updatedById: admin.id
-      }
-    });
-    created += 1;
+    if (existing) {
+      await prisma.project.update({
+        where: { id: existing.id },
+        data: { remarks, indexImage, templateCategory, content, updatedById: admin.id }
+      });
+      updated += 1;
+    } else {
+      await prisma.project.create({
+        data: {
+          projectName: data.name,
+          remarks,
+          indexImage,
+          state: -1,
+          sortOrder: 0,
+          isTemplate: true,
+          templateCategory,
+          content,
+          version: 0,
+          ownerId: admin.id,
+          updatedById: admin.id
+        }
+      });
+      created += 1;
+    }
+    await writeFile(hashFile, hash);
   }
 
-  return { created, skipped };
+  return { created, updated, skipped };
 }
 
 export async function importSeedContent(
@@ -371,7 +416,11 @@ export async function importSeedContent(
   );
 
   return {
-    materials: { created: materialResult.created, skipped: materialResult.skipped },
+    materials: {
+      created: materialResult.created,
+      updated: materialResult.updated,
+      skipped: materialResult.skipped
+    },
     templates: templateResult
   };
 }

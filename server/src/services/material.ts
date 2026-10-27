@@ -258,16 +258,20 @@ export interface CreateMaterialFromFileInput {
   category: MaterialCategory;
   name: string;
   scope: MaterialScope;
+  /** 给出已有素材 id 时，原位重写其文件和地址，id 不变 */
+  replaceId?: string;
 }
 
 async function createMaterialFromBuffer(
   prisma: PrismaClient,
   user: AuthUser,
   dataDir: string,
-  input: UploadMaterialInput
+  input: UploadMaterialInput,
+  replaceId?: string
 ): Promise<MaterialItem> {
-  const id = randomUUID();
+  const id = replaceId ?? randomUUID();
   const targetDir = materialDir(dataDir, id);
+  if (replaceId) await rm(targetDir, { recursive: true, force: true });
   await mkdir(targetDir, { recursive: true });
 
   try {
@@ -283,18 +287,24 @@ async function createMaterialFromBuffer(
       thumb = result.thumb;
     }
 
-    const row = await prisma.material.create({
-      data: {
-        id,
-        category: input.category,
-        name: input.name,
-        url,
-        thumb,
-        scope: input.scope,
-        ownerId: user.id
-      },
-      include: materialInclude
-    });
+    const row = replaceId
+      ? await prisma.material.update({
+          where: { id },
+          data: { url, thumb },
+          include: materialInclude
+        })
+      : await prisma.material.create({
+          data: {
+            id,
+            category: input.category,
+            name: input.name,
+            url,
+            thumb,
+            scope: input.scope,
+            ownerId: user.id
+          },
+          include: materialInclude
+        });
     return toMaterialItem(row);
   } catch (error) {
     await rm(targetDir, { recursive: true, force: true });
@@ -320,13 +330,19 @@ export async function createMaterialFromFile(
   }
 
   const buffer = await readFile(input.filePath);
-  return createMaterialFromBuffer(prisma, user, dataDir, {
-    category: input.category,
-    name: input.name,
-    scope: input.scope,
-    filename: input.fileName,
-    buffer
-  });
+  return createMaterialFromBuffer(
+    prisma,
+    user,
+    dataDir,
+    {
+      category: input.category,
+      name: input.name,
+      scope: input.scope,
+      filename: input.fileName,
+      buffer
+    },
+    input.replaceId
+  );
 }
 
 export async function uploadMaterial(

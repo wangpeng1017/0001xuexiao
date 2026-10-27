@@ -14,7 +14,7 @@ export const renderMenuLabel = (option: MenuOption | MenuGroupOption) => {
   return option.label
 }
 
-export const expandedKeys = () => ['all-project']
+export const expandedKeys = () => ['all-project', 'data']
 
 export const menuOptionsInit = () => {
   const t = window['$t']
@@ -71,7 +71,7 @@ export const menuOptionsInit = () => {
       type: 'divider'
     },
     {
-      label: () => h('span', null, { default: () => '数据' }),
+      label: () => h('span', null, { default: () => '数据管理' }),
       key: 'data',
       icon: renderIcon(ChartPieIcon),
       children: [
@@ -127,45 +127,37 @@ export const menuOptionsInit = () => {
       type: 'divider'
     },
     {
-      label: () => h('span', null, { default: () => '协作与素材' }),
-      key: 'collaboration',
-      icon: renderIcon(LayersIcon),
-      children: [
-        ...(isAdmin || isTeacher
-          ? [
-              {
-                label: () =>
-                  h(
-                    RouterLink,
-                    {
-                      to: {
-                        name: PageEnum.BASE_HOME_TEAM_NAME
-                      }
-                    },
-                    { default: () => '团队管理' }
-                  ),
-                key: PageEnum.BASE_HOME_TEAM_NAME,
-                icon: renderIcon(ConstructIcon)
-              }
-            ]
-          : []),
-        {
-          label: () =>
-            h(
-              RouterLink,
-              {
-                to: {
-                  name: PageEnum.BASE_HOME_MATERIAL_NAME
-                }
-              },
-              { default: () => '素材库' }
-            ),
-          key: PageEnum.BASE_HOME_MATERIAL_NAME,
-          icon: renderIcon(AlbumsIcon)
-        }
-      ]
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: PageEnum.BASE_HOME_MATERIAL_NAME
+            }
+          },
+          { default: () => '素材库' }
+        ),
+      key: PageEnum.BASE_HOME_MATERIAL_NAME,
+      icon: renderIcon(LayersIcon)
     }
   )
+
+  if (isAdmin || isTeacher) {
+    menu.push({
+      label: () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: PageEnum.BASE_HOME_TEAM_NAME
+            }
+          },
+          { default: () => '团队管理' }
+        ),
+      key: PageEnum.BASE_HOME_TEAM_NAME,
+      icon: renderIcon(ConstructIcon)
+    })
+  }
 
   if (isAdmin) {
     menu.push(
