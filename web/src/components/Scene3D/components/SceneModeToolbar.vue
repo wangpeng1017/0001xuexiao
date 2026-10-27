@@ -1,21 +1,6 @@
 <template>
-  <div class="scene-mode-toolbar" @mousedown.stop @pointerdown.stop>
+  <div v-if="editable" class="scene-mode-toolbar" @mousedown.stop @pointerdown.stop>
     <button
-      v-for="item in modes"
-      :key="item.value"
-      type="button"
-      class="scene-mode-btn"
-      :class="{ active: mode === item.value }"
-      :disabled="disabled"
-      :title="item.title"
-      :data-testid="`scene-mode-${item.value}`"
-      @click.stop="emit('change', item.value)"
-    >
-      {{ item.label }}
-    </button>
-    <span class="scene-mode-divider"></span>
-    <button
-      v-if="editable"
       type="button"
       class="scene-mode-btn scene-interact-btn"
       :class="{ active: interactive }"
@@ -29,22 +14,12 @@
 </template>
 
 <script setup lang="ts">
-import { SceneMode } from '../types'
-
 defineProps<{
-  mode: SceneMode
-  disabled?: boolean
   editable?: boolean
   interactive?: boolean
 }>()
 
-const emit = defineEmits(['change', 'toggle-interactive'])
-
-const modes: Array<{ value: SceneMode; label: string; title: string }> = [
-  { value: '3D', label: '3D', title: '三维视图' },
-  { value: '2.5D', label: '2.5D', title: '哥伦布视图（2.5D）' },
-  { value: '2D', label: '2D', title: '二维视图' }
-]
+const emit = defineEmits(['toggle-interactive'])
 </script>
 
 <style lang="scss" scoped>
@@ -83,15 +58,6 @@ const modes: Array<{ value: SceneMode; label: string; title: string }> = [
   color: #07131f;
   background: #51d6a9;
   border-color: #51d6a9;
-}
-.scene-mode-btn:disabled {
-  cursor: wait;
-  opacity: 0.55;
-}
-.scene-mode-divider {
-  width: 1px;
-  height: 18px;
-  background: rgba(255, 255, 255, 0.18);
 }
 .scene-interact-btn {
   min-width: 62px;

@@ -24,6 +24,7 @@
       :bottom-bordered="option.style.bottomBordered === 'on'"
       :striped="option.style.striped === 'on'"
       :max-height="h"
+      :theme-overrides="themeOverrides"
       size="small"
       :columns="option.dataset.dimensions"
       :data="filterData"
@@ -70,6 +71,20 @@ const { w, h } = toRefs(props.chartConfig.attr)
 const option = reactive({
   dataset: props.chartConfig.option.dataset,
   style: props.chartConfig.option.style
+})
+
+// 透明底（科技风）：去掉默认的深色实心底，改为透明底 + 青色细线，适合叠在带面板边框的大屏上
+const themeOverrides = computed(() => {
+  if (option.style.transparent !== 'on') return undefined
+  return {
+    tdColor: 'transparent',
+    tdColorHover: 'rgba(79, 210, 221, 0.10)',
+    tdColorStriped: 'rgba(79, 210, 221, 0.06)',
+    thColor: 'rgba(79, 210, 221, 0.16)',
+    thTextColor: '#7fe7ff',
+    tdTextColor: '#cfeeff',
+    borderColor: 'rgba(79, 210, 221, 0.22)'
+  }
 })
 
 watch(

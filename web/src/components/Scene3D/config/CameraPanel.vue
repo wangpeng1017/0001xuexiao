@@ -13,6 +13,21 @@
     </div>
 
     <div class="camera-block">
+      <div class="block-title">初始模式</div>
+      <n-select
+        :value="optionData.sceneMode || '3D'"
+        size="small"
+        :options="[
+          { label: '3D 三维', value: '3D' },
+          { label: '2.5D 哥伦布', value: '2.5D' },
+          { label: '2D 二维', value: '2D' }
+        ]"
+        data-testid="scene-initial-mode"
+        @update:value="changeInitialMode"
+      />
+    </div>
+
+    <div class="camera-block">
       <div class="block-title">初始视角</div>
       <div class="camera-summary" data-testid="camera-summary">
         <span>经度 {{ camera.lon.toFixed(4) }}</span>
@@ -41,8 +56,7 @@
         回到初始视角
       </n-button>
       <div class="camera-tip">
-        调整视角：点击场景右上角“调整视角”，用鼠标旋转/缩放后再保存。初始模式随右上角
-        2D / 2.5D / 3D 切换自动保存。
+        调整视角：点击场景右上角“调整视角”，用鼠标旋转/缩放后再保存。预览与发布页不显示该按钮，直接用鼠标操作。
       </div>
     </div>
   </div>
@@ -72,6 +86,12 @@ const camera = computed(() => {
     roll: numberOr(raw.roll, DEFAULT_CAMERA.roll)
   }
 })
+
+const changeInitialMode = (mode: Scene3DOption['sceneMode']) => {
+  const controller = getSceneController(props.optionData)
+  if (controller && controller.isReady()) controller.setSceneMode(mode)
+  else props.optionData.sceneMode = mode
+}
 
 const captureCurrent = () => {
   const controller = getSceneController(props.optionData)

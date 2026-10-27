@@ -20,11 +20,8 @@
     ></div>
 
     <scene-mode-toolbar
-      :mode="currentMode"
-      :disabled="morphing"
       :editable="isEditor"
       :interactive="interactive"
-      @change="changeMode"
       @toggle-interactive="toggleInteractive"
     ></scene-mode-toolbar>
 

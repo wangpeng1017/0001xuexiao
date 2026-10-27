@@ -49,6 +49,9 @@
       <SettingItem name="斑马条纹" :alone="true">
         <n-select v-model:value="(optionData as any).style.striped" size="small" :options="stripedFlag" />
       </SettingItem>
+      <SettingItem name="透明底（科技风）" :alone="true">
+        <n-select v-model:value="(optionData as any).style.transparent" size="small" :options="transparentFlag" />
+      </SettingItem>
       <setting-item name="字体大小" :alone="true">
         <n-input-number
           v-model:value="optionData.style.fontSize"
@@ -109,6 +112,10 @@ const bottom_borderedFlag = [
 const stripedFlag = [
   { label: '显示', value: 'on' },
   { label: '不显示', value: 'off' }
+]
+const transparentFlag = [
+  { label: '开启', value: 'on' },
+  { label: '关闭', value: 'off' }
 ]
 const borderStyleFlag = [
   { label: '实线边框', value: 'solid' },

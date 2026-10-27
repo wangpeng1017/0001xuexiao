@@ -19,6 +19,7 @@ export const option = {
     singleLine: 'off',
     bottomBordered: 'on',
     striped: 'on',
+    transparent: 'off',
     fontSize: 16,
     borderWidth: 0,
     borderColor: 'black',
