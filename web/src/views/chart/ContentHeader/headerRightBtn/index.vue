@@ -71,7 +71,7 @@ const { BrowsersOutlineIcon, SendIcon, AnalyticsIcon, CloseIcon } = icon.ionicon
 const chartEditStore = useChartEditStore()
 
 const previewPathRef = ref(previewPath())
-const { copy, isSupported } = useClipboard({ source: previewPathRef })
+const { copy, isSupported } = useClipboard({ source: previewPathRef, legacy: true })
 
 const routerParamsInfo = useRoute()
 

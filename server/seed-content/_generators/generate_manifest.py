@@ -8,28 +8,32 @@ from pathlib import Path
 
 SEED_ROOT = Path(__file__).resolve().parents[1]
 
-ASSETS = [
+GENERATED_ASSETS = [
     {
         "file": "models/teaching-building.glb",
         "category": "model",
+        "thumb": "previews/teaching-building.png",
         "name": "教学楼模型",
         "description": "60m×20m×24m 组合体教学楼，含亮灯窗、入口雨棚与屋顶天线。",
     },
     {
         "file": "models/tree.glb",
         "category": "model",
+        "thumb": "previews/tree.png",
         "name": "景观树模型",
         "description": "8m 高三层圆锥树冠景观树，用于校园场景点缀。",
     },
     {
         "file": "models/signpost.glb",
         "category": "model",
+        "thumb": "previews/signpost.png",
         "name": "监控立杆模型",
         "description": "约 6m 高监控立杆，含摄像机、太阳能板与警示灯。",
     },
     {
         "file": "models/server-rack.glb",
         "category": "model",
+        "thumb": "previews/server-rack.png",
         "name": "服务器机柜模型",
         "description": "0.6m×1m×2m 实训室机柜，带服务器面板与状态指示灯。",
     },
@@ -132,11 +136,48 @@ ASSETS = [
 ]
 
 
+# 第三方 CC0 素材（Kenney Watercraft Kit 2.0，非脚本生成，文件随仓库提交，不会被 generate_all 重写）。
+# 每项自带预览图 previews/<同名>.png；许可证见 models/third-party/LICENSE-Kenney-CC0.txt。
+THIRD_PARTY_LICENSE = "models/third-party/LICENSE-Kenney-CC0.txt"
+_THIRD_PARTY_MODELS = [
+    ("ship-ocean-liner", "远洋客轮模型", "多层甲板远洋客轮。"),
+    ("ship-cargo-a", "货轮模型", "带货舱与驾驶楼的货轮。"),
+    ("ship-large", "大型舰船模型", "大型舰船。"),
+    ("ship-small", "小型船模型", "小型船只。"),
+    ("boat-tug-a", "拖轮模型", "港口拖轮。"),
+    ("boat-sail-a", "帆船模型", "单桅帆船。"),
+    ("boat-fishing-small", "渔船模型", "小型渔船。"),
+    ("boat-speed-a", "快艇模型", "高速快艇。"),
+    ("cargo-container-a", "集装箱模型", "标准集装箱。"),
+    ("buoy", "浮标模型", "航道浮标。"),
+]
+THIRD_PARTY_ASSETS = [
+    {
+        "file": f"models/third-party/{stem}.glb",
+        "category": "model",
+        "name": name,
+        "thumb": f"previews/{stem}.png",
+        "description": f"{desc}Kenney Watercraft Kit 2.0，CC0。",
+    }
+    for stem, name, desc in _THIRD_PARTY_MODELS
+]
+
+ASSETS = [
+    *({**asset, "source": "generated"} for asset in GENERATED_ASSETS),
+    *({**asset, "source": "third-party"} for asset in THIRD_PARTY_ASSETS),
+]
+
+
 def build_manifest() -> dict:
     return {
         "version": 1,
         "materials": [
-            {"file": asset["file"], "category": asset["category"], "name": asset["name"]}
+            {
+                "file": asset["file"],
+                "category": asset["category"],
+                "name": asset["name"],
+                **({"thumb": asset["thumb"]} if asset.get("thumb") else {}),
+            }
             for asset in ASSETS
         ],
     }

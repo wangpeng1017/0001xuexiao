@@ -18,6 +18,8 @@ interface SeedManifestItem {
   file: string;
   category: MaterialCategory;
   name: string;
+  /** 可选：预览图，相对 seed-content 的路径 */
+  thumb?: string;
 }
 
 interface SeedManifest {
@@ -146,14 +148,31 @@ async function readManifest(seedDir: string): Promise<SeedManifest> {
       throw new BizError(500, `预置素材清单存在重复文件：${item.file}`);
     }
     seen.add(item.file);
+    let thumb: string | undefined;
+    if (item.thumb !== undefined) {
+      if (typeof item.thumb !== 'string' || !item.thumb.trim()) {
+        throw new BizError(500, `预置素材预览图路径不合法：${item.file}`);
+      }
+      thumb = item.thumb;
+      assertInside(seedDir, path.join(seedDir, thumb), `预置素材预览图路径越界：${thumb}`);
+    }
     materials.push({
       file: item.file,
       category: item.category as MaterialCategory,
-      name: item.name
+      name: item.name,
+      ...(thumb ? { thumb } : {})
     });
   }
 
   return { version: raw.version, materials };
+}
+
+async function readThumb(thumbPath: string, name: string): Promise<Buffer> {
+  try {
+    return await readFile(thumbPath);
+  } catch {
+    throw new BizError(500, `预置素材 ${name} 的预览图不存在`);
+  }
 }
 
 async function importMaterials(
@@ -179,7 +198,14 @@ async function importMaterials(
       path.join(seedDir, item.file),
       `预置素材路径越界：${item.file}`
     );
-    const hash = sha256(await readFile(filePath));
+    const thumbPath = item.thumb
+      ? assertInside(seedDir, path.join(seedDir, item.thumb), `预置素材预览图路径越界：${item.thumb}`)
+      : '';
+    const thumbBuffer = thumbPath ? await readThumb(thumbPath, item.name) : null;
+    // 没有预览图的素材哈希与旧版一致，保证其行为完全不变
+    const hash = thumbBuffer
+      ? sha256(await readFile(filePath), thumbBuffer)
+      : sha256(await readFile(filePath));
     const existing = await prisma.material.findFirst({
       where: { name: item.name, scope: 'public', category: item.category },
       select: { id: true, url: true }
@@ -201,6 +227,15 @@ async function importMaterials(
       scope: 'public',
       replaceId: existing?.id
     });
+    if (thumbBuffer) {
+      // 注意：原位更新会清空素材目录，所以预览图必须在 createMaterialFromFile 之后再写
+      const thumbName = `thumb${path.extname(thumbPath).toLowerCase()}`;
+      await writeFile(path.join(dataDir, 'files', 'materials', material.id, thumbName), thumbBuffer);
+      await prisma.material.update({
+        where: { id: material.id },
+        data: { thumb: `/files/materials/${material.id}/${encodeURIComponent(thumbName)}` }
+      });
+    }
     await writeFile(hashFile(material.id), hash);
     materials.set(item.file, { id: material.id, url: material.url });
     if (existing) updated += 1;

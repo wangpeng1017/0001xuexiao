@@ -4,22 +4,26 @@
     {
       "file": "models/teaching-building.glb",
       "category": "model",
-      "name": "教学楼模型"
+      "name": "教学楼模型",
+      "thumb": "previews/teaching-building.png"
     },
     {
       "file": "models/tree.glb",
       "category": "model",
-      "name": "景观树模型"
+      "name": "景观树模型",
+      "thumb": "previews/tree.png"
     },
     {
       "file": "models/signpost.glb",
       "category": "model",
-      "name": "监控立杆模型"
+      "name": "监控立杆模型",
+      "thumb": "previews/signpost.png"
     },
     {
       "file": "models/server-rack.glb",
       "category": "model",
-      "name": "服务器机柜模型"
+      "name": "服务器机柜模型",
+      "thumb": "previews/server-rack.png"
     },
     {
       "file": "maps/campus-roads.geojson",
@@ -100,6 +104,66 @@
       "file": "images/panorama-demo.jpg",
       "category": "image2d",
       "name": "校园 360° 全景示例图"
+    },
+    {
+      "file": "models/third-party/ship-ocean-liner.glb",
+      "category": "model",
+      "name": "远洋客轮模型",
+      "thumb": "previews/ship-ocean-liner.png"
+    },
+    {
+      "file": "models/third-party/ship-cargo-a.glb",
+      "category": "model",
+      "name": "货轮模型",
+      "thumb": "previews/ship-cargo-a.png"
+    },
+    {
+      "file": "models/third-party/ship-large.glb",
+      "category": "model",
+      "name": "大型舰船模型",
+      "thumb": "previews/ship-large.png"
+    },
+    {
+      "file": "models/third-party/ship-small.glb",
+      "category": "model",
+      "name": "小型船模型",
+      "thumb": "previews/ship-small.png"
+    },
+    {
+      "file": "models/third-party/boat-tug-a.glb",
+      "category": "model",
+      "name": "拖轮模型",
+      "thumb": "previews/boat-tug-a.png"
+    },
+    {
+      "file": "models/third-party/boat-sail-a.glb",
+      "category": "model",
+      "name": "帆船模型",
+      "thumb": "previews/boat-sail-a.png"
+    },
+    {
+      "file": "models/third-party/boat-fishing-small.glb",
+      "category": "model",
+      "name": "渔船模型",
+      "thumb": "previews/boat-fishing-small.png"
+    },
+    {
+      "file": "models/third-party/boat-speed-a.glb",
+      "category": "model",
+      "name": "快艇模型",
+      "thumb": "previews/boat-speed-a.png"
+    },
+    {
+      "file": "models/third-party/cargo-container-a.glb",
+      "category": "model",
+      "name": "集装箱模型",
+      "thumb": "previews/cargo-container-a.png"
+    },
+    {
+      "file": "models/third-party/buoy.glb",
+      "category": "model",
+      "name": "浮标模型",
+      "thumb": "previews/buoy.png"
     }
   ]
 }

@@ -16,7 +16,7 @@ from xml.etree import ElementTree as ET
 import numpy as np
 from PIL import Image
 
-from generate_manifest import ASSETS, build_manifest
+from generate_manifest import ASSETS, THIRD_PARTY_LICENSE, build_manifest
 
 SEED_ROOT = Path(__file__).resolve().parents[1]
 SUMMARY_PATH = Path(__file__).resolve().parent / "SUMMARY.md"
@@ -248,7 +248,7 @@ def validate_models():
     }
     info = {}
     for asset in ASSETS:
-        if asset["category"] != "model":
+        if asset["category"] != "model" or asset["source"] != "generated":
             continue
         path = SEED_ROOT / asset["file"]
         require(path.exists(), f"missing model {asset['file']}")
@@ -265,6 +265,27 @@ def validate_models():
         metrics["size"] = (width, height, depth)
         metrics["note"] = spec.get("note", "")
         info[asset["file"]] = metrics
+    return info
+
+
+def validate_third_party():
+    """第三方 CC0 模型：文件存在、GLB 头合法、许可证随附、预览图存在且是 PNG。"""
+    require((SEED_ROOT / THIRD_PARTY_LICENSE).is_file(), f"missing license {THIRD_PARTY_LICENSE}")
+    info = {}
+    for asset in ASSETS:
+        if asset["source"] != "third-party":
+            continue
+        path = SEED_ROOT / asset["file"]
+        require(path.is_file(), f"missing third-party model {asset['file']}")
+        gltf, bin_data = parse_glb(path)
+        require(gltf.get("asset", {}).get("version") == "2.0", f"{path.name}: asset.version is not 2.0")
+        require(gltf.get("meshes"), f"{path.name}: no meshes")
+        thumb = SEED_ROOT / asset["thumb"]
+        require(thumb.is_file(), f"missing preview {asset['thumb']}")
+        with Image.open(thumb) as image:
+            require(image.format == "PNG", f"{asset['thumb']} is not a PNG")
+        info[asset["file"]] = {"bytes": path.stat().st_size}
+    require(info, "no third-party models registered")
     return info
 
 
@@ -444,7 +465,14 @@ def validate_manifest_and_size():
     require(len(materials) == len(ASSETS), "manifest material count mismatch")
     seen = set()
     for material in materials:
-        require(set(material) == {"file", "category", "name"}, f"unexpected manifest keys: {material}")
+        require(
+            set(material) in ({"file", "category", "name"}, {"file", "category", "name", "thumb"}),
+            f"unexpected manifest keys: {material}",
+        )
+        if "thumb" in material:
+            require((SEED_ROOT / material["thumb"]).is_file(), f"manifest thumb missing: {material['thumb']}")
+        if material["category"] == "model":
+            require("thumb" in material, f"model {material['file']} has no thumb")
         require(material["category"] in ALLOWED_CATEGORIES, f"bad category {material['category']}")
         require(material["file"] not in seen, f"duplicate manifest entry {material['file']}")
         seen.add(material["file"])
@@ -456,8 +484,16 @@ def validate_manifest_and_size():
         for folder in ("models", "maps", "images")
         for path in (SEED_ROOT / folder).rglob("*")
         if path.is_file()
-    }
+    } - {THIRD_PARTY_LICENSE}
     require(actual == seen, f"manifest mismatch; unlisted={sorted(actual - seen)}, missing={sorted(seen - actual)}")
+
+    thumbs = {m["thumb"] for m in materials if "thumb" in m}
+    actual_previews = {
+        str(path.relative_to(SEED_ROOT)).replace("\\", "/")
+        for path in (SEED_ROOT / "previews").rglob("*")
+        if path.is_file()
+    }
+    require(actual_previews == thumbs, f"previews mismatch; unlisted={sorted(actual_previews - thumbs)}, missing={sorted(thumbs - actual_previews)}")
 
     files = [path for path in SEED_ROOT.rglob("*") if path.is_file()]
     total = sum(path.stat().st_size for path in files)
@@ -465,7 +501,7 @@ def validate_manifest_and_size():
     return {"total_bytes": total, "file_count": len(files)}
 
 
-def write_summary(model_info, geojson_info, tile_info, image_info, size_info, checks, failures):
+def write_summary(model_info, third_info, geojson_info, tile_info, image_info, size_info, checks, failures):
     lines = []
     lines.append("# F018 预置素材生成摘要")
     lines.append("")
@@ -479,17 +515,22 @@ def write_summary(model_info, geojson_info, tile_info, image_info, size_info, ch
         f"共 {size_info['file_count']} 个文件，其中素材 {len(ASSETS)} 个。"
     )
     lines.append("")
-    lines.append("所有素材均由本地程序生成，未下载任何第三方素材，也无第三方版权。")
+    third_count = sum(1 for asset in ASSETS if asset["source"] == "third-party")
+    lines.append(
+        f"其中 {len(ASSETS) - third_count} 个由本地程序生成（无第三方版权）；"
+        f"{third_count} 个船舶/港口模型来自 Kenney Watercraft Kit 2.0（CC0 1.0，见 `{THIRD_PARTY_LICENSE}`）。"
+    )
     lines.append("")
     lines.append("## 一、素材清单")
     lines.append("")
-    lines.append("| 类别 | 文件 | 中文名称 | 体积 |")
-    lines.append("|---|---|---|---|")
+    lines.append("| 类别 | 来源 | 文件 | 中文名称 | 体积 |")
+    lines.append("|---|---|---|---|---|")
     category_label = {"model": "模型", "map": "地图", "image2d": "二维"}
     for asset in ASSETS:
         path = SEED_ROOT / asset["file"]
         lines.append(
-            f"| {category_label[asset['category']]} | `{asset['file']}` | {asset['name']} | "
+            f"| {category_label[asset['category']]} | {'程序生成' if asset['source'] == 'generated' else '第三方 CC0'} | "
+            f"`{asset['file']}` | {asset['name']} | "
             f"{human_size(path.stat().st_size)} |"
         )
     lines.append("")
@@ -506,6 +547,11 @@ def write_summary(model_info, geojson_info, tile_info, image_info, size_info, ch
     lines.append("")
     lines.append("校验内容：GLB 头与 chunk 长度、accessor min/max 与二进制数据一致、bufferView 边界/对齐、")
     lines.append("法线单位长度、索引越界、三角形绕序、材质 baseColorFactor、底面 y=0、尺寸范围，文件均 ≤2 MB。")
+    lines.append("")
+    lines.append(
+        f"第三方模型（{len(third_info)} 个）：已校验 GLB 头/版本、许可证文件、预览图 PNG 与 manifest 登记；"
+        "不套用程序生成模型的尺寸范围与 2 MB 限制。"
+    )
     lines.append("")
     lines.append("## 三、地图与离线瓦片")
     lines.append("")
@@ -577,12 +623,16 @@ def main():
             return None
 
     print("== GLB models ==")
-    model_info = run_check("GLB 模型结构与几何校验（4 个）", validate_models) or {}
+    model_info = run_check("GLB 模型结构与几何校验（程序生成 4 个）", validate_models) or {}
     for filename, info in model_info.items():
         print(
             f"[OK] {filename}: {human_size(info['bytes'])}, {info['vertices']} verts, "
             f"{info['triangles']} tris, bounds min={info['mins']} max={info['maxs']} ({info['reader']})"
         )
+
+    third_info = run_check("第三方 CC0 模型与许可证校验", validate_third_party) or {}
+    for filename, info in third_info.items():
+        print(f"[OK] {filename}: {human_size(info['bytes'])} (third-party CC0)")
 
     print("== GeoJSON ==")
     geojson_info = run_check("GeoJSON 结构与坐标范围校验（3 个）", validate_geojson) or {}
@@ -625,7 +675,7 @@ def main():
         print("\nAll checks passed.")
     if size_info:
         try:
-            write_summary(model_info, geojson_info, tile_info, image_info, size_info, checks, failures)
+            write_summary(model_info, third_info, geojson_info, tile_info, image_info, size_info, checks, failures)
             print(f"Summary written to {SUMMARY_PATH}")
         except Exception as exc:  # noqa: BLE001
             print(f"[FAIL] summary write: {exc}")

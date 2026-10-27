@@ -1,37 +1,47 @@
 # F018 预置素材生成摘要
 
-> 生成日期：2026-10-25 ｜ 生成脚本：`server/seed-content/_generators/generate_all.py`
+> 生成日期：2026-10-27 ｜ 生成脚本：`server/seed-content/_generators/generate_all.py`
 
 **结论：全部校验通过**
 
-总体积 **1.36 MB**（上限 40 MB），共 31 个文件，其中素材 20 个。
+总体积 **3.04 MB**（上限 40 MB），共 65 个文件，其中素材 30 个。
 
-所有素材均由本地程序生成，未下载任何第三方素材，也无第三方版权。
+其中 20 个由本地程序生成（无第三方版权）；10 个船舶/港口模型来自 Kenney Watercraft Kit 2.0（CC0 1.0，见 `models/third-party/LICENSE-Kenney-CC0.txt`）。
 
 ## 一、素材清单
 
-| 类别 | 文件 | 中文名称 | 体积 |
-|---|---|---|---|
-| 模型 | `models/teaching-building.glb` | 教学楼模型 | 199.8 KB |
-| 模型 | `models/tree.glb` | 景观树模型 | 13.5 KB |
-| 模型 | `models/signpost.glb` | 监控立杆模型 | 18.4 KB |
-| 模型 | `models/server-rack.glb` | 服务器机柜模型 | 88.8 KB |
-| 地图 | `maps/campus-roads.geojson` | 校园道路矢量 | 5.9 KB |
-| 地图 | `maps/campus-buildings.geojson` | 校园建筑轮廓矢量 | 8.5 KB |
-| 地图 | `maps/campus-poi.geojson` | 校园兴趣点矢量 | 4.3 KB |
-| 地图 | `maps/campus-tiles.zip` | 校园离线示意瓦片（z14–17） | 109.4 KB |
-| 二维 | `images/bg-tech-grid.jpg` | 科技网格大屏背景 | 158.1 KB |
-| 二维 | `images/bg-tech-aurora.jpg` | 极光粒子大屏背景 | 123.1 KB |
-| 二维 | `images/bg-tech-wave.jpg` | 数据波动大屏背景 | 182.5 KB |
-| 二维 | `images/title-decor-left.svg` | 标题栏左侧装饰 | 1.9 KB |
-| 二维 | `images/title-decor-right.svg` | 标题栏右侧装饰 | 2.0 KB |
-| 二维 | `images/border-corners.svg` | 大屏四角边框 | 2.2 KB |
-| 二维 | `images/border-panel.svg` | 面板科技边框 | 2.2 KB |
-| 二维 | `images/icon-camera.svg` | 摄像头图标 | 831 B |
-| 二维 | `images/icon-sensor.svg` | 传感器图标 | 808 B |
-| 二维 | `images/icon-server.svg` | 服务器图标 | 795 B |
-| 二维 | `images/icon-alarm.svg` | 告警图标 | 831 B |
-| 二维 | `images/panorama-demo.jpg` | 校园 360° 全景示例图 | 342.7 KB |
+| 类别 | 来源 | 文件 | 中文名称 | 体积 |
+|---|---|---|---|---|
+| 模型 | 程序生成 | `models/teaching-building.glb` | 教学楼模型 | 199.8 KB |
+| 模型 | 程序生成 | `models/tree.glb` | 景观树模型 | 13.5 KB |
+| 模型 | 程序生成 | `models/signpost.glb` | 监控立杆模型 | 18.4 KB |
+| 模型 | 程序生成 | `models/server-rack.glb` | 服务器机柜模型 | 88.8 KB |
+| 地图 | 程序生成 | `maps/campus-roads.geojson` | 校园道路矢量 | 5.6 KB |
+| 地图 | 程序生成 | `maps/campus-buildings.geojson` | 校园建筑轮廓矢量 | 8.0 KB |
+| 地图 | 程序生成 | `maps/campus-poi.geojson` | 校园兴趣点矢量 | 4.1 KB |
+| 地图 | 程序生成 | `maps/campus-tiles.zip` | 校园离线示意瓦片（z14–17） | 97.2 KB |
+| 二维 | 程序生成 | `images/bg-tech-grid.jpg` | 科技网格大屏背景 | 158.1 KB |
+| 二维 | 程序生成 | `images/bg-tech-aurora.jpg` | 极光粒子大屏背景 | 123.1 KB |
+| 二维 | 程序生成 | `images/bg-tech-wave.jpg` | 数据波动大屏背景 | 182.5 KB |
+| 二维 | 程序生成 | `images/title-decor-left.svg` | 标题栏左侧装饰 | 1.9 KB |
+| 二维 | 程序生成 | `images/title-decor-right.svg` | 标题栏右侧装饰 | 1.9 KB |
+| 二维 | 程序生成 | `images/border-corners.svg` | 大屏四角边框 | 2.1 KB |
+| 二维 | 程序生成 | `images/border-panel.svg` | 面板科技边框 | 2.2 KB |
+| 二维 | 程序生成 | `images/icon-camera.svg` | 摄像头图标 | 813 B |
+| 二维 | 程序生成 | `images/icon-sensor.svg` | 传感器图标 | 791 B |
+| 二维 | 程序生成 | `images/icon-server.svg` | 服务器图标 | 778 B |
+| 二维 | 程序生成 | `images/icon-alarm.svg` | 告警图标 | 815 B |
+| 二维 | 程序生成 | `images/panorama-demo.jpg` | 校园 360° 全景示例图 | 342.7 KB |
+| 模型 | 第三方 CC0 | `models/third-party/ship-ocean-liner.glb` | 远洋客轮模型 | 222.9 KB |
+| 模型 | 第三方 CC0 | `models/third-party/ship-cargo-a.glb` | 货轮模型 | 95.8 KB |
+| 模型 | 第三方 CC0 | `models/third-party/ship-large.glb` | 大型舰船模型 | 142.8 KB |
+| 模型 | 第三方 CC0 | `models/third-party/ship-small.glb` | 小型船模型 | 137.1 KB |
+| 模型 | 第三方 CC0 | `models/third-party/boat-tug-a.glb` | 拖轮模型 | 40.1 KB |
+| 模型 | 第三方 CC0 | `models/third-party/boat-sail-a.glb` | 帆船模型 | 34.4 KB |
+| 模型 | 第三方 CC0 | `models/third-party/boat-fishing-small.glb` | 渔船模型 | 22.4 KB |
+| 模型 | 第三方 CC0 | `models/third-party/boat-speed-a.glb` | 快艇模型 | 16.1 KB |
+| 模型 | 第三方 CC0 | `models/third-party/cargo-container-a.glb` | 集装箱模型 | 16.3 KB |
+| 模型 | 第三方 CC0 | `models/third-party/buoy.glb` | 浮标模型 | 11.8 KB |
 
 ## 二、GLB 模型
 
@@ -45,12 +55,14 @@
 校验内容：GLB 头与 chunk 长度、accessor min/max 与二进制数据一致、bufferView 边界/对齐、
 法线单位长度、索引越界、三角形绕序、材质 baseColorFactor、底面 y=0、尺寸范围，文件均 ≤2 MB。
 
+第三方模型（10 个）：已校验 GLB 头/版本、许可证文件、预览图 PNG 与 manifest 登记；不套用程序生成模型的尺寸范围与 2 MB 限制。
+
 ## 三、地图与离线瓦片
 
 - `maps/campus-roads.geojson`：10 个校园道路，坐标全部位于校园范围 116.30–116.32E / 39.99–40.01N。
 - `maps/campus-buildings.geojson`：12 个校园建筑轮廓，坐标全部位于校园范围 116.30–116.32E / 39.99–40.01N。
 - `maps/campus-poi.geojson`：16 个校园兴趣点，坐标全部位于校园范围 116.30–116.32E / 39.99–40.01N。
-- `maps/campus-tiles.zip`：210 张 256×256 PNG，压缩后 109.4 KB；各级瓦片数 z14=16、z15=25、z16=49、z17=120。
+- `maps/campus-tiles.zip`：210 张 256×256 PNG，压缩后 97.2 KB；各级瓦片数 z14=16、z15=25、z16=49、z17=120。
 - 已检查 zip CRC、XYZ 路径、z=14~17 覆盖范围和瓦片尺寸；不包含任何国界/省界/行政区划数据。
 
 ## 四、二维素材
@@ -70,7 +82,8 @@
 
 ## 五、校验明细
 
-- [通过] GLB 模型结构与几何校验（4 个）
+- [通过] GLB 模型结构与几何校验（程序生成 4 个）
+- [通过] 第三方 CC0 模型与许可证校验
 - [通过] GeoJSON 结构与坐标范围校验（3 个）
 - [通过] XYZ 瓦片包（z14–17）校验
 - [通过] 二维图片与 SVG 校验

@@ -2,7 +2,7 @@
 
 本目录是可视化平台的预置素材包，覆盖需求 R4 中的模型素材、地图素材和二维素材，用于离线演示与教学实训。
 
-**版权声明：本目录下所有素材（GLB、GeoJSON、XYZ 瓦片、JPG/PNG 图片、SVG）全部由本项目 `_generators` 目录内的 Python 脚本程序生成，没有从网络下载，也不包含任何第三方图片、模型、图标或字体素材，无第三方版权。** 素材随本项目一同分发，可自由用于本项目部署、教学演示和二次修改。
+**版权声明：本目录素材分两类。(1) 程序生成部分（4 个程序建模的 GLB、GeoJSON、XYZ 瓦片、JPG/PNG 图片、SVG、4 个模型的预览图）全部由 `_generators` 目录内的 Python 脚本生成，没有从网络下载，无第三方版权。(2) 第三方部分（`models/third-party/` 下 10 个船舶/港口模型及其预览图）来自 Kenney Watercraft Kit 2.0，许可证为 CC0 1.0（公共领域），详见下文“第三方素材（CC0）”。** 素材随本项目一同分发，可自由用于本项目部署、教学演示和二次修改。
 
 **地图合规声明：校园及其道路、建筑、兴趣点均为虚构，仅用于功能演示。素材不包含任何国界、省界、行政区划边界、真实测绘底图或在线地图截图，不得作为真实地理数据使用。**
 
@@ -10,13 +10,19 @@
 
 ```
 server/seed-content/
-├── manifest.json                  # 素材清单（version + file/category/name）
+├── manifest.json                  # 素材清单（version + file/category/name，模型另有 thumb）
 ├── README.md                      # 本文件
 ├── models/                        # glTF 2.0 二进制模型
 │   ├── teaching-building.glb
 │   ├── tree.glb
 │   ├── signpost.glb
-│   └── server-rack.glb
+│   ├── server-rack.glb
+│   └── third-party/               # 第三方 CC0 模型（Kenney Watercraft Kit 2.0）
+│       ├── LICENSE-Kenney-CC0.txt
+│       ├── ship-ocean-liner.glb ship-cargo-a.glb ship-large.glb ship-small.glb
+│       └── boat-tug-a.glb boat-sail-a.glb boat-fishing-small.glb boat-speed-a.glb
+│           cargo-container-a.glb buoy.glb
+├── previews/                      # 模型预览图（与 GLB 同名 png；前 4 个 360x270 程序渲染，第三方为 Kenney 原图）
 ├── maps/                          # 矢量与离线瓦片
 │   ├── campus-roads.geojson
 │   ├── campus-buildings.geojson
@@ -38,6 +44,7 @@ server/seed-content/
 └── _generators/                   # 生成、校验脚本与生成摘要
     ├── generate_all.py
     ├── generate_models.py
+    ├── generate_model_previews.py
     ├── generate_maps.py
     ├── generate_images.py
     ├── generate_manifest.py
@@ -60,7 +67,26 @@ server/seed-content/
 | `models/signpost.glb` | 监控立杆模型 | 约 6m 高，细圆柱立杆 + 顶部摄像机/太阳能板；用于监控点位和设备布设演示。 |
 | `models/server-rack.glb` | 服务器机柜模型 | 约 0.6m×1m×2m，含服务器面板和状态指示灯；用于实训室、机房场景。 |
 
-每个 GLB 均小于 2 MB。
+每个 GLB 均小于 2 MB。每个模型在 `manifest.json` 中带 `thumb` 字段（`previews/<同名>.png`），导入后成为素材卡片的预览图。
+
+### 1.1 第三方素材（CC0）
+
+| 文件 | 名称 |
+| --- | --- |
+| `models/third-party/ship-ocean-liner.glb` | 远洋客轮模型 |
+| `models/third-party/ship-cargo-a.glb` | 货轮模型 |
+| `models/third-party/ship-large.glb` | 大型舰船模型 |
+| `models/third-party/ship-small.glb` | 小型船模型 |
+| `models/third-party/boat-tug-a.glb` | 拖轮模型 |
+| `models/third-party/boat-sail-a.glb` | 帆船模型 |
+| `models/third-party/boat-fishing-small.glb` | 渔船模型 |
+| `models/third-party/boat-speed-a.glb` | 快艇模型 |
+| `models/third-party/cargo-container-a.glb` | 集装箱模型 |
+| `models/third-party/buoy.glb` | 浮标模型 |
+
+- 来源：Kenney Watercraft Kit 2.0，<https://kenney.nl/assets/watercraft-kit>，镜像 <https://opengameart.org/content/watercraft-kit>。
+- 许可证：CC0 1.0 公共领域，可用于个人、教育和商业用途，署名非必须；原文见 `models/third-party/LICENSE-Kenney-CC0.txt`。
+- 这些文件不是脚本生成的：`generate_all.py` 不会重写它们，`generate_manifest.py` 在 `THIRD_PARTY_ASSETS` 中登记，`verify_assets.py` 校验文件存在、GLB 头合法、许可证随附、预览图存在，并计入 40 MB 总体积上限。
 
 ### 2. 地图素材
 
@@ -100,12 +126,12 @@ SVG 均使用透明背景和标准矢量元素，不引用外部字体或图片�
 {
   "version": 1,
   "materials": [
-    { "file": "models/tree.glb", "category": "model|map|image2d", "name": "中文名称" }
+    { "file": "models/tree.glb", "category": "model|map|image2d", "name": "中文名称", "thumb": "previews/tree.png" }
   ]
 }
 ```
 
-`file` 为相对本目录的路径，统一使用 `/`。`category` 只有 `model`、`map`、`image2d` 三种。当前共 20 个素材。
+`file` 为相对本目录的路径，统一使用 `/`。`category` 只有 `model`、`map`、`image2d` 三种。`thumb` 可选，为相对本目录的预览图路径；导入时拷到素材目录并写入素材记录的 `thumb`（预览图内容计入内容哈希，改图后原位更新）。当前共 30 个素材（模型 14、地图 4、二维 12）。
 
 ## 使用建议
 
@@ -132,7 +158,7 @@ python -m pip install --user pillow numpy pygltflib
 python server/seed-content/_generators/generate_all.py
 ```
 
-`generate_all.py` 会依次生成模型、GeoJSON/瓦片、二维素材、`manifest.json`，最后运行校验并重写 `_generators/SUMMARY.md`。
+`generate_all.py` 会依次生成模型、4 个程序生成模型的预览图（`generate_model_previews.py`，纯 numpy + Pillow + pygltflib 等轴测平面着色）、GeoJSON/瓦片、二维素材、`manifest.json`，最后运行校验并重写 `_generators/SUMMARY.md`。
 
 只做校验：
 
@@ -140,4 +166,4 @@ python server/seed-content/_generators/generate_all.py
 python server/seed-content/_generators/verify_assets.py
 ```
 
-生成过程使用固定随机种子，输出可重复；不访问网络。校验覆盖 GLB 头/chunk/accessor min-max/法线/绕序、GeoJSON 结构、瓦片 ZIP、图片尺寸、全景接缝、SVG XML、清单完整性和 40 MB 总体积上限。
+生成过程使用固定随机种子，输出可重复；不访问网络。校验覆盖 GLB 头/chunk/accessor min-max/法线/绕序、GeoJSON 结构、瓦片 ZIP、图片尺寸、全景接缝、SVG XML、清单完整性（含第三方条目与预览图）和 40 MB 总体积上限。

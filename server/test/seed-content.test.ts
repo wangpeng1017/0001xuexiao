@@ -73,17 +73,28 @@ describe('预置内容 F018', () => {
     });
   }
 
-  it('导入 20 个素材和 3 个模板，落盘且替换全部占位符，重复执行幂等', async () => {
+  it('导入 30 个素材和 3 个模板，落盘且替换全部占位符，重复执行幂等', async () => {
     const first = await importContent();
-    expect(first.materials).toEqual({ created: 20, updated: 0, skipped: 0 });
+    expect(first.materials).toEqual({ created: 30, updated: 0, skipped: 0 });
     expect(first.templates).toEqual({ created: 3, updated: 0, skipped: 0 });
 
     const materials = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
-    expect(materials).toHaveLength(20);
+    expect(materials).toHaveLength(30);
     expect(materials.every((material) => material.scope === 'public')).toBe(true);
-    expect(materials.filter((material) => material.category === 'model')).toHaveLength(4);
+    expect(materials.filter((material) => material.category === 'model')).toHaveLength(14);
     expect(materials.filter((material) => material.category === 'map')).toHaveLength(4);
     expect(materials.filter((material) => material.category === 'image2d')).toHaveLength(12);
+
+    for (const material of materials.filter((item) => item.category === 'model')) {
+      expect(material.thumb, `模型缺少预览图：${material.name}`).toMatch(
+        /^\/files\/materials\/[^/]+\/thumb\.png$/
+      );
+      const thumbRelative = decodeURIComponent(material.thumb.replace(/^\/files\//, ''));
+      expect(
+        existsSync(path.join(ctx.app.config.dataDir, 'files', thumbRelative)),
+        `预览图未落盘：${material.name}`
+      ).toBe(true);
+    }
 
     for (const material of materials) {
       if (material.url.endsWith('/tiles/{z}/{x}/{y}.png')) {
@@ -207,7 +218,7 @@ describe('预置内容 F018', () => {
     const materialIds = materials.map((material) => material.id).sort();
     const projectIds = projects.map((project) => project.id).sort();
     const second = await importContent();
-    expect(second.materials).toEqual({ created: 0, updated: 0, skipped: 20 });
+    expect(second.materials).toEqual({ created: 0, updated: 0, skipped: 30 });
     expect(second.templates).toEqual({ created: 0, updated: 0, skipped: 3 });
     expect(
       (await ctx.app.prisma.material.findMany({ select: { id: true } }))
@@ -243,7 +254,7 @@ describe('预置内容 F018', () => {
       writeFileSync(path.join(changedSeed, 'maps', 'campus-roads.geojson'), '{"type":"FeatureCollection","features":[]}');
 
       const result = await importSeedContent(ctx.app.prisma, admin, options);
-      expect(result.materials).toEqual({ created: 0, updated: 1, skipped: 19 });
+      expect(result.materials).toEqual({ created: 0, updated: 1, skipped: 29 });
       expect(result.templates).toEqual({ created: 0, updated: 1, skipped: 2 });
 
       const after = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
@@ -262,6 +273,37 @@ describe('预置内容 F018', () => {
       });
       expect(templates.map((item) => item.id).sort()).toEqual(beforeIds.map((item) => item.id).sort());
       expect(templates.find((item) => item.projectName === '智慧校园三维总览')?.remarks).toBe('已更新的备注');
+    } finally {
+      rmSync(workDir, { recursive: true, force: true });
+    }
+  });
+
+  it('改动预览图后重新导入会原位更新，id 与预览图地址不变', async () => {
+    const workDir = mkdtempSync(path.join(tmpdir(), 'seed-thumb-'));
+    const changedSeed = path.join(workDir, 'seed-content');
+    try {
+      cpSync(seedDir, changedSeed, { recursive: true });
+      const options = { dataDir: ctx.app.config.dataDir, seedDir: changedSeed };
+      await importSeedContent(ctx.app.prisma, admin, options);
+      const before = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
+
+      const previewPath = path.join(changedSeed, 'previews', 'tree.png');
+      const original = readFileSync(previewPath);
+      const changed = Buffer.concat([original, Buffer.from('changed')]);
+      writeFileSync(previewPath, changed);
+
+      const result = await importSeedContent(ctx.app.prisma, admin, options);
+      expect(result.materials).toEqual({ created: 0, updated: 1, skipped: 29 });
+
+      const after = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
+      expect(after.map((m) => [m.id, m.url, m.thumb])).toEqual(
+        before.map((m) => [m.id, m.url, m.thumb])
+      );
+      const tree = after.find((material) => material.name === '景观树模型')!;
+      const stored = readFileSync(
+        path.join(ctx.app.config.dataDir, 'files', 'materials', tree.id, 'thumb.png')
+      );
+      expect(stored.equals(changed)).toBe(true);
     } finally {
       rmSync(workDir, { recursive: true, force: true });
     }
