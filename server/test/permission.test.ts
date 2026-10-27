@@ -178,6 +178,23 @@ describe('项目越权控制', () => {
     });
     expect(readJson<unknown>(publishByA).code).toBe(200);
 
+    for (const emptyContent of ['', '{}', JSON.stringify({ componentList: [] })]) {
+      await ctx.app.prisma.project.update({ where: { id: projectId }, data: { content: emptyContent, state: -1 } });
+      const emptyPublish = readJson<unknown>(
+        await ctx.app.inject({
+          method: 'PUT',
+          url: '/api/goview/project/publish',
+          headers: authHeaders(studentAToken),
+          payload: { id: projectId, state: 1 }
+        })
+      );
+      expect(emptyPublish).toMatchObject({ code: 400 });
+    }
+    await ctx.app.prisma.project.update({
+      where: { id: projectId },
+      data: { content: JSON.stringify({ owner: 'student_a' }), state: 1 }
+    });
+
     const publishedForB = await ctx.app.inject({
       method: 'GET',
       url: `/api/goview/project/getData?projectId=${encodeURIComponent(projectId)}`,

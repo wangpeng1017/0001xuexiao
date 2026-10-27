@@ -337,11 +337,28 @@ export async function setProjectState(
   state: 1 | -1
 ): Promise<void> {
   const project = await findWritableProject(prisma, user, projectId);
+  if (state === 1 && isEmptyProjectContent(project.content)) {
+    throw new BizError(400, '项目还没有内容，请先在编辑器里添加组件并保存，再发布');
+  }
 
   await prisma.project.update({
     where: { id: project.id },
     data: { state, updatedById: user.id }
   });
+}
+
+// 从未保存过（空串、{}）或画布上没有任何组件的项目，发布出来只会是黑屏
+function isEmptyProjectContent(content: string): boolean {
+  if (!content.trim()) return true;
+  try {
+    const data: unknown = JSON.parse(content);
+    if (typeof data !== 'object' || data === null) return false;
+    const record = data as Record<string, unknown>;
+    if (Object.keys(record).length === 0) return true;
+    return Array.isArray(record.componentList) && record.componentList.length === 0;
+  } catch {
+    return false;
+  }
 }
 
 export async function copyProject(

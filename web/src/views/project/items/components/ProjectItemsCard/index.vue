@@ -13,7 +13,12 @@
         </div>
         <!-- 中间 -->
         <div class="list-content-img" @click="resizeHandle">
+          <div v-if="!cardData.image" class="list-content-empty">
+            <n-text depth="3">暂无封面</n-text>
+            <n-text depth="3" class="list-content-empty-tip">在编辑器里保存后自动生成</n-text>
+          </div>
           <n-image
+            v-else
             object-fit="contain"
             height="180"
             preview-disabled
@@ -261,6 +266,15 @@ $contentHeight: 180px;
       top: 10px;
       left: 10px;
       height: 22px;
+    }
+    &-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    &-empty-tip {
+      font-size: 12px;
     }
     &-img {
       height: $contentHeight;
