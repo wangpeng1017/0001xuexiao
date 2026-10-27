@@ -98,7 +98,7 @@ ProjectItem：
 | POST `project/save/data` | `projectId, content`（**同时支持** `application/x-www-form-urlencoded` 和 `multipart/form-data`；content 最大 50MB） | 保存大屏 JSON |
 | POST `project/edit` | `{ id, projectName?, indexImage?, remarks? }` | 重命名也走这个接口；projectName 1~50 字 |
 | DELETE `project/delete` | query `ids`（逗号分隔） | 逻辑删除 |
-| PUT `project/publish` | `{ id, state }` | 1 发布 / -1 取消发布 |
+| PUT `project/publish` | `{ id, state }` | 1 发布 / -1 取消发布；内容为空（空串、`{}`、`componentList` 为空数组）的项目发布时返回 400“项目还没有内容，请先在编辑器里添加组件并保存，再发布” |
 | POST `project/upload` | multipart 字段 `object` | 只允许图片（png/jpg/jpeg/gif/svg/webp），≤10MB；data `{ fileName, fileurl }`，fileurl 形如 `/files/uploads/202610/<uuid>.png` |
 | POST `project/copy` **（新增）** | `{ id }` | 复制出“原名-副本”，未发布，排在最前；data `{ id }` |
 | PUT `project/sort` **（新增）** | `{ ids: string[] }` | 按数组顺序重写这些项目的 sortOrder（只处理当前用户有权限的项目） |

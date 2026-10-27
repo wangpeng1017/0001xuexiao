@@ -53,11 +53,11 @@ DataFile 对象：
 |---|---|---|
 | POST `datafile/upload/init` `{ fileName, size }` | 登录用户 | data `{ uploadId, chunkSize, uploadedChunks: number[] }`；同一用户、同名、同大小的未完成上传会复用 uploadId（断点续传）；chunkSize 固定 8MB |
 | PUT `datafile/upload/chunk?uploadId=&index=` | 登录用户 | body 为 `application/octet-stream` 原始字节；单片 ≤ 8MB |
-| POST `datafile/upload/complete` `{ uploadId, srs? }` | 登录用户 | 合并分片 → 入队转换；data `{ id }` |
+| POST `datafile/upload/complete` `{ uploadId, srs?, anchor? }` | 登录用户 | 合并分片 → 入队转换；data `{ id }`。`srs` 取 `"LOCAL"` 表示局部/工程坐标（无地理参考的点云），此时 `anchor: { lon, lat, height }` 为点云局部原点放置的位置（缺省 116.31 / 40 / 0；经度 -180~180、纬度 -90~90，越界返回 400），转换后把该点 ENU→ECEF 变换叠加进 `tileset.json` 的 `root.transform`；库里 srs 字段存为 `LOCAL:lon,lat,height` |
 | GET `datafile/list?page&limit&kind&status&keyword` | 登录用户 | 本人的 + admin 看全部；data 为 DataFile 数组 + count |
 | GET `datafile/detail?id=` | 登录用户 | 单个 DataFile |
 | DELETE `datafile/delete?ids=` | 创建者或 admin | 同时删除磁盘文件 |
-| POST `datafile/retry` `{ id, srs? }` | 创建者或 admin | 失败的任务重新转换 |
+| POST `datafile/retry` `{ id, srs?, anchor? }` | 创建者或 admin | 失败的任务重新转换；`srs`/`anchor` 含义同上 |
 | GET `datafile/formats` | 登录用户 | data `{ total, groups: [{ name: "栅格"|"矢量"|"三维/点云", items: [{ code, name }] }] }` |
 
 ## 3. 数据集（M3）
