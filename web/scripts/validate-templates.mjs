@@ -35,6 +35,7 @@ const TEMPLATE_CATEGORIES = ['campus', 'device', 'data', 'other'];
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const manifestFiles = new Set((manifest.materials || []).map((item) => item.file));
+const manifestDataFiles = new Set((manifest.datafiles || []).map((item) => item.dir));
 
 function checkComponents(template, fileName) {
   const content = template.content;
@@ -291,6 +292,52 @@ function checkPlaceholders(raw, fileName) {
     }
   }
   if (count === 0) fail(`${fileName}: 未使用任何素材占位符`);
+  for (const match of raw.matchAll(/\{\{datafile:([^}]+)\}\}/g)) {
+    if (!manifestDataFiles.has(match[1].trim())) {
+      fail(`${fileName}: 占位符引用了 manifest 中不存在的数据文件 ${match[1].trim()}`);
+    }
+  }
+}
+
+// 三维铺满画布的模板：三维在最底层，叠加组件不得遮挡画布中央，保证鼠标能直接缩放、拖动三维
+const CENTER_FREE_ZONE = { x: 560, y: 240, w: 800, h: 520 };
+const intersects = (a, b) => a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+
+function checkFullCanvasScene(fileName, template, components) {
+  const { width, height } = template.content.editCanvasConfig;
+  const scene = components.find(
+    (component) =>
+      component.chartConfig?.key === 'Scene3D' &&
+      component.attr.x === 0 && component.attr.y === 0 &&
+      component.attr.w === width && component.attr.h === height
+  );
+  if (!scene) return false;
+  const minZ = Math.min(...components.map((component) => component.attr.zIndex));
+  if (scene.attr.zIndex !== minZ) fail(`${fileName}: 铺满画布的三维场景必须在最底层`);
+  for (const component of components) {
+    if (component === scene) continue;
+    if (intersects(component.attr, CENTER_FREE_ZONE)) {
+      fail(`${fileName}: 组件 ${component.id} 遮挡了画布中央，三维无法直接用鼠标操作`);
+    }
+  }
+  return true;
+}
+
+function checkShipTemplate(fileName, template, components) {
+  if (!checkFullCanvasScene(fileName, template, components)) {
+    fail(`${fileName}: 三维场景必须铺满整块画布`);
+    return;
+  }
+  const scene = components.find((component) => component.chartConfig?.key === 'Scene3D');
+  const layers = scene.option.layerSets.flatMap((set) => set.layers);
+  const cloud = layers.find(
+    (layer) => layer.type === 'model' && layer.source.from === 'datafile' && layer.source.format === '3dtiles'
+  );
+  if (!cloud || !/^\{\{datafile:[^}]+\}\}$/.test(cloud.source.url)) {
+    fail(`${fileName}: 缺少引用预置数据文件的点云 3D Tiles 图层`);
+  }
+  if (countKey(components, 'BarCommon') + countKey(components, 'BarLine') < 2) fail(`${fileName}: 至少需要 2 个柱状图`);
+  if (countKey(components, 'LineCommon') < 1) fail(`${fileName}: 缺少折线图`);
 }
 
 function checkCampusTemplate(fileName, template, components) {
@@ -370,7 +417,7 @@ function checkTeachingTemplate(fileName, template, components) {
   );
   if (!dynamic) fail(`${fileName}: 缺少 requestUrl 为空的动态请求图表`);
   const remarks = template.content.editCanvasConfig?.remarks || '';
-  if (!remarks.includes('绑定数据集后在此粘贴接口地址')) {
+  if (!remarks.includes('绑定第三方数据后在此粘贴接口地址')) {
     fail(`${fileName}: 项目备注缺少动态接口说明`);
   }
 }
@@ -379,8 +426,8 @@ function main() {
   const jsonFiles = readdirSync(templatesDir)
     .filter((name) => name.toLowerCase().endsWith('.json'))
     .sort();
-  if (jsonFiles.length !== 3) {
-    fail(`模板数量应为 3，实际为 ${jsonFiles.length}`);
+  if (jsonFiles.length < 3) {
+    fail(`模板数量至少为 3，实际为 ${jsonFiles.length}`);
   }
 
   const templates = [];
@@ -410,6 +457,8 @@ function main() {
     if (fileName === 'campus-3d.json') checkCampusTemplate(fileName, template, components);
     if (fileName === 'device-monitor.json') checkDeviceTemplate(fileName, template, components);
     if (fileName === 'teaching-stats.json') checkTeachingTemplate(fileName, template, components);
+    if (fileName === 'ship-twin.json') checkShipTemplate(fileName, template, components);
+    else checkFullCanvasScene(fileName, template, components);
     templates.push(template);
   }
 

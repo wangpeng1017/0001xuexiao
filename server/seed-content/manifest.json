@@ -165,5 +165,12 @@
       "name": "浮标模型",
       "thumb": "previews/buoy.png"
     }
+  ],
+  "datafiles": [
+    {
+      "dir": "datafiles/ship-pointcloud",
+      "name": "船舶点云",
+      "kind": "tiles3d"
+    }
   ]
 }

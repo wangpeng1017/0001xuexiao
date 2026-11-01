@@ -4,7 +4,7 @@
   "content": {
     "editCanvasConfig": {
       "projectName": "智慧校园三维总览",
-      "remarks": "智慧校园三维总览：深色离线底图叠加按高度拉伸、按类型着色的建筑，道路与兴趣点矢量，摆放教学楼与景观树模型，提供图书馆门前 360° 街景；两侧配合 KPI、能耗、人流、告警与设备在线率。所有校园数据均为虚构演示数据。",
+      "remarks": "智慧校园三维总览：深色离线底图叠加按高度拉伸、按类型分色的建筑白模、道路与兴趣点矢量，摆放教学楼与景观树模型，提供图书馆门前 360° 街景；四周展示师生、能耗、人流、建筑占比、实时告警（自动轮播）和设备在线率。校园与数据均为虚构演示数据。",
       "width": 1920,
       "height": 1080,
       "filterShow": false,
@@ -19,7 +19,7 @@
       "skewX": 0,
       "skewY": 0,
       "blendMode": "normal",
-      "background": "#050b18",
+      "background": "#030a18",
       "backgroundImage": "{{material:images/bg-tech-grid.jpg}}",
       "selectColor": false,
       "chartThemeColor": "dark",
@@ -157,8 +157,56 @@
     },
     "componentList": [
       {
-        "id": "campus-corners",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "campus-corners",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -184,7 +232,10 @@
           "offsetX": 0,
           "offsetY": 0,
           "zIndex": 0
-        },
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -232,11 +283,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
+        },
         "id": "campus-title-left",
-        "isGroup": false,
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -251,7 +299,7 @@
         },
         "option": {
           "dataset": "{{material:images/title-decor-left.svg}}",
-          "fit": "contain",
+          "fit": "fill",
           "borderRadius": 0
         },
         "attr": {
@@ -262,7 +310,10 @@
           "offsetX": 0,
           "offsetY": 0,
           "zIndex": 1
-        },
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -310,11 +361,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
+        },
         "id": "campus-title-right",
-        "isGroup": false,
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -329,7 +377,7 @@
         },
         "option": {
           "dataset": "{{material:images/title-decor-right.svg}}",
-          "fit": "contain",
+          "fit": "fill",
           "borderRadius": 0
         },
         "attr": {
@@ -339,8 +387,11 @@
           "h": 50,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 1
-        },
+          "zIndex": 2
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -388,49 +439,41 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-main-title",
-        "isGroup": false,
-        "key": "TextCommon",
+        },
+        "id": "campus-title",
+        "key": "TextGradient",
         "chartConfig": {
-          "key": "TextCommon",
-          "chartKey": "VTextCommon",
-          "conKey": "VCTextCommon",
-          "title": "文字",
+          "key": "TextGradient",
+          "chartKey": "VTextGradient",
+          "conKey": "VCTextGradient",
+          "title": "渐变文字",
           "category": "Texts",
           "categoryName": "文本",
           "package": "Informations",
-          "chartFrame": "common",
-          "image": "text_static.png"
+          "chartFrame": "naiveUI",
+          "image": "text_gradient.png"
         },
         "option": {
-          "link": "",
-          "linkHead": "http://",
           "dataset": "智慧校园三维总览",
-          "fontSize": 36,
-          "fontColor": "#7fe7ff",
-          "paddingX": 0,
-          "paddingY": 0,
-          "textAlign": "center",
-          "fontWeight": "bold",
-          "borderWidth": 0,
-          "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 8,
-          "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
+          "size": 38,
+          "gradient": {
+            "from": "#e8fdffff",
+            "to": "#7fe7ffff",
+            "deg": 90
+          }
         },
         "attr": {
           "x": 660,
-          "y": 14,
+          "y": 12,
           "w": 600,
           "h": 56,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 3
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -478,11 +521,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-sub-title",
-        "isGroup": false,
+        },
+        "id": "campus-subtitle",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -499,28 +539,31 @@
           "link": "",
           "linkHead": "http://",
           "dataset": "QIMING CAMPUS · DIGITAL TWIN",
-          "fontSize": 13,
-          "fontColor": "#6e9dc0",
+          "fontSize": 12,
+          "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
           "textAlign": "center",
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 6,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
           "x": 660,
-          "y": 68,
+          "y": 66,
           "w": 600,
-          "h": 24,
+          "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 4
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -568,11 +611,173 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "campus-title-flow",
+        "key": "Decorates05",
+        "chartConfig": {
+          "key": "Decorates05",
+          "chartKey": "VDecorates05",
+          "conKey": "VCDecorates05",
+          "title": "装饰-05",
+          "category": "Decorates",
+          "categoryName": "装饰",
+          "package": "Decorates",
+          "chartFrame": "static",
+          "image": "decorates05.png"
+        },
+        "option": {
+          "colors": [
+            "#4fd2dd",
+            "#4fd2dd4d"
+          ],
+          "dur": 3
+        },
+        "attr": {
+          "x": 760,
+          "y": 88,
+          "w": 400,
+          "h": 14,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 5
         }
       },
       {
-        "id": "campus-kpi-students-bg",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "campus-clock",
+        "key": "TimeCommon",
+        "chartConfig": {
+          "key": "TimeCommon",
+          "chartKey": "VTimeCommon",
+          "conKey": "VCTimeCommon",
+          "title": "通用时间",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "static",
+          "image": "time.png"
+        },
+        "option": {
+          "timeSize": 18,
+          "timeLineHeight": 40,
+          "timeTextIndent": 2,
+          "timeColor": "#cfeeff",
+          "fontWeight": "normal",
+          "showShadow": true,
+          "hShadow": 0,
+          "vShadow": 0,
+          "blurShadow": 6,
+          "colorShadow": "#0075ff"
+        },
+        "attr": {
+          "x": 1560,
+          "y": 54,
+          "w": 300,
+          "h": 40,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 6
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "campus-kpi-0-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -592,13 +797,16 @@
         },
         "attr": {
           "x": 40,
-          "y": 104,
+          "y": 112,
           "w": 214,
           "h": 92,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 7
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -646,11 +854,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-students-label",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-0-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -675,20 +880,23 @@
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
           "x": 56,
-          "y": 114,
-          "w": 190,
+          "y": 124,
+          "w": 188,
           "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 8
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -736,11 +944,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-students",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-0-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -759,7 +964,7 @@
           "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 34,
+          "numberSize": 30,
           "numberColor": "#7fe7ff",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
@@ -768,13 +973,16 @@
         },
         "attr": {
           "x": 52,
-          "y": 138,
-          "w": 190,
-          "h": 52,
+          "y": 148,
+          "w": 192,
+          "h": 46,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 9
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -822,11 +1030,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-energy-bg",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-1-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -846,13 +1051,16 @@
         },
         "attr": {
           "x": 266,
-          "y": 104,
+          "y": 112,
           "w": 214,
           "h": 92,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 10
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -900,11 +1108,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-energy-label",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-1-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -929,20 +1134,23 @@
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
           "x": 282,
-          "y": 114,
-          "w": 190,
+          "y": 124,
+          "w": 188,
           "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 11
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -990,11 +1198,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-energy",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-1-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -1013,8 +1218,8 @@
           "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 34,
-          "numberColor": "#7fe7ff",
+          "numberSize": 30,
+          "numberColor": "#ffbf47",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
           "suffixText": "",
@@ -1022,13 +1227,16 @@
         },
         "attr": {
           "x": 278,
-          "y": 138,
-          "w": 190,
-          "h": 52,
+          "y": 148,
+          "w": 192,
+          "h": 46,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 12
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1076,11 +1284,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-devices-bg",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-2-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -1100,13 +1305,16 @@
         },
         "attr": {
           "x": 40,
-          "y": 208,
+          "y": 212,
           "w": 214,
           "h": 92,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 13
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1154,11 +1362,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-devices-label",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-2-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -1183,20 +1388,23 @@
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
           "x": 56,
-          "y": 218,
-          "w": 190,
+          "y": 224,
+          "w": 188,
           "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 14
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1244,11 +1452,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-devices",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-2-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -1267,7 +1472,7 @@
           "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 34,
+          "numberSize": 30,
           "numberColor": "#7fe7ff",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
@@ -1276,13 +1481,16 @@
         },
         "attr": {
           "x": 52,
-          "y": 242,
-          "w": 190,
-          "h": 52,
+          "y": 248,
+          "w": 192,
+          "h": 46,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 15
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1330,11 +1538,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-rooms-bg",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-3-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -1354,13 +1559,16 @@
         },
         "attr": {
           "x": 266,
-          "y": 208,
+          "y": 212,
           "w": 214,
           "h": 92,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 16
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1408,11 +1616,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-rooms-label",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-3-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -1437,20 +1642,23 @@
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
           "x": 282,
-          "y": 218,
-          "w": 190,
+          "y": 224,
+          "w": 188,
           "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 17
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1498,11 +1706,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-kpi-rooms",
-        "isGroup": false,
+        },
+        "id": "campus-kpi-3-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -1521,8 +1726,8 @@
           "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 34,
-          "numberColor": "#7fe7ff",
+          "numberSize": 30,
+          "numberColor": "#2ee6b8",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
           "suffixText": "",
@@ -1530,13 +1735,16 @@
         },
         "attr": {
           "x": 278,
-          "y": 242,
-          "w": 190,
-          "h": 52,
+          "y": 248,
+          "w": 192,
+          "h": 46,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 18
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1584,11 +1792,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-energy-bg",
-        "isGroup": false,
+        },
+        "id": "campus-energy-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -1608,13 +1813,16 @@
         },
         "attr": {
           "x": 40,
-          "y": 316,
+          "y": 324,
           "w": 440,
-          "h": 352,
+          "h": 344,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 19
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1662,11 +1870,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
+        },
         "id": "campus-energy-title",
-        "isGroup": false,
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -1683,28 +1888,31 @@
           "link": "",
           "linkHead": "http://",
           "dataset": "▍各楼宇能耗（kWh）",
-          "fontSize": 17,
-          "fontColor": "#4fd2dd",
-          "paddingX": 0,
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
           "paddingY": 0,
           "textAlign": "left",
           "fontWeight": "bold",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
+          "backgroundColor": "#0d3a6a80"
         },
         "attr": {
-          "x": 62,
-          "y": 328,
-          "w": 380,
-          "h": 28,
+          "x": 58,
+          "y": 336,
+          "w": 404,
+          "h": 30,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 20
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1752,11 +1960,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
+        },
         "id": "campus-energy-bar",
-        "isGroup": false,
         "key": "BarCommon",
         "chartConfig": {
           "key": "BarCommon",
@@ -1791,28 +1996,28 @@
             "axisLabel": {
               "show": true,
               "fontSize": 11,
-              "color": "#B9B8CE",
+              "color": "#8fb8d8",
               "rotate": 0
             },
             "position": "bottom",
             "axisLine": {
               "show": true,
               "lineStyle": {
-                "color": "#B9B8CE",
+                "color": "#2b5a80",
                 "width": 1
               },
               "onZero": true
             },
             "axisTick": {
-              "show": true,
+              "show": false,
               "length": 5
             },
             "splitLine": {
               "show": false,
               "lineStyle": {
-                "color": "#484753",
+                "color": "#16324f",
                 "width": 1,
-                "type": "solid"
+                "type": "dashed"
               }
             },
             "type": "category"
@@ -1828,21 +2033,21 @@
             "inverse": false,
             "axisLabel": {
               "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
+              "fontSize": 11,
+              "color": "#8fb8d8",
               "rotate": 0
             },
             "position": "left",
             "axisLine": {
-              "show": true,
+              "show": false,
               "lineStyle": {
-                "color": "#B9B8CE",
+                "color": "#2b5a80",
                 "width": 1
               },
               "onZero": true
             },
             "axisTick": {
-              "show": true,
+              "show": false,
               "length": 5
             },
             "splitLine": {
@@ -1850,7 +2055,7 @@
               "lineStyle": {
                 "color": "#16324f",
                 "width": 1,
-                "type": "solid"
+                "type": "dashed"
               }
             },
             "type": "value"
@@ -1858,26 +2063,26 @@
           "legend": {
             "show": false,
             "type": "scroll",
-            "x": "center",
+            "x": "right",
             "y": "top",
             "icon": "circle",
             "orient": "horizontal",
             "textStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 18
+              "color": "#8fb8d8",
+              "fontSize": 12
             },
-            "itemHeight": 15,
-            "itemWidth": 15,
+            "itemHeight": 8,
+            "itemWidth": 12,
             "pageTextStyle": {
               "color": "#B9B8CE"
             }
           },
           "grid": {
             "show": false,
-            "left": "14%",
+            "left": "12%",
             "top": "36",
-            "right": "4%",
-            "bottom": "30"
+            "right": "5%",
+            "bottom": "28"
           },
           "dataset": {
             "dimensions": [
@@ -1914,12 +2119,13 @@
           "series": [
             {
               "type": "bar",
-              "barWidth": 22,
+              "name": "能耗",
+              "barWidth": 20,
               "label": {
                 "show": true,
                 "position": "top",
                 "color": "#cfeeff",
-                "fontSize": 12
+                "fontSize": 11
               },
               "itemStyle": {
                 "color": {
@@ -1945,20 +2151,22 @@
                   0,
                   0
                 ]
-              },
-              "name": "能耗"
+              }
             }
           ]
         },
         "attr": {
           "x": 52,
-          "y": 360,
+          "y": 372,
           "w": 416,
-          "h": 300,
+          "h": 286,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 21
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2006,11 +2214,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-flow-bg",
-        "isGroup": false,
+        },
+        "id": "campus-flow-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -2035,8 +2240,11 @@
           "h": 356,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 22
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2084,11 +2292,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
+        },
         "id": "campus-flow-title",
-        "isGroup": false,
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -2105,28 +2310,31 @@
           "link": "",
           "linkHead": "http://",
           "dataset": "▍校门人流趋势（人次）",
-          "fontSize": 17,
-          "fontColor": "#4fd2dd",
-          "paddingX": 0,
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
           "paddingY": 0,
           "textAlign": "left",
           "fontWeight": "bold",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
+          "backgroundColor": "#0d3a6a80"
         },
         "attr": {
-          "x": 62,
+          "x": 58,
           "y": 696,
-          "w": 380,
-          "h": 28,
+          "w": 404,
+          "h": 30,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 23
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2150,7 +2358,7 @@
           "hide": false
         },
         "request": {
-          "requestDataType": 0,
+          "requestDataType": 1,
           "requestHttpType": "get",
           "requestUrl": "",
           "requestIntervalUnit": "second",
@@ -2174,11 +2382,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
+        },
         "id": "campus-flow-line",
-        "isGroup": false,
         "key": "LineCommon",
         "chartConfig": {
           "key": "LineCommon",
@@ -2212,31 +2417,32 @@
             "axisLabel": {
               "show": true,
               "fontSize": 11,
-              "color": "#B9B8CE",
+              "color": "#8fb8d8",
               "rotate": 0
             },
             "position": "bottom",
             "axisLine": {
               "show": true,
               "lineStyle": {
-                "color": "#B9B8CE",
+                "color": "#2b5a80",
                 "width": 1
               },
               "onZero": true
             },
             "axisTick": {
-              "show": true,
+              "show": false,
               "length": 5
             },
             "splitLine": {
               "show": false,
               "lineStyle": {
-                "color": "#484753",
+                "color": "#16324f",
                 "width": 1,
-                "type": "solid"
+                "type": "dashed"
               }
             },
-            "type": "category"
+            "type": "category",
+            "boundaryGap": false
           },
           "yAxis": {
             "show": true,
@@ -2249,21 +2455,21 @@
             "inverse": false,
             "axisLabel": {
               "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
+              "fontSize": 11,
+              "color": "#8fb8d8",
               "rotate": 0
             },
             "position": "left",
             "axisLine": {
-              "show": true,
+              "show": false,
               "lineStyle": {
-                "color": "#B9B8CE",
+                "color": "#2b5a80",
                 "width": 1
               },
               "onZero": true
             },
             "axisTick": {
-              "show": true,
+              "show": false,
               "length": 5
             },
             "splitLine": {
@@ -2271,7 +2477,7 @@
               "lineStyle": {
                 "color": "#16324f",
                 "width": 1,
-                "type": "solid"
+                "type": "dashed"
               }
             },
             "type": "value"
@@ -2284,21 +2490,21 @@
             "icon": "circle",
             "orient": "horizontal",
             "textStyle": {
-              "color": "#B9B8CE",
+              "color": "#8fb8d8",
               "fontSize": 12
             },
-            "itemHeight": 15,
-            "itemWidth": 15,
+            "itemHeight": 8,
+            "itemWidth": 12,
             "pageTextStyle": {
               "color": "#B9B8CE"
             }
           },
           "grid": {
             "show": false,
-            "left": "14%",
-            "top": "40",
+            "left": "12%",
+            "top": "36",
             "right": "5%",
-            "bottom": "32"
+            "bottom": "28"
           },
           "dataset": {
             "dimensions": [
@@ -2347,146 +2553,100 @@
           "series": [
             {
               "type": "line",
+              "name": "入校",
+              "smooth": true,
+              "symbolSize": 5,
               "label": {
                 "show": false,
                 "position": "top",
-                "color": "#fff",
-                "fontSize": 12
+                "color": "#cfeeff",
+                "fontSize": 11
               },
-              "symbolSize": 6,
               "itemStyle": {
                 "color": "#4fd2dd",
                 "borderRadius": 0
               },
               "lineStyle": {
                 "type": "solid",
-                "width": 3,
+                "width": 2.5,
                 "color": "#4fd2dd"
               },
-              "name": "入校",
-              "smooth": true,
               "areaStyle": {
-                "color": "#4fd2dd",
-                "opacity": 0.12
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#4fd2dd"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#4fd2dd00"
+                    }
+                  ]
+                },
+                "opacity": 0.72
               }
             },
             {
               "type": "line",
+              "name": "出校",
+              "smooth": true,
+              "symbolSize": 5,
               "label": {
                 "show": false,
                 "position": "top",
-                "color": "#fff",
-                "fontSize": 12
+                "color": "#cfeeff",
+                "fontSize": 11
               },
-              "symbolSize": 6,
               "itemStyle": {
                 "color": "#ffbf47",
                 "borderRadius": 0
               },
               "lineStyle": {
                 "type": "solid",
-                "width": 3,
+                "width": 2.5,
                 "color": "#ffbf47"
               },
-              "name": "出校",
-              "smooth": true,
               "areaStyle": {
-                "color": "#ffbf47",
-                "opacity": 0.12
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#ffbf47"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#ffbf4700"
+                    }
+                  ]
+                },
+                "opacity": 0.72
               }
             }
           ]
         },
         "attr": {
           "x": 52,
-          "y": 728,
+          "y": 732,
           "w": 416,
-          "h": 300,
+          "h": 298,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 1,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
+          "zIndex": 24
         }
       },
       {
-        "id": "campus-scene-border",
         "isGroup": false,
-        "key": "Border01",
-        "chartConfig": {
-          "key": "Border01",
-          "chartKey": "VBorder01",
-          "conKey": "VCBorder01",
-          "title": "边框-01",
-          "category": "Borders",
-          "categoryName": "边框",
-          "package": "Decorates",
-          "chartFrame": "static",
-          "image": "border01.png"
-        },
-        "option": {
-          "dur": 0.5,
-          "colors": [
-            "#2f8cff",
-            "#4fd2dd"
-          ],
-          "backgroundColor": "#00000000"
-        },
-        "attr": {
-          "x": 484,
-          "y": 100,
-          "w": 952,
-          "h": 806,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 1
-        },
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2534,11 +2694,89 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "campus-scene-border",
+        "key": "Border01",
+        "chartConfig": {
+          "key": "Border01",
+          "chartKey": "VBorder01",
+          "conKey": "VCBorder01",
+          "title": "边框-01",
+          "category": "Borders",
+          "categoryName": "边框",
+          "package": "Decorates",
+          "chartFrame": "static",
+          "image": "border01.png"
+        },
+        "option": {
+          "dur": 0.5,
+          "colors": [
+            "#2f8cff",
+            "#4fd2dd"
+          ],
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 484,
+          "y": 108,
+          "w": 952,
+          "h": 798,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 25
         }
       },
       {
-        "id": "campus-scene3d",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "campus-scene3d",
         "key": "Scene3D",
         "chartConfig": {
           "key": "Scene3D",
@@ -2816,13 +3054,16 @@
         },
         "attr": {
           "x": 500,
-          "y": 116,
+          "y": 124,
           "w": 920,
-          "h": 774,
+          "h": 766,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 2
-        },
+          "zIndex": 26
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2870,11 +3111,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-strip-bg",
-        "isGroup": false,
+        },
+        "id": "campus-stats-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -2899,8 +3137,11 @@
           "h": 122,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 27
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2948,11 +3189,86 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "campus-stat-0-icon",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/icon-server.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 506,
+          "y": 950,
+          "w": 52,
+          "h": 52,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 28
         }
       },
       {
-        "id": "campus-strip-buildings-label",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "campus-stat-0-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -2973,24 +3289,27 @@
           "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
-          "textAlign": "center",
+          "textAlign": "left",
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 500,
-          "y": 936,
-          "w": 220,
+          "x": 568,
+          "y": 940,
+          "w": 160,
           "h": 24,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 29
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3038,11 +3357,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-strip-buildings",
-        "isGroup": false,
+        },
+        "id": "campus-stat-0-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -3061,22 +3377,25 @@
           "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 38,
-          "numberColor": "#ffd166",
+          "numberSize": 32,
+          "numberColor": "#ffbf47",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
           "suffixText": "",
           "suffixColor": "#8fb8d8"
         },
         "attr": {
-          "x": 500,
-          "y": 966,
-          "w": 220,
+          "x": 564,
+          "y": 964,
+          "w": 160,
           "h": 56,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 30
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3124,11 +3443,86 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "campus-stat-1-icon",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/icon-camera.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 738,
+          "y": 950,
+          "w": 52,
+          "h": 52,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 31
         }
       },
       {
-        "id": "campus-strip-cameras-label",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "campus-stat-1-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -3149,24 +3543,27 @@
           "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
-          "textAlign": "center",
+          "textAlign": "left",
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 732,
-          "y": 936,
-          "w": 220,
+          "x": 800,
+          "y": 940,
+          "w": 160,
           "h": 24,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 32
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3214,11 +3611,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-strip-cameras",
-        "isGroup": false,
+        },
+        "id": "campus-stat-1-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -3237,22 +3631,25 @@
           "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 38,
-          "numberColor": "#ffd166",
+          "numberSize": 32,
+          "numberColor": "#ffbf47",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
           "suffixText": "",
           "suffixColor": "#8fb8d8"
         },
         "attr": {
-          "x": 732,
-          "y": 966,
-          "w": 220,
+          "x": 796,
+          "y": 964,
+          "w": 160,
           "h": 56,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 33
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3300,11 +3697,86 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "campus-stat-2-icon",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/icon-sensor.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 970,
+          "y": 950,
+          "w": 52,
+          "h": 52,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 34
         }
       },
       {
-        "id": "campus-strip-sensors-label",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "campus-stat-2-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -3325,24 +3797,27 @@
           "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
-          "textAlign": "center",
+          "textAlign": "left",
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 964,
-          "y": 936,
-          "w": 220,
+          "x": 1032,
+          "y": 940,
+          "w": 160,
           "h": 24,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 35
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3390,11 +3865,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-strip-sensors",
-        "isGroup": false,
+        },
+        "id": "campus-stat-2-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -3413,22 +3885,25 @@
           "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 38,
-          "numberColor": "#ffd166",
+          "numberSize": 32,
+          "numberColor": "#ffbf47",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
           "suffixText": "",
           "suffixColor": "#8fb8d8"
         },
         "attr": {
-          "x": 964,
-          "y": 966,
-          "w": 220,
+          "x": 1028,
+          "y": 964,
+          "w": 160,
           "h": 56,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 36
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3476,11 +3951,86 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "campus-stat-3-icon",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/icon-alarm.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1202,
+          "y": 950,
+          "w": 52,
+          "h": 52,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 37
         }
       },
       {
-        "id": "campus-strip-fire-label",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "campus-stat-3-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -3501,24 +4051,27 @@
           "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
-          "textAlign": "center",
+          "textAlign": "left",
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
+          "borderRadius": 2,
           "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 1196,
-          "y": 936,
-          "w": 220,
+          "x": 1264,
+          "y": 940,
+          "w": 160,
           "h": 24,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 38
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3566,11 +4119,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-strip-fire",
-        "isGroup": false,
+        },
+        "id": "campus-stat-3-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -3589,22 +4139,25 @@
           "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 38,
-          "numberColor": "#ffd166",
+          "numberSize": 32,
+          "numberColor": "#ffbf47",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
           "suffixText": "",
           "suffixColor": "#8fb8d8"
         },
         "attr": {
-          "x": 1196,
-          "y": 966,
-          "w": 220,
+          "x": 1260,
+          "y": 964,
+          "w": 160,
           "h": 56,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 39
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3652,11 +4205,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-type-bg",
-        "isGroup": false,
+        },
+        "id": "campus-types-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -3676,13 +4226,16 @@
         },
         "attr": {
           "x": 1440,
-          "y": 104,
+          "y": 112,
           "w": 440,
-          "h": 330,
+          "h": 322,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 40
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3730,11 +4283,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-type-title",
-        "isGroup": false,
+        },
+        "id": "campus-types-title",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -3751,28 +4301,31 @@
           "link": "",
           "linkHead": "http://",
           "dataset": "▍建筑类型占比（%）",
-          "fontSize": 17,
-          "fontColor": "#4fd2dd",
-          "paddingX": 0,
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
           "paddingY": 0,
           "textAlign": "left",
           "fontWeight": "bold",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
+          "backgroundColor": "#0d3a6a80"
         },
         "attr": {
-          "x": 1462,
-          "y": 116,
-          "w": 380,
-          "h": 28,
+          "x": 1458,
+          "y": 124,
+          "w": 404,
+          "h": 30,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 41
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3820,11 +4373,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-type-pie",
-        "isGroup": false,
+        },
+        "id": "campus-types-pie",
         "key": "PieCommon",
         "chartConfig": {
           "key": "PieCommon",
@@ -3853,11 +4403,11 @@
             "icon": "circle",
             "orient": "horizontal",
             "textStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 13
+              "color": "#8fb8d8",
+              "fontSize": 12
             },
-            "itemHeight": 10,
-            "itemWidth": 10,
+            "itemHeight": 8,
+            "itemWidth": 8,
             "pageTextStyle": {
               "color": "#B9B8CE"
             }
@@ -3899,10 +4449,9 @@
               ],
               "center": [
                 "50%",
-                "42%"
+                "44%"
               ],
               "roseType": false,
-              "avoidLabelOverlap": false,
               "itemStyle": {
                 "show": true,
                 "borderRadius": 6,
@@ -3913,16 +4462,13 @@
                 "show": false,
                 "position": "center",
                 "formatter": "{b}",
-                "fontWeight": "normal",
                 "fontSize": 14,
-                "color": "#454E54",
-                "textBorderColor": "#ffffff",
-                "textBorderWidth": 1
+                "color": "#cfeeff"
               },
               "emphasis": {
                 "label": {
                   "show": true,
-                  "fontSize": 22,
+                  "fontSize": 20,
                   "fontWeight": "bold",
                   "color": "#ffffff",
                   "formatter": "{b}\n{d}%"
@@ -3943,13 +4489,16 @@
         },
         "attr": {
           "x": 1452,
-          "y": 148,
+          "y": 160,
           "w": 416,
-          "h": 278,
+          "h": 264,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 42
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3997,11 +4546,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-alert-bg",
-        "isGroup": false,
+        },
+        "id": "campus-alerts-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -4026,8 +4572,11 @@
           "h": 330,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 43
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -4075,11 +4624,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-alert-title",
-        "isGroup": false,
+        },
+        "id": "campus-alerts-title",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -4096,28 +4642,31 @@
           "link": "",
           "linkHead": "http://",
           "dataset": "▍实时告警",
-          "fontSize": 17,
-          "fontColor": "#ffbf47",
-          "paddingX": 0,
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
           "paddingY": 0,
           "textAlign": "left",
           "fontWeight": "bold",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
+          "backgroundColor": "#0d3a6a80"
         },
         "attr": {
-          "x": 1462,
+          "x": 1458,
           "y": 458,
-          "w": 380,
-          "h": 28,
+          "w": 404,
+          "h": 30,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 44
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -4165,115 +4714,104 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-alert-table",
-        "isGroup": false,
-        "key": "TablesBasic",
+        },
+        "id": "campus-alerts-board",
+        "key": "TableScrollBoard",
         "chartConfig": {
-          "key": "TablesBasic",
-          "chartKey": "VTablesBasic",
-          "conKey": "VCTablesBasic",
-          "title": "基础分页表格",
+          "key": "TableScrollBoard",
+          "chartKey": "VTableScrollBoard",
+          "conKey": "VCTableScrollBoard",
+          "title": "轮播列表",
           "category": "Tables",
           "categoryName": "表格",
           "package": "Tables",
           "chartFrame": "common",
-          "image": "tables_basic.png"
+          "image": "table_scrollboard.png"
         },
         "option": {
-          "dataset": {
-            "dimensions": [
-              {
-                "title": "时间",
-                "key": "time"
-              },
-              {
-                "title": "位置",
-                "key": "place"
-              },
-              {
-                "title": "类型",
-                "key": "kind"
-              },
-              {
-                "title": "级别",
-                "key": "level"
-              }
+          "header": [
+            "时间",
+            "位置",
+            "类型",
+            "级别"
+          ],
+          "dataset": [
+            [
+              "10:42",
+              "实验楼 B2",
+              "温度偏高",
+              "一般"
             ],
-            "source": [
-              {
-                "key": 0,
-                "time": "10:42",
-                "place": "实验楼 B2",
-                "kind": "温度偏高",
-                "level": "一般"
-              },
-              {
-                "key": 1,
-                "time": "10:35",
-                "place": "东环路",
-                "kind": "车辆滞留",
-                "level": "提示"
-              },
-              {
-                "key": 2,
-                "time": "10:21",
-                "place": "宿舍区 3 号",
-                "kind": "烟感触发",
-                "level": "紧急"
-              },
-              {
-                "key": 3,
-                "time": "09:58",
-                "place": "图书馆",
-                "kind": "设备离线",
-                "level": "一般"
-              },
-              {
-                "key": 4,
-                "time": "09:40",
-                "place": "南门",
-                "kind": "人流拥挤",
-                "level": "提示"
-              },
-              {
-                "key": 5,
-                "time": "09:12",
-                "place": "体育馆",
-                "kind": "水压偏低",
-                "level": "一般"
-              }
+            [
+              "10:35",
+              "东环路",
+              "车辆滞留",
+              "提示"
+            ],
+            [
+              "10:21",
+              "宿舍区 3 号",
+              "烟感触发",
+              "紧急"
+            ],
+            [
+              "09:58",
+              "图书馆",
+              "设备离线",
+              "一般"
+            ],
+            [
+              "09:40",
+              "南门",
+              "人流拥挤",
+              "提示"
+            ],
+            [
+              "09:12",
+              "体育馆",
+              "水压偏低",
+              "一般"
+            ],
+            [
+              "08:57",
+              "食堂",
+              "燃气浓度",
+              "紧急"
             ]
-          },
-          "pagination": {
-            "page": 1,
-            "pageSize": 5
-          },
-          "align": "center",
-          "style": {
-            "border": "on",
-            "singleColumn": "off",
-            "singleLine": "off",
-            "bottomBordered": "on",
-            "striped": "on",
-            "fontSize": 14,
-            "borderWidth": 0,
-            "borderColor": "black",
-            "borderStyle": "solid"
-          },
-          "inputShow": "none"
+          ],
+          "index": false,
+          "columnWidth": [
+            70,
+            130,
+            120,
+            76
+          ],
+          "align": [
+            "center",
+            "center",
+            "center",
+            "center"
+          ],
+          "rowNum": 5,
+          "waitTime": 2,
+          "headerHeight": 34,
+          "carousel": "single",
+          "headerBGC": "#0d3a6acc",
+          "oddRowBGC": "#06203acc",
+          "evenRowBGC": "#0a2a4a80"
         },
         "attr": {
           "x": 1452,
-          "y": 490,
+          "y": 496,
           "w": 416,
-          "h": 276,
+          "h": 268,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 45
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -4321,11 +4859,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "campus-online-bg",
-        "isGroup": false,
+        },
+        "id": "campus-online-frame",
         "key": "Image",
         "chartConfig": {
           "key": "Image",
@@ -4350,8 +4885,11 @@
           "h": 252,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 0
-        },
+          "zIndex": 46
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -4399,11 +4937,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
+        },
         "id": "campus-online-title",
-        "isGroup": false,
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -4420,28 +4955,31 @@
           "link": "",
           "linkHead": "http://",
           "dataset": "▍设备在线率（%）",
-          "fontSize": 17,
-          "fontColor": "#4fd2dd",
-          "paddingX": 0,
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
           "paddingY": 0,
           "textAlign": "left",
           "fontWeight": "bold",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
+          "backgroundColor": "#0d3a6a80"
         },
         "attr": {
-          "x": 1462,
+          "x": 1458,
           "y": 800,
-          "w": 380,
-          "h": 28,
+          "w": 404,
+          "h": 30,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 47
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -4489,11 +5027,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
+        },
         "id": "campus-online-dial",
-        "isGroup": false,
         "key": "Dial",
         "chartConfig": {
           "key": "Dial",
@@ -4516,21 +5051,20 @@
                 {
                   "value": 96,
                   "itemStyle": {
-                    "color": "#2AF4FF"
+                    "color": "#4fd2dd"
                   }
                 }
               ],
               "min": 0,
               "max": 100,
-              "splitNumber": 10,
               "center": [
                 "50%",
-                "62%"
+                "60%"
               ],
-              "radius": "100%",
+              "radius": "92%",
               "axisLine": {
                 "lineStyle": {
-                  "width": 18,
+                  "width": 14,
                   "color": [
                     [
                       0.96,
@@ -4557,78 +5091,30 @@
                 "valueAnimation": true,
                 "formatter": "{value}%",
                 "color": "#7fe7ff",
-                "fontSize": 44,
+                "fontSize": 32,
                 "fontWeight": "bold",
                 "offsetCenter": [
                   0,
-                  "-4%"
+                  "-2%"
                 ]
               },
               "pointer": {
                 "show": false
               },
               "animationDuration": 2000,
-              "startAngle": 200,
-              "endAngle": -20
+              "startAngle": 210,
+              "endAngle": -30
             }
           ]
         },
         "attr": {
           "x": 1452,
-          "y": 832,
+          "y": 836,
           "w": 416,
-          "h": 200,
+          "h": 194,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
+          "zIndex": 48
         }
       }
     ]

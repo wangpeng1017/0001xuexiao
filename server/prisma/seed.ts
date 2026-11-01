@@ -64,6 +64,9 @@ async function main(): Promise<void> {
     `预置素材：新增 ${result.materials.created} 个，更新 ${result.materials.updated} 个，跳过 ${result.materials.skipped} 个（内容未变）`
   );
   console.log(
+    `预置数据文件：新增 ${result.datafiles.created} 个，更新 ${result.datafiles.updated} 个，跳过 ${result.datafiles.skipped} 个（内容未变）`
+  );
+  console.log(
     `预置模板：新增 ${result.templates.created} 个，更新 ${result.templates.updated} 个，跳过 ${result.templates.skipped} 个（内容未变）`
   );
 }

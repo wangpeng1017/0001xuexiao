@@ -495,10 +495,29 @@ def validate_manifest_and_size():
     }
     require(actual_previews == thumbs, f"previews mismatch; unlisted={sorted(actual_previews - thumbs)}, missing={sorted(thumbs - actual_previews)}")
 
-    files = [path for path in SEED_ROOT.rglob("*") if path.is_file()]
+    datafile_root = SEED_ROOT / "datafiles"
+    listed_dirs = {item["dir"] for item in manifest.get("datafiles", [])}
+    actual_dirs = {
+        str(path.relative_to(SEED_ROOT)).replace("\\", "/")
+        for path in datafile_root.iterdir()
+        if path.is_dir()
+    } if datafile_root.is_dir() else set()
+    require(actual_dirs == listed_dirs, f"datafiles mismatch; unlisted={sorted(actual_dirs - listed_dirs)}, missing={sorted(listed_dirs - actual_dirs)}")
+    datafile_bytes = 0
+    for item in manifest.get("datafiles", []):
+        require(item["kind"] == "tiles3d", f"datafile {item['dir']} kind must be tiles3d")
+        require(item["name"].strip(), f"datafile {item['dir']} has an empty name")
+        tileset = SEED_ROOT / item["dir"] / "tileset.json"
+        require(tileset.is_file(), f"datafile {item['dir']} is missing tileset.json")
+        require("root" in json.loads(tileset.read_text(encoding="utf-8")), f"{tileset} has no root")
+        datafile_bytes += sum(path.stat().st_size for path in (SEED_ROOT / item["dir"]).rglob("*") if path.is_file())
+    require(datafile_bytes <= 300 * 1024 * 1024, "seed datafiles exceed the 300 MB budget")
+
+    # 素材 40 MB 上限不含预置数据文件（点云等大体积数据单独计算上面的 300 MB 上限）
+    files = [path for path in SEED_ROOT.rglob("*") if path.is_file() and datafile_root not in path.parents]
     total = sum(path.stat().st_size for path in files)
     require(total <= 40 * 1024 * 1024, "seed-content exceeds the 40 MB budget")
-    return {"total_bytes": total, "file_count": len(files)}
+    return {"total_bytes": total, "file_count": len(files), "datafile_bytes": datafile_bytes}
 
 
 def write_summary(model_info, third_info, geojson_info, tile_info, image_info, size_info, checks, failures):

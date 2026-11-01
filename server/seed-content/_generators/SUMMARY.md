@@ -1,10 +1,10 @@
 # F018 预置素材生成摘要
 
-> 生成日期：2026-10-27 ｜ 生成脚本：`server/seed-content/_generators/generate_all.py`
+> 生成日期：2026-11-01 ｜ 生成脚本：`server/seed-content/_generators/generate_all.py`
 
 **结论：全部校验通过**
 
-总体积 **3.04 MB**（上限 40 MB），共 65 个文件，其中素材 30 个。
+总体积 **6.52 MB**（上限 40 MB），共 83 个文件，其中素材 30 个。
 
 其中 20 个由本地程序生成（无第三方版权）；10 个船舶/港口模型来自 Kenney Watercraft Kit 2.0（CC0 1.0，见 `models/third-party/LICENSE-Kenney-CC0.txt`）。
 

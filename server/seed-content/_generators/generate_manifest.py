@@ -167,6 +167,12 @@ ASSETS = [
     *({**asset, "source": "third-party"} for asset in THIRD_PARTY_ASSETS),
 ]
 
+# 预置数据文件（已转换好的 3D Tiles 目录，非脚本生成，随仓库提交）：导入时登记为管理员的“数据文件”，
+# 模板用 {{datafile:<dir>}} 引用其 tileset.json 地址。体积不计入素材 40 MB 上限，单独校验。
+DATAFILES = [
+    {"dir": "datafiles/ship-pointcloud", "name": "船舶点云", "kind": "tiles3d"},
+]
+
 
 def build_manifest() -> dict:
     return {
@@ -180,6 +186,7 @@ def build_manifest() -> dict:
             }
             for asset in ASSETS
         ],
+        "datafiles": [dict(item) for item in DATAFILES],
     }
 
 

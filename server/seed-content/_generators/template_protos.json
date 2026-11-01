@@ -1,0 +1,3763 @@
+{
+ "canvas": {
+  "projectName": "教学数据统计",
+  "remarks": "教学数据统计：展示学生、课程、访问、下载等指标，以及年级成绩、部门完成率、学习方式和作业提交率。资源访问趋势图已设置为动态请求，绑定第三方数据后在此粘贴接口地址（requestUrl 当前为空）。",
+  "width": 1920,
+  "height": 1080,
+  "filterShow": false,
+  "hueRotate": 0,
+  "saturate": 1,
+  "contrast": 1,
+  "brightness": 1,
+  "opacity": 1,
+  "rotateZ": 0,
+  "rotateX": 0,
+  "rotateY": 0,
+  "skewX": 0,
+  "skewY": 0,
+  "blendMode": "normal",
+  "background": "#050b18",
+  "backgroundImage": "{{material:images/bg-tech-aurora.jpg}}",
+  "selectColor": false,
+  "chartThemeColor": "dark",
+  "chartThemeSetting": {
+   "title": {
+    "show": true,
+    "textStyle": {
+     "color": "#BFBFBF",
+     "fontSize": 18
+    },
+    "subtextStyle": {
+     "color": "#A2A2A2",
+     "fontSize": 14
+    }
+   },
+   "xAxis": {
+    "show": true,
+    "name": "",
+    "nameGap": 15,
+    "nameTextStyle": {
+     "color": "#B9B8CE",
+     "fontSize": 12
+    },
+    "inverse": false,
+    "axisLabel": {
+     "show": true,
+     "fontSize": 12,
+     "color": "#B9B8CE",
+     "rotate": 0
+    },
+    "position": "bottom",
+    "axisLine": {
+     "show": true,
+     "lineStyle": {
+      "color": "#B9B8CE",
+      "width": 1
+     },
+     "onZero": true
+    },
+    "axisTick": {
+     "show": true,
+     "length": 5
+    },
+    "splitLine": {
+     "show": false,
+     "lineStyle": {
+      "color": "#484753",
+      "width": 1,
+      "type": "solid"
+     }
+    }
+   },
+   "yAxis": {
+    "show": true,
+    "name": "",
+    "nameGap": 15,
+    "nameTextStyle": {
+     "color": "#B9B8CE",
+     "fontSize": 12
+    },
+    "inverse": false,
+    "axisLabel": {
+     "show": true,
+     "fontSize": 12,
+     "color": "#B9B8CE",
+     "rotate": 0
+    },
+    "position": "left",
+    "axisLine": {
+     "show": true,
+     "lineStyle": {
+      "color": "#B9B8CE",
+      "width": 1
+     },
+     "onZero": true
+    },
+    "axisTick": {
+     "show": true,
+     "length": 5
+    },
+    "splitLine": {
+     "show": true,
+     "lineStyle": {
+      "color": "#484753",
+      "width": 1,
+      "type": "solid"
+     }
+    }
+   },
+   "legend": {
+    "show": true,
+    "type": "scroll",
+    "x": "center",
+    "y": "top",
+    "icon": "circle",
+    "orient": "horizontal",
+    "textStyle": {
+     "color": "#B9B8CE",
+     "fontSize": 18
+    },
+    "itemHeight": 15,
+    "itemWidth": 15,
+    "pageTextStyle": {
+     "color": "#B9B8CE"
+    }
+   },
+   "grid": {
+    "show": false,
+    "left": "10%",
+    "top": "60",
+    "right": "10%",
+    "bottom": "60"
+   },
+   "dataset": null,
+   "renderer": "svg"
+  },
+  "vChartThemeName": "vScreenVolcanoBlue",
+  "previewScaleType": "fit"
+ },
+ "requestGlobalConfig": {
+  "requestDataPond": [],
+  "requestOriginUrl": "",
+  "requestInterval": 30,
+  "requestIntervalUnit": "second",
+  "requestParams": {
+   "Body": {
+    "form-data": {},
+    "x-www-form-urlencoded": {},
+    "json": "",
+    "xml": ""
+   },
+   "Header": {},
+   "Params": {}
+  }
+ },
+ "components": {
+  "VBorder02": {
+   "key": "Border02",
+   "chartConfig": {
+    "key": "Border02",
+    "chartKey": "VBorder02",
+    "conKey": "VCBorder02",
+    "title": "边框-02",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border02.png"
+   },
+   "option": {
+    "colors": [
+     "#6586ec",
+     "#2cf7fe"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder03": {
+   "key": "Border03",
+   "chartConfig": {
+    "key": "Border03",
+    "chartKey": "VBorder03",
+    "conKey": "VCBorder03",
+    "title": "边框-03",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border03.png"
+   },
+   "option": {
+    "colors": [
+     "#6586ec",
+     "#2cf7fe"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder04": {
+   "key": "Border04",
+   "chartConfig": {
+    "key": "Border04",
+    "chartKey": "VBorder04",
+    "conKey": "VCBorder04",
+    "title": "边框-04",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border04.png"
+   },
+   "option": {
+    "borderTitle": "边框-04",
+    "borderTitleWidth": 250,
+    "borderTitleHeight": 32,
+    "borderTitleSize": 18,
+    "borderTitleColor": "#fff",
+    "colors": [
+     "#8aaafb",
+     "#1f33a2"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder05": {
+   "key": "Border05",
+   "chartConfig": {
+    "key": "Border05",
+    "chartKey": "VBorder05",
+    "conKey": "VCBorder05",
+    "title": "边框-05",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border05.png"
+   },
+   "option": {
+    "colors": [
+     "#1d48c4",
+     "#d3e1f8"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder06": {
+   "key": "Border06",
+   "chartConfig": {
+    "key": "Border06",
+    "chartKey": "VBorder06",
+    "conKey": "VCBorder06",
+    "title": "边框-06",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border06.png"
+   },
+   "option": {
+    "colors": [
+     "#3140ad",
+     "#1089ff"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder07": {
+   "key": "Border07",
+   "chartConfig": {
+    "key": "Border07",
+    "chartKey": "VBorder07",
+    "conKey": "VCBorder07",
+    "title": "边框-07",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border07.png"
+   },
+   "option": {
+    "colors": [
+     "#11eefd",
+     "#0078d2"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder08": {
+   "key": "Border08",
+   "chartConfig": {
+    "key": "Border08",
+    "chartKey": "VBorder08",
+    "conKey": "VCBorder08",
+    "title": "边框-08",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border08.png"
+   },
+   "option": {
+    "colors": [
+     "#235fa7",
+     "#4fd2dd"
+    ],
+    "dur": 3,
+    "reverse": false,
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder09": {
+   "key": "Border09",
+   "chartConfig": {
+    "key": "Border09",
+    "chartKey": "VBorder09",
+    "conKey": "VCBorder09",
+    "title": "边框-09",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border09.png"
+   },
+   "option": {
+    "colors": [
+     "#3140ad",
+     "#235fa7"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder10": {
+   "key": "Border10",
+   "chartConfig": {
+    "key": "Border10",
+    "chartKey": "VBorder10",
+    "conKey": "VCBorder10",
+    "title": "边框-10",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border10.png"
+   },
+   "option": {
+    "colors": [
+     "#1089ff",
+     "#0000ff"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder11": {
+   "key": "Border11",
+   "chartConfig": {
+    "key": "Border11",
+    "chartKey": "VBorder11",
+    "conKey": "VCBorder11",
+    "title": "边框-11",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border11.png"
+   },
+   "option": {
+    "colors": [
+     "#2862b7",
+     "#2862b7"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder12": {
+   "key": "Border12",
+   "chartConfig": {
+    "key": "Border12",
+    "chartKey": "VBorder12",
+    "conKey": "VCBorder12",
+    "title": "边框-12",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border12.png"
+   },
+   "option": {
+    "colors": [
+     "#2862b7",
+     "#2862b7"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VBorder13": {
+   "key": "Border13",
+   "chartConfig": {
+    "key": "Border13",
+    "chartKey": "VBorder13",
+    "conKey": "VCBorder13",
+    "title": "边框-13",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border13.png"
+   },
+   "option": {
+    "colors": [
+     "#2862b7",
+     "#4b77b7"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VDecorates01": {
+   "key": "Decorates01",
+   "chartConfig": {
+    "key": "Decorates01",
+    "chartKey": "VDecorates01",
+    "conKey": "VCDecorates01",
+    "title": "装饰-01",
+    "category": "Decorates",
+    "categoryName": "装饰",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "decorates01.png"
+   },
+   "option": {
+    "colors": [
+     "#3faacb",
+     "#fff"
+    ],
+    "dur": 3,
+    "lineHeight": 2,
+    "endWidth": 5
+   }
+  },
+  "VDecorates02": {
+   "key": "Decorates02",
+   "chartConfig": {
+    "key": "Decorates02",
+    "chartKey": "VDecorates02",
+    "conKey": "VCDecorates02",
+    "title": "装饰-02",
+    "category": "Decorates",
+    "categoryName": "装饰",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "decorates02.png"
+   },
+   "option": {
+    "colors": [
+     "#ffffff4d",
+     "#ffffff4d"
+    ],
+    "dur": 3,
+    "lineHeight": 3
+   }
+  },
+  "VDecorates03": {
+   "key": "Decorates03",
+   "chartConfig": {
+    "key": "Decorates03",
+    "chartKey": "VDecorates03",
+    "conKey": "VCDecorates03",
+    "title": "装饰-03",
+    "category": "Decorates",
+    "categoryName": "装饰",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "decorates03.png"
+   },
+   "option": {
+    "dataset": "我是标题",
+    "textColor": "#fff",
+    "textSize": 32,
+    "colors": [
+     "#1dc1f5",
+     "#1dc1f5"
+    ]
+   }
+  },
+  "VDecorates04": {
+   "key": "Decorates04",
+   "chartConfig": {
+    "key": "Decorates04",
+    "chartKey": "VDecorates04",
+    "conKey": "VCDecorates04",
+    "title": "装饰-04",
+    "category": "Decorates",
+    "categoryName": "装饰",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "decorates04.png"
+   },
+   "option": {
+    "colors": [
+     "#1dc1f5",
+     "#1dc1f5"
+    ],
+    "reverse": false
+   }
+  },
+  "VDecorates05": {
+   "key": "Decorates05",
+   "chartConfig": {
+    "key": "Decorates05",
+    "chartKey": "VDecorates05",
+    "conKey": "VCDecorates05",
+    "title": "装饰-05",
+    "category": "Decorates",
+    "categoryName": "装饰",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "decorates05.png"
+   },
+   "option": {
+    "colors": [
+     "#00c2ff",
+     "#00c2ff4d"
+    ],
+    "dur": 3
+   }
+  },
+  "VDecorates06": {
+   "key": "Decorates06",
+   "chartConfig": {
+    "key": "Decorates06",
+    "chartKey": "VDecorates06",
+    "conKey": "VCDecorates06",
+    "title": "装饰-06",
+    "category": "Decorates",
+    "categoryName": "装饰",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "decorates06.png"
+   },
+   "option": {
+    "colors": [
+     "#1DC1F533",
+     "#1DC1F5FF"
+    ],
+    "dataset": "我是标题",
+    "textColor": "#fff",
+    "textSize": 32
+   }
+  },
+  "VTimeCommon": {
+   "key": "TimeCommon",
+   "chartConfig": {
+    "key": "TimeCommon",
+    "chartKey": "VTimeCommon",
+    "conKey": "VCTimeCommon",
+    "title": "通用时间",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "time.png"
+   },
+   "option": {
+    "timeSize": 24,
+    "timeLineHeight": 50,
+    "timeTextIndent": 2,
+    "timeColor": "#E6F7FF",
+    "fontWeight": "normal",
+    "showShadow": true,
+    "hShadow": 0,
+    "vShadow": 0,
+    "blurShadow": 8,
+    "colorShadow": "#0075ff"
+   }
+  },
+  "VClock": {
+   "key": "Clock",
+   "chartConfig": {
+    "key": "Clock",
+    "chartKey": "VClock",
+    "conKey": "VCClock",
+    "title": "时钟",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "clock.png"
+   },
+   "option": {
+    "border": 6,
+    "color": "#ffffff",
+    "bgColor": "#84a5e9",
+    "borderColor": "#ffffff"
+   }
+  },
+  "VFlipperNumber": {
+   "key": "FlipperNumber",
+   "chartConfig": {
+    "key": "FlipperNumber",
+    "chartKey": "VFlipperNumber",
+    "conKey": "VCFlipperNumber",
+    "title": "数字翻牌-需动态触发",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Decorates",
+    "chartFrame": "common",
+    "image": "flipper-number.png"
+   },
+   "option": {
+    "dataset": 3234,
+    "flipperLength": 6,
+    "flipperBgColor": "#16293E",
+    "flipperTextColor": "#4A9EF8FF",
+    "flipperWidth": 30,
+    "flipperHeight": 50,
+    "flipperRadius": 5,
+    "flipperGap": 10,
+    "flipperType": "down",
+    "flipperSpeed": 450,
+    "flipperBorderWidth": 0
+   }
+  },
+  "VCirclePoint": {
+   "key": "CirclePoint",
+   "chartConfig": {
+    "key": "CirclePoint",
+    "chartKey": "VCirclePoint",
+    "conKey": "VCCirclePoint",
+    "title": "圆点光环",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "flow-circle.png"
+   },
+   "option": {
+    "outCircle": 15,
+    "inCircle": 5,
+    "outCircleColor": "#3f5261",
+    "inCircleColor": "#fff",
+    "outCircleWidth": 2
+   }
+  },
+  "VPipelineH": {
+   "key": "PipelineH",
+   "chartConfig": {
+    "key": "PipelineH",
+    "chartKey": "VPipelineH",
+    "conKey": "VCPipelineH",
+    "title": "管道-横向",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Decorates",
+    "image": "Pipeline_H.png"
+   },
+   "option": {
+    "color_type": 1,
+    "o_color": "#0a7ae2",
+    "i_color": "#119bfa",
+    "line_class": "svg_ani_flow"
+   }
+  },
+  "VBarCrossrange": {
+   "key": "BarCrossrange",
+   "chartConfig": {
+    "key": "BarCrossrange",
+    "chartKey": "VBarCrossrange",
+    "conKey": "VCBarCrossrange",
+    "title": "横向柱状图",
+    "category": "Bars",
+    "categoryName": "柱状图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "bar_y.png"
+   },
+   "option": {
+    "legend": {
+     "show": true,
+     "type": "scroll",
+     "x": "center",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 18
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     }
+    },
+    "xAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "bottom",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": false,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "value"
+    },
+    "yAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "left",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "category"
+    },
+    "grid": {
+     "show": false,
+     "left": "10%",
+     "top": "60",
+     "right": "10%",
+     "bottom": "60"
+    },
+    "tooltip": {
+     "show": true,
+     "trigger": "axis",
+     "axisPointer": {
+      "show": true,
+      "type": "shadow"
+     }
+    },
+    "dataset": {
+     "dimensions": [
+      "product",
+      "data1",
+      "data2"
+     ],
+     "source": [
+      {
+       "product": "Mon",
+       "data1": 120,
+       "data2": 130
+      },
+      {
+       "product": "Tue",
+       "data1": 200,
+       "data2": 130
+      },
+      {
+       "product": "Wed",
+       "data1": 150,
+       "data2": 312
+      },
+      {
+       "product": "Thu",
+       "data1": 80,
+       "data2": 268
+      },
+      {
+       "product": "Fri",
+       "data1": 70,
+       "data2": 155
+      },
+      {
+       "product": "Sat",
+       "data1": 110,
+       "data2": 117
+      },
+      {
+       "product": "Sun",
+       "data1": 130,
+       "data2": 160
+      }
+     ]
+    },
+    "series": [
+     {
+      "type": "bar",
+      "barWidth": null,
+      "label": {
+       "show": true,
+       "position": "right",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "itemStyle": {
+       "color": null,
+       "borderRadius": 0
+      }
+     },
+     {
+      "type": "bar",
+      "barWidth": null,
+      "label": {
+       "show": true,
+       "position": "right",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "itemStyle": {
+       "color": null,
+       "borderRadius": 0
+      }
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VBarLine": {
+   "key": "BarLine",
+   "chartConfig": {
+    "key": "BarLine",
+    "chartKey": "VBarLine",
+    "conKey": "VCBarLine",
+    "title": "柱状图 & 折线图",
+    "category": "Bars",
+    "categoryName": "柱状图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "bar_line.png"
+   },
+   "option": {
+    "legend": {
+     "show": true,
+     "type": "scroll",
+     "x": "center",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 18
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     },
+     "data": null
+    },
+    "xAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "bottom",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": false,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "category"
+    },
+    "yAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "left",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "value"
+    },
+    "grid": {
+     "show": false,
+     "left": "10%",
+     "top": "60",
+     "right": "10%",
+     "bottom": "60"
+    },
+    "tooltip": {
+     "show": true,
+     "trigger": "axis",
+     "axisPointer": {
+      "show": true,
+      "type": "shadow"
+     }
+    },
+    "dataset": {
+     "dimensions": [
+      "product",
+      "data1",
+      "data2"
+     ],
+     "source": [
+      {
+       "product": "1月",
+       "data1": 104,
+       "data2": 30
+      },
+      {
+       "product": "2月",
+       "data1": 56,
+       "data2": 56
+      },
+      {
+       "product": "3月",
+       "data1": 136,
+       "data2": 36
+      },
+      {
+       "product": "4月",
+       "data1": 86,
+       "data2": 6
+      },
+      {
+       "product": "5月",
+       "data1": 98,
+       "data2": 10
+      },
+      {
+       "product": "6月",
+       "data1": 86,
+       "data2": 70
+      },
+      {
+       "product": "7月",
+       "data1": 77,
+       "data2": 57
+      }
+     ]
+    },
+    "series": [
+     {
+      "type": "bar",
+      "barWidth": 15,
+      "label": {
+       "show": true,
+       "position": "top",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "itemStyle": {
+       "color": null,
+       "borderRadius": 2
+      }
+     },
+     {
+      "type": "line",
+      "symbol": "circle",
+      "label": {
+       "show": true,
+       "position": "top",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "symbolSize": 5,
+      "itemStyle": {
+       "borderWidth": 1
+      },
+      "lineStyle": {
+       "type": "solid",
+       "width": 3,
+       "color": null
+      }
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VCapsuleChart": {
+   "key": "CapsuleChart",
+   "chartConfig": {
+    "key": "CapsuleChart",
+    "chartKey": "VCapsuleChart",
+    "conKey": "VCCapsuleChart",
+    "title": "胶囊柱图",
+    "category": "Bars",
+    "categoryName": "柱状图",
+    "package": "Charts",
+    "chartFrame": "common",
+    "image": "capsule.png"
+   },
+   "option": {
+    "dataset": {
+     "dimensions": [
+      "name",
+      "value"
+     ],
+     "source": [
+      {
+       "name": "厦门",
+       "value": 20
+      },
+      {
+       "name": "南阳",
+       "value": 40
+      },
+      {
+       "name": "北京",
+       "value": 60
+      },
+      {
+       "name": "上海",
+       "value": 80
+      },
+      {
+       "name": "新疆",
+       "value": 100
+      }
+     ]
+    },
+    "colors": [
+     "#c4ebad",
+     "#6be6c1",
+     "#a0a7e6",
+     "#96dee8",
+     "#3fb1e3"
+    ],
+    "unit": "",
+    "itemHeight": 10,
+    "valueFontSize": 16,
+    "paddingRight": 50,
+    "paddingLeft": 50,
+    "showValue": true
+   }
+  },
+  "VLineGradients": {
+   "key": "LineGradients",
+   "chartConfig": {
+    "key": "LineGradients",
+    "chartKey": "VLineGradients",
+    "conKey": "VCLineGradients",
+    "title": "双折线渐变面积图",
+    "category": "Lines",
+    "categoryName": "折线图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "line_gradient.png"
+   },
+   "option": {
+    "legend": {
+     "show": true,
+     "type": "scroll",
+     "x": "center",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 18
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     }
+    },
+    "xAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "bottom",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": false,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "category"
+    },
+    "yAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "left",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "value"
+    },
+    "grid": {
+     "show": false,
+     "left": "10%",
+     "top": "60",
+     "right": "10%",
+     "bottom": "60"
+    },
+    "tooltip": {
+     "show": true,
+     "trigger": "axis",
+     "axisPointer": {
+      "type": "line"
+     }
+    },
+    "dataset": {
+     "dimensions": [
+      "product",
+      "data1",
+      "data2"
+     ],
+     "source": [
+      {
+       "product": "Mon",
+       "data1": 120,
+       "data2": 130
+      },
+      {
+       "product": "Tue",
+       "data1": 200,
+       "data2": 130
+      },
+      {
+       "product": "Wed",
+       "data1": 150,
+       "data2": 312
+      },
+      {
+       "product": "Thu",
+       "data1": 80,
+       "data2": 268
+      },
+      {
+       "product": "Fri",
+       "data1": 70,
+       "data2": 155
+      },
+      {
+       "product": "Sat",
+       "data1": 110,
+       "data2": 117
+      },
+      {
+       "product": "Sun",
+       "data1": 130,
+       "data2": 160
+      }
+     ]
+    },
+    "series": [
+     {
+      "type": "line",
+      "smooth": false,
+      "symbolSize": 5,
+      "label": {
+       "show": true,
+       "position": "top",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "lineStyle": {
+       "width": 3,
+       "type": "solid"
+      },
+      "areaStyle": {
+       "opacity": 0.8,
+       "color": {
+        "colorStops": [
+         {
+          "offset": 0,
+          "color": "rgba(73, 146, 255, 0.5)"
+         },
+         {
+          "offset": 1,
+          "color": "rgba(0,0,0,0)"
+         }
+        ],
+        "x": 0,
+        "y": 0,
+        "x2": 0,
+        "y2": 1,
+        "type": "linear",
+        "global": false
+       }
+      }
+     },
+     {
+      "type": "line",
+      "smooth": false,
+      "label": {
+       "show": true,
+       "position": "top",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "lineStyle": {
+       "width": 3,
+       "type": "solid"
+      },
+      "areaStyle": {
+       "opacity": 0.8,
+       "color": {
+        "colorStops": [
+         {
+          "offset": 0,
+          "color": "rgba(124, 255, 178, 0.5)"
+         },
+         {
+          "offset": 1,
+          "color": "rgba(0,0,0,0)"
+         }
+        ],
+        "x": 0,
+        "y": 0,
+        "x2": 0,
+        "y2": 1,
+        "type": "linear",
+        "global": false
+       }
+      }
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VLineGradientSingle": {
+   "key": "LineGradientSingle",
+   "chartConfig": {
+    "key": "LineGradientSingle",
+    "chartKey": "VLineGradientSingle",
+    "conKey": "VCLineGradientSingle",
+    "title": "单折线渐变面积图",
+    "category": "Lines",
+    "categoryName": "折线图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "line_gradient_single.png"
+   },
+   "option": {
+    "legend": {
+     "show": true,
+     "type": "scroll",
+     "x": "center",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 18
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     }
+    },
+    "xAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "bottom",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": false,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "category"
+    },
+    "yAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "left",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "value"
+    },
+    "grid": {
+     "show": false,
+     "left": "10%",
+     "top": "60",
+     "right": "10%",
+     "bottom": "60"
+    },
+    "tooltip": {
+     "show": true,
+     "trigger": "axis",
+     "axisPointer": {
+      "type": "line"
+     }
+    },
+    "dataset": {
+     "dimensions": [
+      "product",
+      "data1"
+     ],
+     "source": [
+      {
+       "product": "Mon",
+       "data1": 120
+      },
+      {
+       "product": "Tue",
+       "data1": 200
+      },
+      {
+       "product": "Wed",
+       "data1": 150
+      },
+      {
+       "product": "Thu",
+       "data1": 80
+      },
+      {
+       "product": "Fri",
+       "data1": 70
+      },
+      {
+       "product": "Sat",
+       "data1": 110
+      },
+      {
+       "product": "Sun",
+       "data1": 130
+      }
+     ]
+    },
+    "series": [
+     {
+      "type": "line",
+      "smooth": false,
+      "symbolSize": 5,
+      "label": {
+       "show": true,
+       "position": "top",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "lineStyle": {
+       "type": "solid",
+       "width": 3
+      },
+      "areaStyle": {
+       "opacity": 0.8,
+       "color": {
+        "colorStops": [
+         {
+          "offset": 0,
+          "color": "rgba(73, 146, 255, 0.5)"
+         },
+         {
+          "offset": 1,
+          "color": "rgba(0,0,0,0)"
+         }
+        ],
+        "x": 0,
+        "y": 0,
+        "x2": 0,
+        "y2": 1,
+        "type": "linear",
+        "global": false
+       }
+      }
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VLineLinearSingle": {
+   "key": "LineLinearSingle",
+   "chartConfig": {
+    "key": "LineLinearSingle",
+    "chartKey": "VLineLinearSingle",
+    "conKey": "VCLineLinearSingle",
+    "title": "单折线渐变图",
+    "category": "Lines",
+    "categoryName": "折线图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "line_linear_single.png"
+   },
+   "option": {
+    "legend": {
+     "show": true,
+     "type": "scroll",
+     "x": "center",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 18
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     }
+    },
+    "xAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "bottom",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": false,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "category"
+    },
+    "yAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "left",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "value"
+    },
+    "grid": {
+     "show": false,
+     "left": "10%",
+     "top": "60",
+     "right": "10%",
+     "bottom": "60"
+    },
+    "tooltip": {
+     "show": true,
+     "trigger": "axis",
+     "axisPointer": {
+      "type": "line"
+     }
+    },
+    "dataset": {
+     "dimensions": [
+      "product",
+      "data1"
+     ],
+     "source": [
+      {
+       "product": "Mon",
+       "data1": 120
+      },
+      {
+       "product": "Tue",
+       "data1": 200
+      },
+      {
+       "product": "Wed",
+       "data1": 150
+      },
+      {
+       "product": "Thu",
+       "data1": 80
+      },
+      {
+       "product": "Fri",
+       "data1": 70
+      },
+      {
+       "product": "Sat",
+       "data1": 110
+      },
+      {
+       "product": "Sun",
+       "data1": 130
+      }
+     ]
+    },
+    "series": [
+     {
+      "type": "line",
+      "symbolSize": 5,
+      "lineStyle": {
+       "type": "solid",
+       "width": 3,
+       "color": {
+        "type": "linear",
+        "x": 0,
+        "y": 0,
+        "x2": 0,
+        "y2": 1,
+        "colorStops": [
+         {
+          "offset": 0,
+          "color": "#4992ff"
+         },
+         {
+          "offset": 1,
+          "color": "#7cffb2"
+         }
+        ],
+        "globalCoord": false
+       },
+       "shadowColor": "rgba(68, 181, 226, 0.3)",
+       "shadowBlur": 10,
+       "shadowOffsetY": 20
+      }
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VWaterPolo": {
+   "key": "WaterPolo",
+   "chartConfig": {
+    "key": "WaterPolo",
+    "chartKey": "VWaterPolo",
+    "conKey": "VCWaterPolo",
+    "title": "水球图",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Charts",
+    "chartFrame": "common",
+    "image": "water_WaterPolo.png"
+   },
+   "option": {
+    "dataset": 0.5,
+    "series": [
+     {
+      "type": "liquidFill",
+      "shape": "circle",
+      "radius": "90%",
+      "data": [
+       0
+      ],
+      "center": [
+       "50%",
+       "50%"
+      ],
+      "color": [
+       {
+        "type": "linear",
+        "x": 0,
+        "y": 0,
+        "x2": 0,
+        "y2": 1,
+        "colorStops": [
+         {
+          "offset": 0,
+          "color": "#446bf5"
+         },
+         {
+          "offset": 1,
+          "color": "#2ca3e2"
+         }
+        ],
+        "globalCoord": false
+       }
+      ],
+      "backgroundStyle": {
+       "borderWidth": 1,
+       "color": "rgba(51, 66, 127, 0.7)"
+      },
+      "label": {
+       "normal": {
+        "textStyle": {
+         "fontSize": 50,
+         "color": "#fff"
+        }
+       }
+      },
+      "outline": {
+       "show": false,
+       "borderDistance": 10,
+       "itemStyle": {
+        "borderWidth": 2,
+        "borderColor": "#112165"
+       }
+      }
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VRadar": {
+   "key": "Radar",
+   "chartConfig": {
+    "key": "Radar",
+    "chartKey": "VRadar",
+    "conKey": "VCRadar",
+    "title": "雷达图",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Charts",
+    "chartFrame": "common",
+    "image": "radar.png"
+   },
+   "option": {
+    "legend": {
+     "show": true,
+     "type": "scroll",
+     "x": "center",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 18
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     },
+     "data": [
+      "data1",
+      "data2"
+     ]
+    },
+    "tooltip": {
+     "show": true
+    },
+    "dataset": {
+     "radarIndicator": [
+      {
+       "name": "数据1",
+       "max": 6500
+      },
+      {
+       "name": "数据2",
+       "max": 16000
+      },
+      {
+       "name": "数据3",
+       "max": 30000
+      },
+      {
+       "name": "数据4",
+       "max": 38000
+      },
+      {
+       "name": "数据5",
+       "max": 52000
+      },
+      {
+       "name": "数据6",
+       "max": 25000
+      }
+     ],
+     "seriesData": [
+      {
+       "name": "data1",
+       "value": [
+        4200,
+        3000,
+        20000,
+        35000,
+        50000,
+        18000
+       ]
+      },
+      {
+       "name": "data2",
+       "value": [
+        5000,
+        14000,
+        28000,
+        26000,
+        42000,
+        21000
+       ]
+      }
+     ]
+    },
+    "radar": {
+     "shape": "polygon",
+     "radius": [
+      "0%",
+      "60%"
+     ],
+     "center": [
+      "50%",
+      "55%"
+     ],
+     "splitArea": {
+      "show": true
+     },
+     "splitLine": {
+      "show": true
+     },
+     "axisName": {
+      "show": true,
+      "color": "#eee",
+      "fontSize": 12
+     },
+     "axisLine": {
+      "show": true
+     },
+     "axisTick": {
+      "show": true
+     },
+     "indicator": [
+      {
+       "name": "数据1",
+       "max": 6500
+      },
+      {
+       "name": "数据2",
+       "max": 16000
+      },
+      {
+       "name": "数据3",
+       "max": 30000
+      },
+      {
+       "name": "数据4",
+       "max": 38000
+      },
+      {
+       "name": "数据5",
+       "max": 52000
+      },
+      {
+       "name": "数据6",
+       "max": 25000
+      }
+     ]
+    },
+    "series": [
+     {
+      "name": "radar",
+      "type": "radar",
+      "areaStyle": {
+       "opacity": 0.1
+      },
+      "data": [
+       {
+        "name": "data1",
+        "value": [
+         4200,
+         3000,
+         20000,
+         35000,
+         50000,
+         18000
+        ]
+       },
+       {
+        "name": "data2",
+        "value": [
+         5000,
+         14000,
+         28000,
+         26000,
+         42000,
+         21000
+        ]
+       }
+      ]
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VProcess": {
+   "key": "Process",
+   "chartConfig": {
+    "key": "Process",
+    "chartKey": "VProcess",
+    "conKey": "VCProcess",
+    "title": "NaiveUI-进度",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Charts",
+    "image": "process.png"
+   },
+   "option": {
+    "dataset": 36,
+    "type": "dashboard",
+    "processing": true,
+    "color": "#4992FFFF",
+    "railColor": "#3e3e3f",
+    "unit": "%",
+    "indicatorTextSize": 34,
+    "indicatorPlacement": "outside",
+    "indicatorTextColor": "#FFFFFFFF",
+    "offsetDegree": 0
+   }
+  },
+  "VFunnel": {
+   "key": "Funnel",
+   "chartConfig": {
+    "key": "Funnel",
+    "chartKey": "VFunnel",
+    "conKey": "VCFunnel",
+    "title": "漏斗图",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "funnel.png"
+   },
+   "option": {
+    "legend": {
+     "show": true,
+     "type": "scroll",
+     "x": "center",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 18
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     }
+    },
+    "tooltip": {},
+    "dataset": {
+     "dimensions": [
+      "product",
+      "dataOne"
+     ],
+     "source": [
+      {
+       "product": "data1",
+       "dataOne": 20
+      },
+      {
+       "product": "data2",
+       "dataOne": 40
+      },
+      {
+       "product": "data3",
+       "dataOne": 60
+      },
+      {
+       "product": "data4",
+       "dataOne": 80
+      },
+      {
+       "product": "data5",
+       "dataOne": 100
+      }
+     ]
+    },
+    "series": [
+     {
+      "name": "Funnel",
+      "type": "funnel",
+      "top": 70,
+      "left": "10%",
+      "width": "80%",
+      "min": 0,
+      "minSize": "0%",
+      "maxSize": "100%",
+      "sort": "descending",
+      "gap": 5,
+      "label": {
+       "show": true,
+       "position": "inside",
+       "fontSize": 12
+      },
+      "itemStyle": {
+       "borderColor": "#fff",
+       "borderWidth": 0
+      },
+      "emphasis": {
+       "label": {
+        "fontSize": 20
+       }
+      }
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VPieCircle": {
+   "key": "PieCircle",
+   "chartConfig": {
+    "key": "PieCircle",
+    "chartKey": "VPieCircle",
+    "conKey": "VCPieCircle",
+    "title": "饼图-环形",
+    "category": "Pies",
+    "categoryName": "饼图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "pie-circle.png"
+   },
+   "option": {
+    "tooltip": {
+     "show": true,
+     "trigger": "item"
+    },
+    "legend": {
+     "show": true
+    },
+    "dataset": 0.25,
+    "title": {
+     "text": "25%",
+     "x": "center",
+     "y": "center",
+     "textStyle": {
+      "color": "#56B9F8",
+      "fontSize": 30
+     }
+    },
+    "series": [
+     {
+      "type": "pie",
+      "radius": [
+       "75%",
+       "80%"
+      ],
+      "center": [
+       "50%",
+       "50%"
+      ],
+      "hoverAnimation": true,
+      "color": [
+       "#00bcd44a",
+       "transparent"
+      ],
+      "label": {
+       "show": false
+      },
+      "data": [
+       {
+        "value": [
+         25
+        ],
+        "itemStyle": {
+         "color": "#03a9f4",
+         "shadowBlur": 10,
+         "shadowColor": "#97e2f5"
+        }
+       },
+       {
+        "value": [
+         75
+        ],
+        "itemStyle": {
+         "color": "#00bcd44a",
+         "shadowBlur": 0,
+         "shadowColor": "#00bcd44a"
+        }
+       }
+      ]
+     }
+    ],
+    "backgroundColor": "rgba(0,0,0,0)"
+   }
+  },
+  "VTextGradient": {
+   "key": "TextGradient",
+   "chartConfig": {
+    "key": "TextGradient",
+    "chartKey": "VTextGradient",
+    "conKey": "VCTextGradient",
+    "title": "渐变文字",
+    "category": "Texts",
+    "categoryName": "文本",
+    "package": "Informations",
+    "chartFrame": "naiveUI",
+    "image": "text_gradient.png"
+   },
+   "option": {
+    "dataset": "我是渐变文本",
+    "size": 20,
+    "gradient": {
+     "from": "#0000FFFF",
+     "to": "#00FF00FF",
+     "deg": 45
+    }
+   }
+  },
+  "VTableScrollBoard": {
+   "key": "TableScrollBoard",
+   "chartConfig": {
+    "key": "TableScrollBoard",
+    "chartKey": "VTableScrollBoard",
+    "conKey": "VCTableScrollBoard",
+    "title": "轮播列表",
+    "category": "Tables",
+    "categoryName": "表格",
+    "package": "Tables",
+    "chartFrame": "common",
+    "image": "table_scrollboard.png"
+   },
+   "option": {
+    "header": [
+     "列1",
+     "列2",
+     "列3"
+    ],
+    "dataset": [
+     [
+      "行1列1",
+      "行1列2",
+      "行1列3"
+     ],
+     [
+      "行2列1",
+      "行2列2",
+      "行2列3"
+     ],
+     [
+      "行3列1",
+      "行3列2",
+      "行3列3"
+     ],
+     [
+      "行4列1",
+      "行4列2",
+      "行4列3"
+     ],
+     [
+      "行5列1",
+      "行5列2",
+      "行5列3"
+     ],
+     [
+      "行6列1",
+      "行6列2",
+      "行6列3"
+     ],
+     [
+      "行7列1",
+      "行7列2",
+      "行7列3"
+     ],
+     [
+      "行8列1",
+      "行8列2",
+      "行8列3"
+     ],
+     [
+      "行9列1",
+      "行9列2",
+      "行9列3"
+     ],
+     [
+      "行10列1",
+      "行10列2",
+      "行10列3"
+     ]
+    ],
+    "index": true,
+    "columnWidth": [
+     30,
+     100,
+     100
+    ],
+    "align": [
+     "center",
+     "right",
+     "right",
+     "right"
+    ],
+    "rowNum": 5,
+    "waitTime": 2,
+    "headerHeight": 35,
+    "carousel": "single",
+    "headerBGC": "#00BAFF",
+    "oddRowBGC": "#003B51",
+    "evenRowBGC": "#0A2732"
+   }
+  },
+  "VTableList": {
+   "key": "TableList",
+   "chartConfig": {
+    "key": "TableList",
+    "chartKey": "VTableList",
+    "conKey": "VCTableList",
+    "title": "滚动排名列表",
+    "category": "Tables",
+    "categoryName": "表格",
+    "package": "Tables",
+    "chartFrame": "common",
+    "image": "tables_list.png"
+   },
+   "option": {
+    "dataset": [
+     {
+      "name": "荣成",
+      "value": 26700
+     },
+     {
+      "name": "河南",
+      "value": 20700
+     },
+     {
+      "name": "河北",
+      "value": 18700
+     },
+     {
+      "name": "徐州",
+      "value": 17800
+     },
+     {
+      "name": "漯河",
+      "value": 16756
+     },
+     {
+      "name": "三门峡",
+      "value": 12343
+     },
+     {
+      "name": "郑州",
+      "value": 9822
+     },
+     {
+      "name": "周口",
+      "value": 8912
+     },
+     {
+      "name": "濮阳",
+      "value": 6834
+     },
+     {
+      "name": "信阳",
+      "value": 5875
+     },
+     {
+      "name": "新乡",
+      "value": 3832
+     },
+     {
+      "name": "大同",
+      "value": 1811
+     }
+    ],
+    "rowNum": 5,
+    "waitTime": 2,
+    "unit": "",
+    "sort": true,
+    "color": "#1370fb",
+    "textColor": "#CDD2F8FF",
+    "borderColor": "#1370fb80",
+    "carousel": "single",
+    "indexFontSize": 12,
+    "leftFontSize": 12,
+    "rightFontSize": 12
+   }
+  },
+  "VImage": {
+   "key": "Image",
+   "chartConfig": {
+    "key": "Image",
+    "chartKey": "VImage",
+    "conKey": "VCImage",
+    "title": "图片",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Informations",
+    "chartFrame": "common",
+    "image": "photo.png"
+   },
+   "option": {
+    "dataset": "{{material:images/border-corners.svg}}",
+    "fit": "fill",
+    "borderRadius": 0
+   }
+  },
+  "VTextCommon": {
+   "key": "TextCommon",
+   "chartConfig": {
+    "key": "TextCommon",
+    "chartKey": "VTextCommon",
+    "conKey": "VCTextCommon",
+    "title": "文字",
+    "category": "Texts",
+    "categoryName": "文本",
+    "package": "Informations",
+    "chartFrame": "common",
+    "image": "text_static.png"
+   },
+   "option": {
+    "link": "",
+    "linkHead": "http://",
+    "dataset": "智慧校园三维总览",
+    "fontSize": 36,
+    "fontColor": "#7fe7ff",
+    "paddingX": 0,
+    "paddingY": 0,
+    "textAlign": "center",
+    "fontWeight": "bold",
+    "borderWidth": 0,
+    "borderColor": "#ffffff",
+    "borderRadius": 5,
+    "letterSpacing": 8,
+    "writingMode": "horizontal-tb",
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VNumber": {
+   "key": "Number",
+   "chartConfig": {
+    "key": "Number",
+    "chartKey": "VNumber",
+    "conKey": "VCNumber",
+    "title": "数字计数",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Decorates",
+    "chartFrame": "common",
+    "image": "number.png"
+   },
+   "option": {
+    "dataset": 18620,
+    "from": 0,
+    "dur": 2.5,
+    "precision": 0,
+    "showSeparator": true,
+    "numberSize": 34,
+    "numberColor": "#7fe7ff",
+    "prefixText": "",
+    "prefixColor": "#4fd2dd",
+    "suffixText": "",
+    "suffixColor": "#8fb8d8"
+   }
+  },
+  "VBarCommon": {
+   "key": "BarCommon",
+   "chartConfig": {
+    "key": "BarCommon",
+    "chartKey": "VBarCommon",
+    "conKey": "VCBarCommon",
+    "title": "柱状图",
+    "category": "Bars",
+    "categoryName": "柱状图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "bar_x.png"
+   },
+   "option": {
+    "backgroundColor": "rgba(0,0,0,0)",
+    "tooltip": {
+     "show": true,
+     "trigger": "axis",
+     "axisPointer": {
+      "show": true,
+      "type": "shadow"
+     }
+    },
+    "xAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 11,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "bottom",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": false,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "category"
+    },
+    "yAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "left",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#16324f",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "value"
+    },
+    "legend": {
+     "show": false,
+     "type": "scroll",
+     "x": "center",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 18
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     }
+    },
+    "grid": {
+     "show": false,
+     "left": "14%",
+     "top": "36",
+     "right": "4%",
+     "bottom": "30"
+    },
+    "dataset": {
+     "dimensions": [
+      "楼宇",
+      "能耗"
+     ],
+     "source": [
+      {
+       "楼宇": "教学楼A",
+       "能耗": 1860
+      },
+      {
+       "楼宇": "实验楼",
+       "能耗": 2420
+      },
+      {
+       "楼宇": "图书馆",
+       "能耗": 1680
+      },
+      {
+       "楼宇": "宿舍区",
+       "能耗": 2140
+      },
+      {
+       "楼宇": "食堂",
+       "能耗": 1520
+      },
+      {
+       "楼宇": "体育馆",
+       "能耗": 960
+      }
+     ]
+    },
+    "series": [
+     {
+      "type": "bar",
+      "barWidth": 22,
+      "label": {
+       "show": true,
+       "position": "top",
+       "color": "#cfeeff",
+       "fontSize": 12
+      },
+      "itemStyle": {
+       "color": {
+        "type": "linear",
+        "x": 0,
+        "y": 0,
+        "x2": 0,
+        "y2": 1,
+        "colorStops": [
+         {
+          "offset": 0,
+          "color": "#4fd2dd"
+         },
+         {
+          "offset": 1,
+          "color": "#1d6fd1"
+         }
+        ]
+       },
+       "borderRadius": [
+        3,
+        3,
+        0,
+        0
+       ]
+      },
+      "name": "能耗"
+     }
+    ]
+   }
+  },
+  "VLineCommon": {
+   "key": "LineCommon",
+   "chartConfig": {
+    "key": "LineCommon",
+    "chartKey": "VLineCommon",
+    "conKey": "VCLineCommon",
+    "title": "折线图",
+    "category": "Lines",
+    "categoryName": "折线图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "line.png"
+   },
+   "option": {
+    "backgroundColor": "rgba(0,0,0,0)",
+    "tooltip": {
+     "show": true,
+     "trigger": "axis",
+     "axisPointer": {
+      "type": "line"
+     }
+    },
+    "xAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 11,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "bottom",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": false,
+      "lineStyle": {
+       "color": "#484753",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "category"
+    },
+    "yAxis": {
+     "show": true,
+     "name": "",
+     "nameGap": 15,
+     "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "inverse": false,
+     "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+     },
+     "position": "left",
+     "axisLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#B9B8CE",
+       "width": 1
+      },
+      "onZero": true
+     },
+     "axisTick": {
+      "show": true,
+      "length": 5
+     },
+     "splitLine": {
+      "show": true,
+      "lineStyle": {
+       "color": "#16324f",
+       "width": 1,
+       "type": "solid"
+      }
+     },
+     "type": "value"
+    },
+    "legend": {
+     "show": true,
+     "type": "scroll",
+     "x": "right",
+     "y": "top",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+     },
+     "itemHeight": 15,
+     "itemWidth": 15,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     }
+    },
+    "grid": {
+     "show": false,
+     "left": "14%",
+     "top": "40",
+     "right": "5%",
+     "bottom": "32"
+    },
+    "dataset": {
+     "dimensions": [
+      "时段",
+      "入校",
+      "出校"
+     ],
+     "source": [
+      {
+       "时段": "07:00",
+       "入校": 1860,
+       "出校": 320
+      },
+      {
+       "时段": "09:00",
+       "入校": 2940,
+       "出校": 780
+      },
+      {
+       "时段": "11:00",
+       "入校": 1240,
+       "出校": 1420
+      },
+      {
+       "时段": "13:00",
+       "入校": 1980,
+       "出校": 960
+      },
+      {
+       "时段": "15:00",
+       "入校": 860,
+       "出校": 1560
+      },
+      {
+       "时段": "17:00",
+       "入校": 640,
+       "出校": 2680
+      },
+      {
+       "时段": "19:00",
+       "入校": 520,
+       "出校": 1240
+      }
+     ]
+    },
+    "series": [
+     {
+      "type": "line",
+      "label": {
+       "show": false,
+       "position": "top",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "symbolSize": 6,
+      "itemStyle": {
+       "color": "#4fd2dd",
+       "borderRadius": 0
+      },
+      "lineStyle": {
+       "type": "solid",
+       "width": 3,
+       "color": "#4fd2dd"
+      },
+      "name": "入校",
+      "smooth": true,
+      "areaStyle": {
+       "color": "#4fd2dd",
+       "opacity": 0.12
+      }
+     },
+     {
+      "type": "line",
+      "label": {
+       "show": false,
+       "position": "top",
+       "color": "#fff",
+       "fontSize": 12
+      },
+      "symbolSize": 6,
+      "itemStyle": {
+       "color": "#ffbf47",
+       "borderRadius": 0
+      },
+      "lineStyle": {
+       "type": "solid",
+       "width": 3,
+       "color": "#ffbf47"
+      },
+      "name": "出校",
+      "smooth": true,
+      "areaStyle": {
+       "color": "#ffbf47",
+       "opacity": 0.12
+      }
+     }
+    ]
+   }
+  },
+  "VBorder01": {
+   "key": "Border01",
+   "chartConfig": {
+    "key": "Border01",
+    "chartKey": "VBorder01",
+    "conKey": "VCBorder01",
+    "title": "边框-01",
+    "category": "Borders",
+    "categoryName": "边框",
+    "package": "Decorates",
+    "chartFrame": "static",
+    "image": "border01.png"
+   },
+   "option": {
+    "dur": 0.5,
+    "colors": [
+     "#2f8cff",
+     "#4fd2dd"
+    ],
+    "backgroundColor": "#00000000"
+   }
+  },
+  "VScene3D": {
+   "key": "Scene3D",
+   "chartConfig": {
+    "key": "Scene3D",
+    "chartKey": "VScene3D",
+    "conKey": "VCScene3D",
+    "title": "三维场景",
+    "category": "Scene",
+    "categoryName": "场景",
+    "package": "Scenes",
+    "chartFrame": "static",
+    "image": "scene3d.svg"
+   },
+   "option": {
+    "sceneMode": "3D",
+    "camera": {
+     "lon": 116.3105,
+     "lat": 39.9905,
+     "height": 1800,
+     "heading": 0,
+     "pitch": -62,
+     "roll": 0
+    },
+    "baseLayer": "naturalEarth",
+    "layerSets": [
+     {
+      "id": "campus-base",
+      "name": "校园底图",
+      "visible": true,
+      "layers": [
+       {
+        "id": "campus-tiles",
+        "name": "校园离线瓦片",
+        "type": "raster",
+        "source": {
+         "from": "material",
+         "refId": "",
+         "url": "{{material:maps/campus-tiles.zip}}"
+        },
+        "visible": true,
+        "opacity": 1,
+        "style": {
+         "fill": "#51d6a9",
+         "stroke": "#0b3f56",
+         "strokeWidth": 3,
+         "pointColor": "#ffd166",
+         "pointSize": 2,
+         "colorBy": "rgb"
+        }
+       }
+      ]
+     },
+     {
+      "id": "campus-features",
+      "name": "校园要素",
+      "visible": true,
+      "layers": [
+       {
+        "id": "campus-buildings",
+        "name": "建筑轮廓",
+        "type": "vector",
+        "source": {
+         "from": "material",
+         "refId": "",
+         "url": "{{material:maps/campus-buildings.geojson}}"
+        },
+        "visible": true,
+        "opacity": 0.92,
+        "style": {
+         "fill": "#2f6f8f",
+         "stroke": "#a6f3ff",
+         "strokeWidth": 2,
+         "pointColor": "#7fe7ff",
+         "pointSize": 2,
+         "colorBy": "rgb",
+         "extrude": true,
+         "colorField": "type",
+         "colorMap": {
+          "教学楼": "#2fb6e8",
+          "宿舍": "#f59a4a",
+          "食堂": "#f6c945",
+          "实验楼": "#4f7df3",
+          "体育馆": "#9b7bf0"
+         },
+         "extrudeScale": 3
+        }
+       },
+       {
+        "id": "campus-roads",
+        "name": "校园道路",
+        "type": "vector",
+        "source": {
+         "from": "material",
+         "refId": "",
+         "url": "{{material:maps/campus-roads.geojson}}"
+        },
+        "visible": true,
+        "opacity": 0.9,
+        "style": {
+         "fill": "#1b3c52",
+         "stroke": "#ffbf47",
+         "strokeWidth": 2,
+         "pointColor": "#ffd166",
+         "pointSize": 2,
+         "colorBy": "rgb"
+        }
+       },
+       {
+        "id": "campus-poi",
+        "name": "兴趣点",
+        "type": "vector",
+        "source": {
+         "from": "material",
+         "refId": "",
+         "url": "{{material:maps/campus-poi.geojson}}"
+        },
+        "visible": true,
+        "opacity": 1,
+        "style": {
+         "fill": "#5a2d2d",
+         "stroke": "#ff7a59",
+         "strokeWidth": 2,
+         "pointColor": "#ff7a59",
+         "pointSize": 2,
+         "colorBy": "rgb",
+         "colorField": "type",
+         "colorMap": {
+          "校门": "#3b8bff",
+          "景观": "#6fe08a",
+          "运动": "#ff9f43",
+          "监控": "#ff5d5d",
+          "环境监测": "#2ee6b8",
+          "消防": "#ff4d6d"
+         }
+        }
+       }
+      ]
+     },
+     {
+      "id": "campus-models",
+      "name": "三维模型",
+      "visible": true,
+      "layers": [
+       {
+        "id": "campus-teaching-building",
+        "name": "教学楼",
+        "type": "model",
+        "source": {
+         "from": "material",
+         "refId": "",
+         "url": "{{material:models/teaching-building.glb}}",
+         "format": "gltf",
+         "position": {
+          "lon": 116.3112,
+          "lat": 39.9994,
+          "height": 0
+         },
+         "rotation": {
+          "heading": 20,
+          "pitch": 0,
+          "roll": 0
+         },
+         "scale": 1
+        },
+        "visible": true,
+        "opacity": 1,
+        "style": {
+         "fill": "#51d6a9",
+         "stroke": "#0b3f56",
+         "strokeWidth": 3,
+         "pointColor": "#ffd166",
+         "pointSize": 2,
+         "colorBy": "rgb"
+        }
+       },
+       {
+        "id": "campus-tree-east",
+        "name": "景观树（东）",
+        "type": "model",
+        "source": {
+         "from": "material",
+         "refId": "",
+         "url": "{{material:models/tree.glb}}",
+         "format": "gltf",
+         "position": {
+          "lon": 116.3126,
+          "lat": 40.0002,
+          "height": 0
+         },
+         "rotation": {
+          "heading": 0,
+          "pitch": 0,
+          "roll": 0
+         },
+         "scale": 1.4
+        },
+        "visible": true,
+        "opacity": 1,
+        "style": {
+         "fill": "#51d6a9",
+         "stroke": "#0b3f56",
+         "strokeWidth": 3,
+         "pointColor": "#ffd166",
+         "pointSize": 2,
+         "colorBy": "rgb"
+        }
+       },
+       {
+        "id": "campus-tree-west",
+        "name": "景观树（西）",
+        "type": "model",
+        "source": {
+         "from": "material",
+         "refId": "",
+         "url": "{{material:models/tree.glb}}",
+         "format": "gltf",
+         "position": {
+          "lon": 116.3102,
+          "lat": 39.9986,
+          "height": 0
+         },
+         "rotation": {
+          "heading": 45,
+          "pitch": 0,
+          "roll": 0
+         },
+         "scale": 1.2
+        },
+        "visible": true,
+        "opacity": 1,
+        "style": {
+         "fill": "#51d6a9",
+         "stroke": "#0b3f56",
+         "strokeWidth": 3,
+         "pointColor": "#ffd166",
+         "pointSize": 2,
+         "colorBy": "rgb"
+        }
+       }
+      ]
+     },
+     {
+      "id": "campus-panorama-set",
+      "name": "360 街景",
+      "visible": true,
+      "layers": [
+       {
+        "id": "campus-panorama",
+        "name": "图书馆门前街景",
+        "type": "panorama",
+        "source": {
+         "points": [
+          {
+           "id": "campus-panorama-1",
+           "name": "图书馆门前",
+           "lon": 116.3109,
+           "lat": 39.9996,
+           "imageUrl": "{{material:images/panorama-demo.jpg}}"
+          }
+         ]
+        },
+        "visible": true,
+        "opacity": 1,
+        "style": {
+         "fill": "#51d6a9",
+         "stroke": "#0b3f56",
+         "strokeWidth": 3,
+         "pointColor": "#ffd166",
+         "pointSize": 2,
+         "colorBy": "rgb"
+        }
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "VPieCommon": {
+   "key": "PieCommon",
+   "chartConfig": {
+    "key": "PieCommon",
+    "chartKey": "VPieCommon",
+    "conKey": "VCPieCommon",
+    "title": "饼图",
+    "category": "Pies",
+    "categoryName": "饼图",
+    "package": "Charts",
+    "chartFrame": "echarts",
+    "image": "pie.png"
+   },
+   "option": {
+    "isCarousel": false,
+    "type": "ring",
+    "backgroundColor": "rgba(0,0,0,0)",
+    "tooltip": {
+     "show": true,
+     "trigger": "item"
+    },
+    "legend": {
+     "show": true,
+     "type": "plain",
+     "x": "center",
+     "y": "bottom",
+     "icon": "circle",
+     "orient": "horizontal",
+     "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 13
+     },
+     "itemHeight": 10,
+     "itemWidth": 10,
+     "pageTextStyle": {
+      "color": "#B9B8CE"
+     }
+    },
+    "dataset": {
+     "dimensions": [
+      "类型",
+      "面积占比"
+     ],
+     "source": [
+      {
+       "类型": "教学楼",
+       "面积占比": 34
+      },
+      {
+       "类型": "宿舍",
+       "面积占比": 26
+      },
+      {
+       "类型": "实验楼",
+       "面积占比": 18
+      },
+      {
+       "类型": "食堂",
+       "面积占比": 12
+      },
+      {
+       "类型": "体育馆",
+       "面积占比": 10
+      }
+     ]
+    },
+    "series": [
+     {
+      "type": "pie",
+      "radius": [
+       "46%",
+       "68%"
+      ],
+      "center": [
+       "50%",
+       "42%"
+      ],
+      "roseType": false,
+      "avoidLabelOverlap": false,
+      "itemStyle": {
+       "show": true,
+       "borderRadius": 6,
+       "borderColor": "#071324",
+       "borderWidth": 3
+      },
+      "label": {
+       "show": false,
+       "position": "center",
+       "formatter": "{b}",
+       "fontWeight": "normal",
+       "fontSize": 14,
+       "color": "#454E54",
+       "textBorderColor": "#ffffff",
+       "textBorderWidth": 1
+      },
+      "emphasis": {
+       "label": {
+        "show": true,
+        "fontSize": 22,
+        "fontWeight": "bold",
+        "color": "#ffffff",
+        "formatter": "{b}\n{d}%"
+       }
+      },
+      "labelLine": {
+       "show": false
+      }
+     }
+    ],
+    "color": [
+     "#2fb6e8",
+     "#f59a4a",
+     "#4f7df3",
+     "#f6c945",
+     "#9b7bf0"
+    ]
+   }
+  },
+  "VTablesBasic": {
+   "key": "TablesBasic",
+   "chartConfig": {
+    "key": "TablesBasic",
+    "chartKey": "VTablesBasic",
+    "conKey": "VCTablesBasic",
+    "title": "基础分页表格",
+    "category": "Tables",
+    "categoryName": "表格",
+    "package": "Tables",
+    "chartFrame": "common",
+    "image": "tables_basic.png"
+   },
+   "option": {
+    "dataset": {
+     "dimensions": [
+      {
+       "title": "时间",
+       "key": "time"
+      },
+      {
+       "title": "位置",
+       "key": "place"
+      },
+      {
+       "title": "类型",
+       "key": "kind"
+      },
+      {
+       "title": "级别",
+       "key": "level"
+      }
+     ],
+     "source": [
+      {
+       "key": 0,
+       "time": "10:42",
+       "place": "实验楼 B2",
+       "kind": "温度偏高",
+       "level": "一般"
+      },
+      {
+       "key": 1,
+       "time": "10:35",
+       "place": "东环路",
+       "kind": "车辆滞留",
+       "level": "提示"
+      },
+      {
+       "key": 2,
+       "time": "10:21",
+       "place": "宿舍区 3 号",
+       "kind": "烟感触发",
+       "level": "紧急"
+      },
+      {
+       "key": 3,
+       "time": "09:58",
+       "place": "图书馆",
+       "kind": "设备离线",
+       "level": "一般"
+      },
+      {
+       "key": 4,
+       "time": "09:40",
+       "place": "南门",
+       "kind": "人流拥挤",
+       "level": "提示"
+      },
+      {
+       "key": 5,
+       "time": "09:12",
+       "place": "体育馆",
+       "kind": "水压偏低",
+       "level": "一般"
+      }
+     ]
+    },
+    "pagination": {
+     "page": 1,
+     "pageSize": 5
+    },
+    "align": "center",
+    "style": {
+     "border": "on",
+     "singleColumn": "off",
+     "singleLine": "off",
+     "bottomBordered": "on",
+     "striped": "on",
+     "fontSize": 14,
+     "borderWidth": 0,
+     "borderColor": "black",
+     "borderStyle": "solid"
+    },
+    "inputShow": "none"
+   }
+  },
+  "VDial": {
+   "key": "Dial",
+   "chartConfig": {
+    "key": "Dial",
+    "chartKey": "VDial",
+    "conKey": "VCDial",
+    "title": "表盘",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Charts",
+    "chartFrame": "common",
+    "image": "dial.png"
+   },
+   "option": {
+    "backgroundColor": "rgba(0,0,0,0)",
+    "dataset": 96,
+    "series": [
+     {
+      "type": "gauge",
+      "data": [
+       {
+        "value": 96,
+        "itemStyle": {
+         "color": "#2AF4FF"
+        }
+       }
+      ],
+      "min": 0,
+      "max": 100,
+      "splitNumber": 10,
+      "center": [
+       "50%",
+       "62%"
+      ],
+      "radius": "100%",
+      "axisLine": {
+       "lineStyle": {
+        "width": 18,
+        "color": [
+         [
+          0.96,
+          "#4fd2dd"
+         ],
+         [
+          1,
+          "#16324f"
+         ]
+        ]
+       }
+      },
+      "axisLabel": {
+       "show": false
+      },
+      "axisTick": {
+       "show": false
+      },
+      "splitLine": {
+       "show": false
+      },
+      "detail": {
+       "show": true,
+       "valueAnimation": true,
+       "formatter": "{value}%",
+       "color": "#7fe7ff",
+       "fontSize": 44,
+       "fontWeight": "bold",
+       "offsetCenter": [
+        0,
+        "-4%"
+       ]
+      },
+      "pointer": {
+       "show": false
+      },
+      "animationDuration": 2000,
+      "startAngle": 200,
+      "endAngle": -20
+     }
+    ]
+   }
+  },
+  "VRtspVideo": {
+   "key": "RtspVideo",
+   "chartConfig": {
+    "key": "RtspVideo",
+    "chartKey": "VRtspVideo",
+    "conKey": "VCRtspVideo",
+    "title": "摄像头视频",
+    "category": "Mores",
+    "categoryName": "更多",
+    "package": "Informations",
+    "chartFrame": "common",
+    "image": "video.png"
+   },
+   "option": {
+    "rtspUrl": "",
+    "streamId": "",
+    "autoplay": true,
+    "muted": true,
+    "fit": "contain"
+   }
+  }
+ },
+ "scenes": {
+  "campus": {
+   "sceneMode": "3D",
+   "camera": {
+    "lon": 116.3105,
+    "lat": 39.9905,
+    "height": 1800,
+    "heading": 0,
+    "pitch": -62,
+    "roll": 0
+   },
+   "baseLayer": "naturalEarth",
+   "layerSets": [
+    {
+     "id": "campus-base",
+     "name": "校园底图",
+     "visible": true,
+     "layers": [
+      {
+       "id": "campus-tiles",
+       "name": "校园离线瓦片",
+       "type": "raster",
+       "source": {
+        "from": "material",
+        "refId": "",
+        "url": "{{material:maps/campus-tiles.zip}}"
+       },
+       "visible": true,
+       "opacity": 1,
+       "style": {
+        "fill": "#51d6a9",
+        "stroke": "#0b3f56",
+        "strokeWidth": 3,
+        "pointColor": "#ffd166",
+        "pointSize": 2,
+        "colorBy": "rgb"
+       }
+      }
+     ]
+    },
+    {
+     "id": "campus-features",
+     "name": "校园要素",
+     "visible": true,
+     "layers": [
+      {
+       "id": "campus-buildings",
+       "name": "建筑轮廓",
+       "type": "vector",
+       "source": {
+        "from": "material",
+        "refId": "",
+        "url": "{{material:maps/campus-buildings.geojson}}"
+       },
+       "visible": true,
+       "opacity": 0.92,
+       "style": {
+        "fill": "#2f6f8f",
+        "stroke": "#a6f3ff",
+        "strokeWidth": 2,
+        "pointColor": "#7fe7ff",
+        "pointSize": 2,
+        "colorBy": "rgb",
+        "extrude": true,
+        "colorField": "type",
+        "colorMap": {
+         "教学楼": "#2fb6e8",
+         "宿舍": "#f59a4a",
+         "食堂": "#f6c945",
+         "实验楼": "#4f7df3",
+         "体育馆": "#9b7bf0"
+        },
+        "extrudeScale": 3
+       }
+      },
+      {
+       "id": "campus-roads",
+       "name": "校园道路",
+       "type": "vector",
+       "source": {
+        "from": "material",
+        "refId": "",
+        "url": "{{material:maps/campus-roads.geojson}}"
+       },
+       "visible": true,
+       "opacity": 0.9,
+       "style": {
+        "fill": "#1b3c52",
+        "stroke": "#ffbf47",
+        "strokeWidth": 2,
+        "pointColor": "#ffd166",
+        "pointSize": 2,
+        "colorBy": "rgb"
+       }
+      },
+      {
+       "id": "campus-poi",
+       "name": "兴趣点",
+       "type": "vector",
+       "source": {
+        "from": "material",
+        "refId": "",
+        "url": "{{material:maps/campus-poi.geojson}}"
+       },
+       "visible": true,
+       "opacity": 1,
+       "style": {
+        "fill": "#5a2d2d",
+        "stroke": "#ff7a59",
+        "strokeWidth": 2,
+        "pointColor": "#ff7a59",
+        "pointSize": 2,
+        "colorBy": "rgb",
+        "colorField": "type",
+        "colorMap": {
+         "校门": "#3b8bff",
+         "景观": "#6fe08a",
+         "运动": "#ff9f43",
+         "监控": "#ff5d5d",
+         "环境监测": "#2ee6b8",
+         "消防": "#ff4d6d"
+        }
+       }
+      }
+     ]
+    },
+    {
+     "id": "campus-models",
+     "name": "三维模型",
+     "visible": true,
+     "layers": [
+      {
+       "id": "campus-teaching-building",
+       "name": "教学楼",
+       "type": "model",
+       "source": {
+        "from": "material",
+        "refId": "",
+        "url": "{{material:models/teaching-building.glb}}",
+        "format": "gltf",
+        "position": {
+         "lon": 116.3112,
+         "lat": 39.9994,
+         "height": 0
+        },
+        "rotation": {
+         "heading": 20,
+         "pitch": 0,
+         "roll": 0
+        },
+        "scale": 1
+       },
+       "visible": true,
+       "opacity": 1,
+       "style": {
+        "fill": "#51d6a9",
+        "stroke": "#0b3f56",
+        "strokeWidth": 3,
+        "pointColor": "#ffd166",
+        "pointSize": 2,
+        "colorBy": "rgb"
+       }
+      },
+      {
+       "id": "campus-tree-east",
+       "name": "景观树（东）",
+       "type": "model",
+       "source": {
+        "from": "material",
+        "refId": "",
+        "url": "{{material:models/tree.glb}}",
+        "format": "gltf",
+        "position": {
+         "lon": 116.3126,
+         "lat": 40.0002,
+         "height": 0
+        },
+        "rotation": {
+         "heading": 0,
+         "pitch": 0,
+         "roll": 0
+        },
+        "scale": 1.4
+       },
+       "visible": true,
+       "opacity": 1,
+       "style": {
+        "fill": "#51d6a9",
+        "stroke": "#0b3f56",
+        "strokeWidth": 3,
+        "pointColor": "#ffd166",
+        "pointSize": 2,
+        "colorBy": "rgb"
+       }
+      },
+      {
+       "id": "campus-tree-west",
+       "name": "景观树（西）",
+       "type": "model",
+       "source": {
+        "from": "material",
+        "refId": "",
+        "url": "{{material:models/tree.glb}}",
+        "format": "gltf",
+        "position": {
+         "lon": 116.3102,
+         "lat": 39.9986,
+         "height": 0
+        },
+        "rotation": {
+         "heading": 45,
+         "pitch": 0,
+         "roll": 0
+        },
+        "scale": 1.2
+       },
+       "visible": true,
+       "opacity": 1,
+       "style": {
+        "fill": "#51d6a9",
+        "stroke": "#0b3f56",
+        "strokeWidth": 3,
+        "pointColor": "#ffd166",
+        "pointSize": 2,
+        "colorBy": "rgb"
+       }
+      }
+     ]
+    },
+    {
+     "id": "campus-panorama-set",
+     "name": "360 街景",
+     "visible": true,
+     "layers": [
+      {
+       "id": "campus-panorama",
+       "name": "图书馆门前街景",
+       "type": "panorama",
+       "source": {
+        "points": [
+         {
+          "id": "campus-panorama-1",
+          "name": "图书馆门前",
+          "lon": 116.3109,
+          "lat": 39.9996,
+          "imageUrl": "{{material:images/panorama-demo.jpg}}"
+         }
+        ]
+       },
+       "visible": true,
+       "opacity": 1,
+       "style": {
+        "fill": "#51d6a9",
+        "stroke": "#0b3f56",
+        "strokeWidth": 3,
+        "pointColor": "#ffd166",
+        "pointSize": 2,
+        "colorBy": "rgb"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

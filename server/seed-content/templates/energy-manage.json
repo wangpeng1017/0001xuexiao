@@ -1,0 +1,4188 @@
+{
+  "name": "校园能耗管理",
+  "category": "data",
+  "content": {
+    "editCanvasConfig": {
+      "projectName": "校园能耗管理",
+      "remarks": "校园能耗管理：展示用电、用水、燃气、光伏发电和碳排放指标，月度用电量与去年同期对比、24 小时负荷曲线、分项能耗占比、年度节能目标完成率、楼宇能耗排名和异常用能告警轮播。数据为虚构演示数据。",
+      "width": 1920,
+      "height": 1080,
+      "filterShow": false,
+      "hueRotate": 0,
+      "saturate": 1,
+      "contrast": 1,
+      "brightness": 1,
+      "opacity": 1,
+      "rotateZ": 0,
+      "rotateX": 0,
+      "rotateY": 0,
+      "skewX": 0,
+      "skewY": 0,
+      "blendMode": "normal",
+      "background": "#030a18",
+      "backgroundImage": "{{material:images/bg-tech-wave.jpg}}",
+      "selectColor": false,
+      "chartThemeColor": "dark",
+      "chartThemeSetting": {
+        "title": {
+          "show": true,
+          "textStyle": {
+            "color": "#BFBFBF",
+            "fontSize": 18
+          },
+          "subtextStyle": {
+            "color": "#A2A2A2",
+            "fontSize": 14
+          }
+        },
+        "xAxis": {
+          "show": true,
+          "name": "",
+          "nameGap": 15,
+          "nameTextStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 12
+          },
+          "inverse": false,
+          "axisLabel": {
+            "show": true,
+            "fontSize": 12,
+            "color": "#B9B8CE",
+            "rotate": 0
+          },
+          "position": "bottom",
+          "axisLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#B9B8CE",
+              "width": 1
+            },
+            "onZero": true
+          },
+          "axisTick": {
+            "show": true,
+            "length": 5
+          },
+          "splitLine": {
+            "show": false,
+            "lineStyle": {
+              "color": "#484753",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "yAxis": {
+          "show": true,
+          "name": "",
+          "nameGap": 15,
+          "nameTextStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 12
+          },
+          "inverse": false,
+          "axisLabel": {
+            "show": true,
+            "fontSize": 12,
+            "color": "#B9B8CE",
+            "rotate": 0
+          },
+          "position": "left",
+          "axisLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#B9B8CE",
+              "width": 1
+            },
+            "onZero": true
+          },
+          "axisTick": {
+            "show": true,
+            "length": 5
+          },
+          "splitLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "#484753",
+              "width": 1,
+              "type": "solid"
+            }
+          }
+        },
+        "legend": {
+          "show": true,
+          "type": "scroll",
+          "x": "center",
+          "y": "top",
+          "icon": "circle",
+          "orient": "horizontal",
+          "textStyle": {
+            "color": "#B9B8CE",
+            "fontSize": 18
+          },
+          "itemHeight": 15,
+          "itemWidth": 15,
+          "pageTextStyle": {
+            "color": "#B9B8CE"
+          }
+        },
+        "grid": {
+          "show": false,
+          "left": "10%",
+          "top": "60",
+          "right": "10%",
+          "bottom": "60"
+        },
+        "dataset": null,
+        "renderer": "svg"
+      },
+      "vChartThemeName": "vScreenVolcanoBlue",
+      "previewScaleType": "fit"
+    },
+    "requestGlobalConfig": {
+      "requestDataPond": [],
+      "requestOriginUrl": "",
+      "requestInterval": 30,
+      "requestIntervalUnit": "second",
+      "requestParams": {
+        "Body": {
+          "form-data": {},
+          "x-www-form-urlencoded": {},
+          "json": "",
+          "xml": ""
+        },
+        "Header": {},
+        "Params": {}
+      }
+    },
+    "componentList": [
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-corners",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-corners.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 0
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-title-left",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/title-decor-left.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 190,
+          "y": 22,
+          "w": 460,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 1
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-title-right",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/title-decor-right.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1270,
+          "y": 22,
+          "w": 460,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 2
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-title",
+        "key": "TextGradient",
+        "chartConfig": {
+          "key": "TextGradient",
+          "chartKey": "VTextGradient",
+          "conKey": "VCTextGradient",
+          "title": "渐变文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "naiveUI",
+          "image": "text_gradient.png"
+        },
+        "option": {
+          "dataset": "校园能耗管理",
+          "size": 38,
+          "gradient": {
+            "from": "#e8fdffff",
+            "to": "#8ff0a4ff",
+            "deg": 90
+          }
+        },
+        "attr": {
+          "x": 660,
+          "y": 12,
+          "w": 600,
+          "h": 56,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 3
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-subtitle",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "CAMPUS ENERGY · MANAGEMENT",
+          "fontSize": 12,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "center",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 6,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 660,
+          "y": 66,
+          "w": 600,
+          "h": 22,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 4
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-title-flow",
+        "key": "Decorates05",
+        "chartConfig": {
+          "key": "Decorates05",
+          "chartKey": "VDecorates05",
+          "conKey": "VCDecorates05",
+          "title": "装饰-05",
+          "category": "Decorates",
+          "categoryName": "装饰",
+          "package": "Decorates",
+          "chartFrame": "static",
+          "image": "decorates05.png"
+        },
+        "option": {
+          "colors": [
+            "#4fd2dd",
+            "#4fd2dd4d"
+          ],
+          "dur": 3
+        },
+        "attr": {
+          "x": 760,
+          "y": 88,
+          "w": 400,
+          "h": 14,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 5
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-clock",
+        "key": "TimeCommon",
+        "chartConfig": {
+          "key": "TimeCommon",
+          "chartKey": "VTimeCommon",
+          "conKey": "VCTimeCommon",
+          "title": "通用时间",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "static",
+          "image": "time.png"
+        },
+        "option": {
+          "timeSize": 18,
+          "timeLineHeight": 40,
+          "timeTextIndent": 2,
+          "timeColor": "#cfeeff",
+          "fontWeight": "normal",
+          "showShadow": true,
+          "hShadow": 0,
+          "vShadow": 0,
+          "blurShadow": 6,
+          "colorShadow": "#0075ff"
+        },
+        "attr": {
+          "x": 1560,
+          "y": 54,
+          "w": 300,
+          "h": 40,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 6
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-0-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 40,
+          "y": 112,
+          "w": 356,
+          "h": 96,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 7
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-0-label",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "今日用电（kWh）",
+          "fontSize": 14,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 56,
+          "y": 124,
+          "w": 330,
+          "h": 22,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 8
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-0-value",
+        "key": "Number",
+        "chartConfig": {
+          "key": "Number",
+          "chartKey": "VNumber",
+          "conKey": "VCNumber",
+          "title": "数字计数",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "common",
+          "image": "number.png"
+        },
+        "option": {
+          "dataset": 32680,
+          "from": 0,
+          "dur": 2.5,
+          "precision": 0,
+          "showSeparator": true,
+          "numberSize": 30,
+          "numberColor": "#ffbf47",
+          "prefixText": "",
+          "prefixColor": "#4fd2dd",
+          "suffixText": "",
+          "suffixColor": "#8fb8d8"
+        },
+        "attr": {
+          "x": 52,
+          "y": 148,
+          "w": 334,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 9
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-1-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 412,
+          "y": 112,
+          "w": 356,
+          "h": 96,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 10
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-1-label",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "今日用水（t）",
+          "fontSize": 14,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 428,
+          "y": 124,
+          "w": 330,
+          "h": 22,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 11
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-1-value",
+        "key": "Number",
+        "chartConfig": {
+          "key": "Number",
+          "chartKey": "VNumber",
+          "conKey": "VCNumber",
+          "title": "数字计数",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "common",
+          "image": "number.png"
+        },
+        "option": {
+          "dataset": 1286,
+          "from": 0,
+          "dur": 2.5,
+          "precision": 0,
+          "showSeparator": true,
+          "numberSize": 30,
+          "numberColor": "#7fe7ff",
+          "prefixText": "",
+          "prefixColor": "#4fd2dd",
+          "suffixText": "",
+          "suffixColor": "#8fb8d8"
+        },
+        "attr": {
+          "x": 424,
+          "y": 148,
+          "w": 334,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 12
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-2-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 784,
+          "y": 112,
+          "w": 356,
+          "h": 96,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 13
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-2-label",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "今日燃气（m³）",
+          "fontSize": 14,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 800,
+          "y": 124,
+          "w": 330,
+          "h": 22,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 14
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-2-value",
+        "key": "Number",
+        "chartConfig": {
+          "key": "Number",
+          "chartKey": "VNumber",
+          "conKey": "VCNumber",
+          "title": "数字计数",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "common",
+          "image": "number.png"
+        },
+        "option": {
+          "dataset": 846,
+          "from": 0,
+          "dur": 2.5,
+          "precision": 0,
+          "showSeparator": true,
+          "numberSize": 30,
+          "numberColor": "#f59a4a",
+          "prefixText": "",
+          "prefixColor": "#4fd2dd",
+          "suffixText": "",
+          "suffixColor": "#8fb8d8"
+        },
+        "attr": {
+          "x": 796,
+          "y": 148,
+          "w": 334,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 15
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-3-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1156,
+          "y": 112,
+          "w": 356,
+          "h": 96,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 16
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-3-label",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "光伏发电（kWh）",
+          "fontSize": 14,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 1172,
+          "y": 124,
+          "w": 330,
+          "h": 22,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 17
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-3-value",
+        "key": "Number",
+        "chartConfig": {
+          "key": "Number",
+          "chartKey": "VNumber",
+          "conKey": "VCNumber",
+          "title": "数字计数",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "common",
+          "image": "number.png"
+        },
+        "option": {
+          "dataset": 4120,
+          "from": 0,
+          "dur": 2.5,
+          "precision": 0,
+          "showSeparator": true,
+          "numberSize": 30,
+          "numberColor": "#2ee6b8",
+          "prefixText": "",
+          "prefixColor": "#4fd2dd",
+          "suffixText": "",
+          "suffixColor": "#8fb8d8"
+        },
+        "attr": {
+          "x": 1168,
+          "y": 148,
+          "w": 334,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 18
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-4-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1528,
+          "y": 112,
+          "w": 356,
+          "h": 96,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 19
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-4-label",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "碳排放（tCO₂）",
+          "fontSize": 14,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 1544,
+          "y": 124,
+          "w": 330,
+          "h": 22,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 20
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-kpi-4-value",
+        "key": "Number",
+        "chartConfig": {
+          "key": "Number",
+          "chartKey": "VNumber",
+          "conKey": "VCNumber",
+          "title": "数字计数",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "common",
+          "image": "number.png"
+        },
+        "option": {
+          "dataset": 21.6,
+          "from": 0,
+          "dur": 2.5,
+          "precision": 1,
+          "showSeparator": true,
+          "numberSize": 30,
+          "numberColor": "#7fe7ff",
+          "prefixText": "",
+          "prefixColor": "#4fd2dd",
+          "suffixText": "",
+          "suffixColor": "#8fb8d8"
+        },
+        "attr": {
+          "x": 1540,
+          "y": 148,
+          "w": 334,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 21
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-monthly-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 40,
+          "y": 224,
+          "w": 900,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 22
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-monthly-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍月度用电量与去年同期（MWh）",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 58,
+          "y": 236,
+          "w": 864,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 23
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-monthly-chart",
+        "key": "BarLine",
+        "chartConfig": {
+          "key": "BarLine",
+          "chartKey": "VBarLine",
+          "conKey": "VCBarLine",
+          "title": "柱状图 & 折线图",
+          "category": "Bars",
+          "categoryName": "柱状图",
+          "package": "Charts",
+          "chartFrame": "echarts",
+          "image": "bar_line.png"
+        },
+        "option": {
+          "legend": {
+            "show": true,
+            "type": "scroll",
+            "x": "right",
+            "y": "top",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#8fb8d8",
+              "fontSize": 12
+            },
+            "itemHeight": 8,
+            "itemWidth": 12,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            },
+            "data": null
+          },
+          "xAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 11,
+              "color": "#8fb8d8",
+              "rotate": 0
+            },
+            "position": "bottom",
+            "axisLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#2b5a80",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": false,
+              "length": 5
+            },
+            "splitLine": {
+              "show": false,
+              "lineStyle": {
+                "color": "#484753",
+                "width": 1,
+                "type": "solid"
+              }
+            },
+            "type": "category"
+          },
+          "yAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 11,
+              "color": "#8fb8d8",
+              "rotate": 0
+            },
+            "position": "left",
+            "axisLine": {
+              "show": false,
+              "lineStyle": {
+                "color": "#B9B8CE",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": false,
+              "length": 5
+            },
+            "splitLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#16324f",
+                "width": 1,
+                "type": "dashed"
+              }
+            },
+            "type": "value"
+          },
+          "grid": {
+            "show": false,
+            "left": "6%",
+            "top": "40",
+            "right": "4%",
+            "bottom": "28"
+          },
+          "tooltip": {
+            "show": true,
+            "trigger": "axis",
+            "axisPointer": {
+              "show": true,
+              "type": "shadow"
+            }
+          },
+          "dataset": {
+            "dimensions": [
+              "月份",
+              "今年",
+              "去年同期"
+            ],
+            "source": [
+              {
+                "月份": "1月",
+                "今年": 1020,
+                "去年同期": 1054
+              },
+              {
+                "月份": "2月",
+                "今年": 760,
+                "去年同期": 801
+              },
+              {
+                "月份": "3月",
+                "今年": 980,
+                "去年同期": 1004
+              },
+              {
+                "月份": "4月",
+                "今年": 940,
+                "去年同期": 979
+              },
+              {
+                "月份": "5月",
+                "今年": 1010,
+                "去年同期": 1026
+              },
+              {
+                "月份": "6月",
+                "今年": 1180,
+                "去年同期": 1156
+              },
+              {
+                "月份": "7月",
+                "今年": 860,
+                "去年同期": 918
+              },
+              {
+                "月份": "8月",
+                "今年": 820,
+                "去年同期": 861
+              },
+              {
+                "月份": "9月",
+                "今年": 1090,
+                "去年同期": 1123
+              },
+              {
+                "月份": "10月",
+                "今年": 1040,
+                "去年同期": 1078
+              }
+            ]
+          },
+          "series": [
+            {
+              "type": "bar",
+              "barWidth": 22,
+              "label": {
+                "show": false
+              },
+              "itemStyle": {
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#8ff0a4"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#0f6f6a"
+                    }
+                  ]
+                },
+                "borderRadius": 3
+              }
+            },
+            {
+              "type": "line",
+              "symbol": "circle",
+              "smooth": true,
+              "symbolSize": 6,
+              "label": {
+                "show": false
+              },
+              "itemStyle": {
+                "color": "#ffbf47",
+                "borderWidth": 1
+              },
+              "lineStyle": {
+                "type": "solid",
+                "width": 2.5,
+                "color": "#ffbf47"
+              }
+            }
+          ],
+          "backgroundColor": "rgba(0,0,0,0)"
+        },
+        "attr": {
+          "x": 52,
+          "y": 272,
+          "w": 876,
+          "h": 342,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 24
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-load-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 40,
+          "y": 640,
+          "w": 900,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 25
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-load-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍24 小时负荷曲线（kW）",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 58,
+          "y": 652,
+          "w": 864,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 26
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-load-line",
+        "key": "LineCommon",
+        "chartConfig": {
+          "key": "LineCommon",
+          "chartKey": "VLineCommon",
+          "conKey": "VCLineCommon",
+          "title": "折线图",
+          "category": "Lines",
+          "categoryName": "折线图",
+          "package": "Charts",
+          "chartFrame": "echarts",
+          "image": "line.png"
+        },
+        "option": {
+          "backgroundColor": "rgba(0,0,0,0)",
+          "tooltip": {
+            "show": true,
+            "trigger": "axis",
+            "axisPointer": {
+              "type": "line"
+            }
+          },
+          "xAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 11,
+              "color": "#8fb8d8",
+              "rotate": 0
+            },
+            "position": "bottom",
+            "axisLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#2b5a80",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": false,
+              "length": 5
+            },
+            "splitLine": {
+              "show": false,
+              "lineStyle": {
+                "color": "#16324f",
+                "width": 1,
+                "type": "dashed"
+              }
+            },
+            "type": "category",
+            "boundaryGap": false
+          },
+          "yAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 11,
+              "color": "#8fb8d8",
+              "rotate": 0
+            },
+            "position": "left",
+            "axisLine": {
+              "show": false,
+              "lineStyle": {
+                "color": "#2b5a80",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": false,
+              "length": 5
+            },
+            "splitLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#16324f",
+                "width": 1,
+                "type": "dashed"
+              }
+            },
+            "type": "value"
+          },
+          "legend": {
+            "show": true,
+            "type": "scroll",
+            "x": "right",
+            "y": "top",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#8fb8d8",
+              "fontSize": 12
+            },
+            "itemHeight": 8,
+            "itemWidth": 12,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            }
+          },
+          "grid": {
+            "show": false,
+            "left": "12%",
+            "top": "36",
+            "right": "5%",
+            "bottom": "28"
+          },
+          "dataset": {
+            "dimensions": [
+              "时刻",
+              "今日",
+              "昨日"
+            ],
+            "source": [
+              {
+                "时刻": "00:00",
+                "今日": 820,
+                "昨日": 860
+              },
+              {
+                "时刻": "02:00",
+                "今日": 760,
+                "昨日": 790
+              },
+              {
+                "时刻": "04:00",
+                "今日": 740,
+                "昨日": 770
+              },
+              {
+                "时刻": "06:00",
+                "今日": 980,
+                "昨日": 1010
+              },
+              {
+                "时刻": "08:00",
+                "今日": 2360,
+                "昨日": 2480
+              },
+              {
+                "时刻": "10:00",
+                "今日": 2980,
+                "昨日": 3120
+              },
+              {
+                "时刻": "12:00",
+                "今日": 2640,
+                "昨日": 2720
+              },
+              {
+                "时刻": "14:00",
+                "今日": 3020,
+                "昨日": 3160
+              },
+              {
+                "时刻": "16:00",
+                "今日": 2860,
+                "昨日": 2990
+              },
+              {
+                "时刻": "18:00",
+                "今日": 2240,
+                "昨日": 2310
+              },
+              {
+                "时刻": "20:00",
+                "今日": 1860,
+                "昨日": 1920
+              },
+              {
+                "时刻": "22:00",
+                "今日": 1120,
+                "昨日": 1180
+              }
+            ]
+          },
+          "series": [
+            {
+              "type": "line",
+              "name": "今日",
+              "smooth": true,
+              "symbolSize": 5,
+              "label": {
+                "show": false,
+                "position": "top",
+                "color": "#cfeeff",
+                "fontSize": 11
+              },
+              "itemStyle": {
+                "color": "#8ff0a4",
+                "borderRadius": 0
+              },
+              "lineStyle": {
+                "type": "solid",
+                "width": 2.5,
+                "color": "#8ff0a4"
+              },
+              "areaStyle": {
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#8ff0a4"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#8ff0a400"
+                    }
+                  ]
+                },
+                "opacity": 0.6
+              }
+            },
+            {
+              "type": "line",
+              "name": "昨日",
+              "smooth": true,
+              "symbolSize": 5,
+              "label": {
+                "show": false,
+                "position": "top",
+                "color": "#cfeeff",
+                "fontSize": 11
+              },
+              "itemStyle": {
+                "color": "#2f8cff",
+                "borderRadius": 0
+              },
+              "lineStyle": {
+                "type": "solid",
+                "width": 2.5,
+                "color": "#2f8cff"
+              },
+              "areaStyle": {
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#2f8cff"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#2f8cff00"
+                    }
+                  ]
+                },
+                "opacity": 0.6
+              }
+            }
+          ]
+        },
+        "attr": {
+          "x": 52,
+          "y": 688,
+          "w": 876,
+          "h": 342,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 27
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-split-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 956,
+          "y": 224,
+          "w": 440,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 28
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-split-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍分项能耗占比（%）",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 974,
+          "y": 236,
+          "w": 404,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 29
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-split-pie",
+        "key": "PieCommon",
+        "chartConfig": {
+          "key": "PieCommon",
+          "chartKey": "VPieCommon",
+          "conKey": "VCPieCommon",
+          "title": "饼图",
+          "category": "Pies",
+          "categoryName": "饼图",
+          "package": "Charts",
+          "chartFrame": "echarts",
+          "image": "pie.png"
+        },
+        "option": {
+          "isCarousel": false,
+          "type": "ring",
+          "backgroundColor": "rgba(0,0,0,0)",
+          "tooltip": {
+            "show": true,
+            "trigger": "item"
+          },
+          "legend": {
+            "show": true,
+            "type": "plain",
+            "x": "center",
+            "y": "bottom",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#8fb8d8",
+              "fontSize": 12
+            },
+            "itemHeight": 8,
+            "itemWidth": 8,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            }
+          },
+          "dataset": {
+            "dimensions": [
+              "分项",
+              "占比"
+            ],
+            "source": [
+              {
+                "分项": "空调",
+                "占比": 38
+              },
+              {
+                "分项": "照明",
+                "占比": 21
+              },
+              {
+                "分项": "动力",
+                "占比": 17
+              },
+              {
+                "分项": "实训设备",
+                "占比": 15
+              },
+              {
+                "分项": "其他",
+                "占比": 9
+              }
+            ]
+          },
+          "series": [
+            {
+              "type": "pie",
+              "radius": [
+                "46%",
+                "68%"
+              ],
+              "center": [
+                "50%",
+                "44%"
+              ],
+              "roseType": false,
+              "itemStyle": {
+                "show": true,
+                "borderRadius": 6,
+                "borderColor": "#071324",
+                "borderWidth": 3
+              },
+              "label": {
+                "show": false,
+                "position": "center",
+                "formatter": "{b}",
+                "fontSize": 14,
+                "color": "#cfeeff"
+              },
+              "emphasis": {
+                "label": {
+                  "show": true,
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "color": "#ffffff",
+                  "formatter": "{b}\n{d}%"
+                }
+              },
+              "labelLine": {
+                "show": false
+              }
+            }
+          ],
+          "color": [
+            "#8ff0a4",
+            "#4fd2dd",
+            "#ffbf47",
+            "#9b7bf0",
+            "#5b6b84"
+          ]
+        },
+        "attr": {
+          "x": 968,
+          "y": 272,
+          "w": 416,
+          "h": 342,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 30
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-target-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 956,
+          "y": 640,
+          "w": 440,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 31
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-target-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍年度节能目标完成",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 974,
+          "y": 652,
+          "w": 404,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 32
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-target-water",
+        "key": "WaterPolo",
+        "chartConfig": {
+          "key": "WaterPolo",
+          "chartKey": "VWaterPolo",
+          "conKey": "VCWaterPolo",
+          "title": "水球图",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Charts",
+          "chartFrame": "common",
+          "image": "water_WaterPolo.png"
+        },
+        "option": {
+          "dataset": 0.82,
+          "series": [
+            {
+              "type": "liquidFill",
+              "radius": "86%",
+              "data": [
+                0.82
+              ],
+              "color": [
+                {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#8ff0a4"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#0f6f6a"
+                    }
+                  ]
+                }
+              ],
+              "backgroundStyle": {
+                "borderWidth": 2,
+                "borderColor": "#4fd2dd80",
+                "color": "#06203a"
+              },
+              "label": {
+                "normal": {
+                  "textStyle": {
+                    "fontSize": 30,
+                    "color": "#ffffff"
+                  }
+                }
+              },
+              "outline": {
+                "show": false
+              }
+            }
+          ],
+          "backgroundColor": "rgba(0,0,0,0)"
+        },
+        "attr": {
+          "x": 1038,
+          "y": 708,
+          "w": 276,
+          "h": 292,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 33
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-rank-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1412,
+          "y": 224,
+          "w": 468,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 34
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-rank-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍楼宇能耗排名（kWh）",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 1430,
+          "y": 236,
+          "w": 432,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 35
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-rank-capsule",
+        "key": "CapsuleChart",
+        "chartConfig": {
+          "key": "CapsuleChart",
+          "chartKey": "VCapsuleChart",
+          "conKey": "VCCapsuleChart",
+          "title": "胶囊柱图",
+          "category": "Bars",
+          "categoryName": "柱状图",
+          "package": "Charts",
+          "chartFrame": "common",
+          "image": "capsule.png"
+        },
+        "option": {
+          "dataset": {
+            "dimensions": [
+              "name",
+              "value"
+            ],
+            "source": [
+              {
+                "name": "实验楼",
+                "value": 2420
+              },
+              {
+                "name": "宿舍区",
+                "value": 2140
+              },
+              {
+                "name": "教学楼A",
+                "value": 1860
+              },
+              {
+                "name": "图书馆",
+                "value": 1680
+              },
+              {
+                "name": "食堂",
+                "value": 1520
+              },
+              {
+                "name": "体育馆",
+                "value": 960
+              }
+            ]
+          },
+          "colors": [
+            "#ff5d5d",
+            "#f59a4a",
+            "#ffbf47",
+            "#8ff0a4",
+            "#4fd2dd",
+            "#2f8cff"
+          ],
+          "unit": "",
+          "itemHeight": 10,
+          "valueFontSize": 13,
+          "paddingRight": 60,
+          "paddingLeft": 70,
+          "showValue": true
+        },
+        "attr": {
+          "x": 1424,
+          "y": 276,
+          "w": 444,
+          "h": 334,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 36
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-abnormal-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1412,
+          "y": 640,
+          "w": 468,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 37
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-abnormal-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍异常用能告警",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 1430,
+          "y": 652,
+          "w": 432,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 38
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "energy-abnormal-board",
+        "key": "TableScrollBoard",
+        "chartConfig": {
+          "key": "TableScrollBoard",
+          "chartKey": "VTableScrollBoard",
+          "conKey": "VCTableScrollBoard",
+          "title": "轮播列表",
+          "category": "Tables",
+          "categoryName": "表格",
+          "package": "Tables",
+          "chartFrame": "common",
+          "image": "table_scrollboard.png"
+        },
+        "option": {
+          "header": [
+            "时间",
+            "位置",
+            "异常"
+          ],
+          "dataset": [
+            [
+              "10:40",
+              "实验楼 3F",
+              "夜间空调未关"
+            ],
+            [
+              "09:52",
+              "宿舍区 5 号",
+              "用水量突增"
+            ],
+            [
+              "09:20",
+              "图书馆",
+              "照明超时"
+            ],
+            [
+              "08:46",
+              "食堂",
+              "燃气流量偏高"
+            ],
+            [
+              "08:10",
+              "体育馆",
+              "水泵空转"
+            ],
+            [
+              "07:35",
+              "教学楼A",
+              "待机功耗偏高"
+            ],
+            [
+              "06:58",
+              "数据中心",
+              "PUE 超阈值"
+            ]
+          ],
+          "index": false,
+          "columnWidth": [
+            70,
+            150,
+            200
+          ],
+          "align": [
+            "center",
+            "center",
+            "center"
+          ],
+          "rowNum": 7,
+          "waitTime": 2,
+          "headerHeight": 34,
+          "carousel": "single",
+          "headerBGC": "#0d3a6acc",
+          "oddRowBGC": "#06203acc",
+          "evenRowBGC": "#0a2a4a80"
+        },
+        "attr": {
+          "x": 1424,
+          "y": 690,
+          "w": 444,
+          "h": 338,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 39
+        }
+      }
+    ]
+  }
+}

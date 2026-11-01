@@ -93,6 +93,7 @@ export async function createTestContext(): Promise<TestContext> {
     reset: async () => {
       await app.prisma.project.deleteMany();
       await app.prisma.material.deleteMany();
+      await app.prisma.dataFile.deleteMany();
       await app.prisma.teamMember.deleteMany();
       await app.prisma.team.deleteMany();
       await app.prisma.user.deleteMany();

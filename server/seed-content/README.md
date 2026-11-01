@@ -147,7 +147,22 @@ SVG 均使用透明背景和标准矢量元素，不引用外部字体或图片�
 
 注意：模板在升级时会被种子内容覆盖，请在“从模板新建”的副本上修改，不要直接改库里的预置模板。
 
-`campus-3d.png` 是模板预览的真实截图（1280×720），不由 `generate_template_covers.py` 生成；模板改版后需要重新截图替换。
+### 场景模板（6 个）
+
+| 文件 | 名称 | 分类 |
+| --- | --- | --- |
+| `templates/campus-3d.json` | 智慧校园三维总览 | 校园三维 |
+| `templates/campus-security.json` | 平安校园安防指挥 | 设备监控 |
+| `templates/device-monitor.json` | 实训设备监控 | 设备监控 |
+| `templates/teaching-stats.json` | 教学数据统计 | 数据统计 |
+| `templates/energy-manage.json` | 校园能耗管理 | 数据统计 |
+| `templates/ship-twin.json` | 船舶点云数字孪生（点云铺满画布，中间可鼠标缩放、平移、旋转） | 其他 |
+
+模板 JSON 由 `_generators/generate_templates.py` 生成（组件原型见 `template_protos.json`，取自前端各组件 config.ts 默认值；公共样式与组合件在 `template_kit.py`，各模板版面在 `template_*.py`），改模板请改脚本后重新生成，再执行 `pnpm --dir web validate:templates`。封面 PNG 均为预览页真实截图（1920×1080 截图缩放到 1280×720），不由脚本生成，模板改版后需重新截图替换。
+
+### 预置数据文件
+
+`datafiles/ship-pointcloud/` 是已转换好的船舶点云 3D Tiles（1378 万点，带 RGB，约 200 MB，2555 个文件），在 `manifest.json` 的 `datafiles` 中登记。导入时整目录拷到管理员名下的一条“数据文件”（名称“船舶点云”，状态成功），模板用 `{{datafile:datafiles/ship-pointcloud}}` 引用其 `tileset.json` 地址。按“文件清单 + 大小 + tileset.json 内容”判断是否变化。该目录不计入素材 40 MB 上限，`verify_assets.py` 单独校验（300 MB 上限、必须含 tileset.json）。
 
 ## 重新生成
 

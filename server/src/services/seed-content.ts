@@ -1,11 +1,12 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { existsSync } from 'node:fs';
-import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { copyFile, cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { PrismaClient } from '@prisma/client';
 import { BizError } from '../lib/resp.js';
 import type { AuthUser } from '../types.js';
+import { dataFileDirectory, dataFileOutputUrl, formatFromFileName } from './datafile.js';
 import { isAdmin } from './project-access.js';
 import {
   MATERIAL_CATEGORIES,
@@ -22,9 +23,17 @@ interface SeedManifestItem {
   thumb?: string;
 }
 
+interface SeedDataFileItem {
+  /** 已转换好的 3D Tiles 目录，相对 seed-content，目录内须有 tileset.json */
+  dir: string;
+  name: string;
+  kind: 'tiles3d';
+}
+
 interface SeedManifest {
   version: number;
   materials: SeedManifestItem[];
+  datafiles: SeedDataFileItem[];
 }
 
 interface SeedTemplateFile {
@@ -45,10 +54,12 @@ export interface ImportSeedContentOptions {
 
 export interface ImportSeedContentResult {
   materials: { created: number; updated: number; skipped: number };
+  datafiles: { created: number; updated: number; skipped: number };
   templates: { created: number; updated: number; skipped: number };
 }
 
 const MATERIAL_PLACEHOLDER = /\{\{material:([^}]+)\}\}/g;
+const DATAFILE_PLACEHOLDER = /\{\{datafile:([^}]+)\}\}/g;
 // 记录上次导入时的种子内容哈希：哈希一致就跳过，不一致才更新，管理员后来手改的内容不会被无谓覆盖
 const SEED_HASH_SUFFIX = '.seed-hash';
 
@@ -119,7 +130,7 @@ async function readManifest(seedDir: string): Promise<SeedManifest> {
   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
     throw new BizError(500, '预置素材清单格式不正确');
   }
-  const raw = parsed as { version?: unknown; materials?: unknown };
+  const raw = parsed as { version?: unknown; materials?: unknown; datafiles?: unknown };
   if (typeof raw.version !== 'number' || !Array.isArray(raw.materials)) {
     throw new BizError(500, '预置素材清单格式不正确');
   }
@@ -164,7 +175,24 @@ async function readManifest(seedDir: string): Promise<SeedManifest> {
     });
   }
 
-  return { version: raw.version, materials };
+  return { version: raw.version, materials, datafiles: readManifestDataFiles(seedDir, raw) };
+}
+
+function readManifestDataFiles(seedDir: string, raw: { datafiles?: unknown }): SeedDataFileItem[] {
+  if (raw.datafiles === undefined) return [];
+  if (!Array.isArray(raw.datafiles)) throw new BizError(500, '预置数据文件清单格式不正确');
+  const seen = new Set<string>();
+  return raw.datafiles.map((entry) => {
+    const item = (entry && typeof entry === 'object' ? entry : {}) as Record<string, unknown>;
+    if (typeof item.dir !== 'string' || !item.dir.trim() || typeof item.name !== 'string' || !item.name.trim()) {
+      throw new BizError(500, '预置数据文件条目缺少 dir/name');
+    }
+    if (item.kind !== 'tiles3d') throw new BizError(500, `预置数据文件类型不合法：${String(item.kind)}`);
+    assertInside(seedDir, path.join(seedDir, item.dir), `预置数据文件路径越界：${item.dir}`);
+    if (seen.has(item.dir)) throw new BizError(500, `预置数据文件清单存在重复目录：${item.dir}`);
+    seen.add(item.dir);
+    return { dir: item.dir, name: item.name.trim(), kind: 'tiles3d' };
+  });
 }
 
 async function readThumb(thumbPath: string, name: string): Promise<Buffer> {
@@ -245,45 +273,141 @@ async function importMaterials(
   return { materials, created, updated, skipped };
 }
 
-function replaceMaterialPlaceholders(
-  value: unknown,
-  materials: Map<string, SeedMaterialRef>
-): unknown {
-  if (typeof value === 'string') {
-    return value.replace(MATERIAL_PLACEHOLDER, (_match, file: string) => {
-      const material = materials.get(file.trim());
-      if (!material) {
-        throw new BizError(500, `模板引用了不存在的素材：${file}`);
-      }
-      return material.url;
+/** 3D Tiles 目录的内容指纹：文件清单 + 大小 + tileset.json 内容，避免每次导入都读两百兆点云 */
+async function hashTilesetDir(dir: string): Promise<string> {
+  const entries = (await readdir(dir, { recursive: true, withFileTypes: true }))
+    .filter((entry) => entry.isFile())
+    .map((entry) => path.join(entry.parentPath, entry.name));
+  const parts: string[] = [];
+  for (const file of entries) {
+    parts.push(`${path.relative(dir, file).split(path.sep).join('/')}:${(await stat(file)).size}`);
+  }
+  parts.sort();
+  return sha256(parts.join('\n'), await readFile(path.join(dir, 'tileset.json')));
+}
+
+async function importDataFiles(
+  prisma: PrismaClient,
+  admin: AuthUser,
+  seedDir: string,
+  dataDir: string,
+  items: SeedDataFileItem[]
+): Promise<{
+  datafiles: Map<string, SeedMaterialRef>;
+  created: number;
+  updated: number;
+  skipped: number;
+}> {
+  const datafiles = new Map<string, SeedMaterialRef>();
+  let created = 0;
+  let updated = 0;
+  let skipped = 0;
+
+  for (const item of items) {
+    const sourceDir = assertInside(seedDir, path.join(seedDir, item.dir), `预置数据文件路径越界：${item.dir}`);
+    if (!existsSync(path.join(sourceDir, 'tileset.json'))) {
+      throw new BizError(500, `预置数据文件 ${item.name} 缺少 tileset.json`);
+    }
+    const hash = await hashTilesetDir(sourceDir);
+    const existing = await prisma.dataFile.findFirst({
+      where: { name: item.name, ownerId: admin.id, kind: item.kind },
+      select: { id: true, outputUrl: true }
     });
+    const hashFile = (id: string) => path.join(dataFileDirectory(dataDir, id), SEED_HASH_SUFFIX);
+    if (existing && (await readStoredHash(hashFile(existing.id))) === hash) {
+      datafiles.set(item.dir, { id: existing.id, url: existing.outputUrl });
+      skipped += 1;
+      continue;
+    }
+
+    const id = existing?.id ?? randomUUID();
+    const targetDir = path.join(dataFileDirectory(dataDir, id), '3dtiles');
+    await rm(targetDir, { recursive: true, force: true });
+    await cp(sourceDir, targetDir, { recursive: true });
+    const outputUrl = dataFileOutputUrl(id, item.kind);
+    const record = {
+      originFormat: formatFromFileName(`${item.name}.zip`),
+      status: 'success',
+      progress: 100,
+      errorMsg: '',
+      outputUrl,
+      storedPath: path.join(targetDir, 'tileset.json'),
+      size: BigInt(await dirSize(targetDir))
+    };
+    if (existing) {
+      await prisma.dataFile.update({ where: { id }, data: record });
+      updated += 1;
+    } else {
+      await prisma.dataFile.create({
+        data: { id, name: item.name, kind: item.kind, ownerId: admin.id, ...record }
+      });
+      created += 1;
+    }
+    await writeFile(hashFile(id), hash);
+    datafiles.set(item.dir, { id, url: outputUrl });
+  }
+
+  return { datafiles, created, updated, skipped };
+}
+
+async function dirSize(dir: string): Promise<number> {
+  let total = 0;
+  for (const entry of await readdir(dir, { recursive: true, withFileTypes: true })) {
+    if (entry.isFile()) total += (await stat(path.join(entry.parentPath, entry.name))).size;
+  }
+  return total;
+}
+
+interface SeedRefs {
+  materials: Map<string, SeedMaterialRef>;
+  datafiles: Map<string, SeedMaterialRef>;
+}
+
+function replaceSeedPlaceholders(value: unknown, refs: SeedRefs): unknown {
+  if (typeof value === 'string') {
+    return value
+      .replace(MATERIAL_PLACEHOLDER, (_match, file: string) => {
+        const material = refs.materials.get(file.trim());
+        if (!material) {
+          throw new BizError(500, `模板引用了不存在的素材：${file}`);
+        }
+        return material.url;
+      })
+      .replace(DATAFILE_PLACEHOLDER, (_match, dir: string) => {
+        const datafile = refs.datafiles.get(dir.trim());
+        if (!datafile) {
+          throw new BizError(500, `模板引用了不存在的数据文件：${dir}`);
+        }
+        return datafile.url;
+      });
   }
   if (Array.isArray(value)) {
-    return value.map((item) => replaceMaterialPlaceholders(item, materials));
+    return value.map((item) => replaceSeedPlaceholders(item, refs));
   }
   if (value && typeof value === 'object') {
     const result: Record<string, unknown> = {};
     for (const [key, child] of Object.entries(value as Record<string, unknown>)) {
-      result[key] = replaceMaterialPlaceholders(child, materials);
+      result[key] = replaceSeedPlaceholders(child, refs);
     }
     return result;
   }
   return value;
 }
 
-function applySceneMaterialRefs(value: unknown, materialIdByUrl: Map<string, string>): void {
+/** 三维图层 source 按 from 回填 refId：素材 → 素材 id，数据文件 → 数据文件 id */
+function applySceneRefs(value: unknown, idByUrl: Record<'material' | 'datafile', Map<string, string>>): void {
   if (Array.isArray(value)) {
-    for (const item of value) applySceneMaterialRefs(item, materialIdByUrl);
+    for (const item of value) applySceneRefs(item, idByUrl);
     return;
   }
   if (!value || typeof value !== 'object') return;
   const record = value as Record<string, unknown>;
-  if (record.from === 'material' && typeof record.url === 'string') {
-    const id = materialIdByUrl.get(record.url);
+  if ((record.from === 'material' || record.from === 'datafile') && typeof record.url === 'string') {
+    const id = idByUrl[record.from].get(record.url);
     if (id) record.refId = id;
   }
   for (const child of Object.values(record)) {
-    applySceneMaterialRefs(child, materialIdByUrl);
+    applySceneRefs(child, idByUrl);
   }
 }
 
@@ -335,12 +459,12 @@ async function importTemplates(
   admin: AuthUser,
   seedDir: string,
   dataDir: string,
-  materials: Map<string, SeedMaterialRef>
+  refs: SeedRefs
 ): Promise<{ created: number; updated: number; skipped: number }> {
   const templates = await readTemplates(path.join(seedDir, 'templates'));
-  const materialIdByUrl = new Map(
-    [...materials.values()].map((material) => [material.url, material.id] as const)
-  );
+  const idByUrl = (items: Map<string, SeedMaterialRef>) =>
+    new Map([...items.values()].map((item) => [item.url, item.id] as const));
+  const sceneIdByUrl = { material: idByUrl(refs.materials), datafile: idByUrl(refs.datafiles) };
   const coversDir = path.join(dataDir, 'files', 'templates');
   let created = 0;
   let updated = 0;
@@ -360,7 +484,9 @@ async function importTemplates(
       throw new BizError(500, `模板 ${data.name} 缺少封面图 ${baseName}.png`);
     }
 
-    const hash = sha256(JSON.stringify(data.content), await readFile(coverSource));
+    // 数据文件地址里带 id，纳入哈希：数据文件被删后重建（id 变化）时模板也跟着更新
+    const datafileUrls = [...refs.datafiles.values()].map((item) => item.url).join('\n');
+    const hash = sha256(JSON.stringify(data.content), await readFile(coverSource), datafileUrls);
     const hashFile = path.join(coversDir, `${baseName}${SEED_HASH_SUFFIX}`);
     const existing = await prisma.project.findFirst({
       where: { projectName: data.name, isTemplate: true, deletedAt: null },
@@ -371,12 +497,9 @@ async function importTemplates(
       continue;
     }
 
-    const replaced = replaceMaterialPlaceholders(data.content, materials) as Record<
-      string,
-      unknown
-    >;
+    const replaced = replaceSeedPlaceholders(data.content, refs) as Record<string, unknown>;
     const serialized = JSON.stringify(replaced);
-    if (serialized.includes('{{material:')) {
+    if (serialized.includes('{{material:') || serialized.includes('{{datafile:')) {
       throw new BizError(500, `模板 ${data.name} 存在未解析的素材占位符`);
     }
 
@@ -391,7 +514,7 @@ async function importTemplates(
     const canvas = editCanvasConfig as Record<string, unknown>;
     canvas.projectName = data.name;
     const remarks = typeof canvas.remarks === 'string' ? canvas.remarks : '';
-    applySceneMaterialRefs(replaced, materialIdByUrl);
+    applySceneRefs(replaced, sceneIdByUrl);
 
     await mkdir(coversDir, { recursive: true });
     const coverName = `${baseName}.png`;
@@ -442,19 +565,29 @@ export async function importSeedContent(
     ? path.resolve(options.seedDir)
     : resolveSeedContentDir();
   const materialResult = await importMaterials(prisma, admin, seedDir, options.dataDir);
-  const templateResult = await importTemplates(
+  const manifest = await readManifest(seedDir);
+  const datafileResult = await importDataFiles(
     prisma,
     admin,
     seedDir,
     options.dataDir,
-    materialResult.materials
+    manifest.datafiles
   );
+  const templateResult = await importTemplates(prisma, admin, seedDir, options.dataDir, {
+    materials: materialResult.materials,
+    datafiles: datafileResult.datafiles
+  });
 
   return {
     materials: {
       created: materialResult.created,
       updated: materialResult.updated,
       skipped: materialResult.skipped
+    },
+    datafiles: {
+      created: datafileResult.created,
+      updated: datafileResult.updated,
+      skipped: datafileResult.skipped
     },
     templates: templateResult
   };

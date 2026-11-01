@@ -4,7 +4,7 @@
   "content": {
     "editCanvasConfig": {
       "projectName": "教学数据统计",
-      "remarks": "教学数据统计：展示学生、课程、访问、下载等指标，以及年级成绩、部门完成率、学习方式和作业提交率。资源访问趋势图已设置为动态请求，绑定第三方数据后在此粘贴接口地址（requestUrl 当前为空）。",
+      "remarks": "教学数据统计：展示学生、课程、教师、访问、下载和作业提交率指标，以及年级成绩、学习方式、部门课程完成率、学科核心素养雷达和课程热度排行。资源访问趋势图已设置为动态请求，绑定第三方数据后在此粘贴接口地址（requestUrl 当前为空）。数据为虚构演示数据。",
       "width": 1920,
       "height": 1080,
       "filterShow": false,
@@ -19,7 +19,7 @@
       "skewX": 0,
       "skewY": 0,
       "blendMode": "normal",
-      "background": "#050b18",
+      "background": "#030a18",
       "backgroundImage": "{{material:images/bg-tech-aurora.jpg}}",
       "selectColor": false,
       "chartThemeColor": "dark",
@@ -157,37 +157,7 @@
     },
     "componentList": [
       {
-        "id": "teaching-card-border-0",
         "isGroup": false,
-        "key": "Border01",
-        "chartConfig": {
-          "key": "Border01",
-          "chartKey": "VBorder01",
-          "conKey": "VCBorder01",
-          "title": "边框-01",
-          "category": "Borders",
-          "categoryName": "边框",
-          "package": "Decorates",
-          "chartFrame": "static",
-          "image": "border01.png"
-        },
-        "option": {
-          "dur": 0.5,
-          "colors": [
-            "#2f8cff",
-            "#4fd2dd"
-          ],
-          "backgroundColor": "rgba(7, 26, 43, 0.75)"
-        },
-        "attr": {
-          "x": 40,
-          "y": 110,
-          "w": 400,
-          "h": 150,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 0
-        },
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -235,11 +205,324 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "teaching-corners",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-corners.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 1080,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 0
         }
       },
       {
-        "id": "teaching-card-label-0",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-title-left",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/title-decor-left.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 190,
+          "y": 22,
+          "w": 460,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 1
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-title-right",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/title-decor-right.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1270,
+          "y": 22,
+          "w": 460,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 2
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-title",
+        "key": "TextGradient",
+        "chartConfig": {
+          "key": "TextGradient",
+          "chartKey": "VTextGradient",
+          "conKey": "VCTextGradient",
+          "title": "渐变文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "naiveUI",
+          "image": "text_gradient.png"
+        },
+        "option": {
+          "dataset": "教学数据统计",
+          "size": 38,
+          "gradient": {
+            "from": "#e8fdffff",
+            "to": "#7fe7ffff",
+            "deg": 90
+          }
+        },
+        "attr": {
+          "x": 660,
+          "y": 12,
+          "w": 600,
+          "h": 56,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 3
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-subtitle",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -255,29 +538,32 @@
         "option": {
           "link": "",
           "linkHead": "http://",
-          "dataset": "在校学生",
-          "fontSize": 16,
+          "dataset": "TEACHING · DATA ANALYTICS",
+          "fontSize": 12,
           "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
-          "textAlign": "left",
+          "textAlign": "center",
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 6,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 64,
-          "y": 124,
-          "w": 280,
-          "h": 28,
+          "x": 660,
+          "y": 66,
+          "w": 600,
+          "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 1
-        },
+          "zIndex": 4
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -325,11 +611,341 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "teaching-title-flow",
+        "key": "Decorates05",
+        "chartConfig": {
+          "key": "Decorates05",
+          "chartKey": "VDecorates05",
+          "conKey": "VCDecorates05",
+          "title": "装饰-05",
+          "category": "Decorates",
+          "categoryName": "装饰",
+          "package": "Decorates",
+          "chartFrame": "static",
+          "image": "decorates05.png"
+        },
+        "option": {
+          "colors": [
+            "#4fd2dd",
+            "#4fd2dd4d"
+          ],
+          "dur": 3
+        },
+        "attr": {
+          "x": 760,
+          "y": 88,
+          "w": 400,
+          "h": 14,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 5
         }
       },
       {
-        "id": "teaching-card-number-0",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-clock",
+        "key": "TimeCommon",
+        "chartConfig": {
+          "key": "TimeCommon",
+          "chartKey": "VTimeCommon",
+          "conKey": "VCTimeCommon",
+          "title": "通用时间",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "static",
+          "image": "time.png"
+        },
+        "option": {
+          "timeSize": 18,
+          "timeLineHeight": 40,
+          "timeTextIndent": 2,
+          "timeColor": "#cfeeff",
+          "fontWeight": "normal",
+          "showShadow": true,
+          "hShadow": 0,
+          "vShadow": 0,
+          "blurShadow": 6,
+          "colorShadow": "#0075ff"
+        },
+        "attr": {
+          "x": 1560,
+          "y": 54,
+          "w": 300,
+          "h": 40,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 6
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-kpi-0-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 40,
+          "y": 112,
+          "w": 296,
+          "h": 96,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 7
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-kpi-0-label",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "在校学生（人）",
+          "fontSize": 14,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 56,
+          "y": 124,
+          "w": 270,
+          "h": 22,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 8
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-kpi-0-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -345,25 +961,28 @@
         "option": {
           "dataset": 12680,
           "from": 0,
-          "dur": 3,
+          "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 40,
-          "numberColor": "#4fd2dd",
+          "numberSize": 30,
+          "numberColor": "#7fe7ff",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
-          "suffixText": "人",
+          "suffixText": "",
           "suffixColor": "#8fb8d8"
         },
         "attr": {
-          "x": 64,
-          "y": 162,
-          "w": 352,
-          "h": 76,
+          "x": 52,
+          "y": 148,
+          "w": 274,
+          "h": 50,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 2
-        },
+          "zIndex": 9
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -411,40 +1030,37 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-card-border-1",
-        "isGroup": false,
-        "key": "Border01",
+        },
+        "id": "teaching-kpi-1-frame",
+        "key": "Image",
         "chartConfig": {
-          "key": "Border01",
-          "chartKey": "VBorder01",
-          "conKey": "VCBorder01",
-          "title": "边框-01",
-          "category": "Borders",
-          "categoryName": "边框",
-          "package": "Decorates",
-          "chartFrame": "static",
-          "image": "border01.png"
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
         },
         "option": {
-          "dur": 0.5,
-          "colors": [
-            "#2f8cff",
-            "#4fd2dd"
-          ],
-          "backgroundColor": "rgba(7, 26, 43, 0.75)"
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
         },
         "attr": {
-          "x": 520,
-          "y": 110,
-          "w": 400,
-          "h": 150,
+          "x": 348,
+          "y": 112,
+          "w": 296,
+          "h": 96,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 3
-        },
+          "zIndex": 10
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -492,11 +1108,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-card-label-1",
-        "isGroup": false,
+        },
+        "id": "teaching-kpi-1-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -512,8 +1125,8 @@
         "option": {
           "link": "",
           "linkHead": "http://",
-          "dataset": "开设课程",
-          "fontSize": 16,
+          "dataset": "开设课程（门）",
+          "fontSize": 14,
           "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
@@ -521,20 +1134,23 @@
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 544,
+          "x": 364,
           "y": 124,
-          "w": 280,
-          "h": 28,
+          "w": 270,
+          "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 4
-        },
+          "zIndex": 11
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -582,11 +1198,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-card-number-1",
-        "isGroup": false,
+        },
+        "id": "teaching-kpi-1-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -602,25 +1215,28 @@
         "option": {
           "dataset": 486,
           "from": 0,
-          "dur": 3,
+          "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 40,
+          "numberSize": 30,
           "numberColor": "#7fe7ff",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
-          "suffixText": "门",
+          "suffixText": "",
           "suffixColor": "#8fb8d8"
         },
         "attr": {
-          "x": 544,
-          "y": 162,
-          "w": 352,
-          "h": 76,
+          "x": 360,
+          "y": 148,
+          "w": 274,
+          "h": 50,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 5
-        },
+          "zIndex": 12
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -668,40 +1284,37 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-card-border-2",
-        "isGroup": false,
-        "key": "Border01",
+        },
+        "id": "teaching-kpi-2-frame",
+        "key": "Image",
         "chartConfig": {
-          "key": "Border01",
-          "chartKey": "VBorder01",
-          "conKey": "VCBorder01",
-          "title": "边框-01",
-          "category": "Borders",
-          "categoryName": "边框",
-          "package": "Decorates",
-          "chartFrame": "static",
-          "image": "border01.png"
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
         },
         "option": {
-          "dur": 0.5,
-          "colors": [
-            "#2f8cff",
-            "#4fd2dd"
-          ],
-          "backgroundColor": "rgba(7, 26, 43, 0.75)"
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
         },
         "attr": {
-          "x": 1000,
-          "y": 110,
-          "w": 400,
-          "h": 150,
+          "x": 656,
+          "y": 112,
+          "w": 296,
+          "h": 96,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 6
-        },
+          "zIndex": 13
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -749,11 +1362,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-card-label-2",
-        "isGroup": false,
+        },
+        "id": "teaching-kpi-2-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -769,8 +1379,8 @@
         "option": {
           "link": "",
           "linkHead": "http://",
-          "dataset": "今日访问",
-          "fontSize": 16,
+          "dataset": "专任教师（人）",
+          "fontSize": 14,
           "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
@@ -778,20 +1388,23 @@
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 1024,
+          "x": 672,
           "y": 124,
-          "w": 280,
-          "h": 28,
+          "w": 270,
+          "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 7
-        },
+          "zIndex": 14
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -839,11 +1452,262 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "teaching-kpi-2-value",
+        "key": "Number",
+        "chartConfig": {
+          "key": "Number",
+          "chartKey": "VNumber",
+          "conKey": "VCNumber",
+          "title": "数字计数",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "common",
+          "image": "number.png"
+        },
+        "option": {
+          "dataset": 862,
+          "from": 0,
+          "dur": 2.5,
+          "precision": 0,
+          "showSeparator": true,
+          "numberSize": 30,
+          "numberColor": "#7fe7ff",
+          "prefixText": "",
+          "prefixColor": "#4fd2dd",
+          "suffixText": "",
+          "suffixColor": "#8fb8d8"
+        },
+        "attr": {
+          "x": 668,
+          "y": 148,
+          "w": 274,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 15
         }
       },
       {
-        "id": "teaching-card-number-2",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-kpi-3-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 964,
+          "y": 112,
+          "w": 296,
+          "h": 96,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 16
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-kpi-3-label",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "今日访问（次）",
+          "fontSize": 14,
+          "fontColor": "#8fb8d8",
+          "paddingX": 0,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "normal",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#00000000"
+        },
+        "attr": {
+          "x": 980,
+          "y": 124,
+          "w": 270,
+          "h": 22,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 17
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-kpi-3-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -859,25 +1723,28 @@
         "option": {
           "dataset": 3241,
           "from": 0,
-          "dur": 3,
+          "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 40,
-          "numberColor": "#ffd166",
+          "numberSize": 30,
+          "numberColor": "#ffbf47",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
-          "suffixText": "次",
+          "suffixText": "",
           "suffixColor": "#8fb8d8"
         },
         "attr": {
-          "x": 1024,
-          "y": 162,
-          "w": 352,
-          "h": 76,
+          "x": 976,
+          "y": 148,
+          "w": 274,
+          "h": 50,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 8
-        },
+          "zIndex": 18
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -925,40 +1792,37 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-card-border-3",
-        "isGroup": false,
-        "key": "Border01",
+        },
+        "id": "teaching-kpi-4-frame",
+        "key": "Image",
         "chartConfig": {
-          "key": "Border01",
-          "chartKey": "VBorder01",
-          "conKey": "VCBorder01",
-          "title": "边框-01",
-          "category": "Borders",
-          "categoryName": "边框",
-          "package": "Decorates",
-          "chartFrame": "static",
-          "image": "border01.png"
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
         },
         "option": {
-          "dur": 0.5,
-          "colors": [
-            "#2f8cff",
-            "#4fd2dd"
-          ],
-          "backgroundColor": "rgba(7, 26, 43, 0.75)"
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
         },
         "attr": {
-          "x": 1480,
-          "y": 110,
-          "w": 400,
-          "h": 150,
+          "x": 1272,
+          "y": 112,
+          "w": 296,
+          "h": 96,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 9
-        },
+          "zIndex": 19
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1006,11 +1870,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-card-label-3",
-        "isGroup": false,
+        },
+        "id": "teaching-kpi-4-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -1026,8 +1887,8 @@
         "option": {
           "link": "",
           "linkHead": "http://",
-          "dataset": "资源下载",
-          "fontSize": 16,
+          "dataset": "资源下载（次）",
+          "fontSize": 14,
           "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
@@ -1035,20 +1896,23 @@
           "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 1504,
+          "x": 1288,
           "y": 124,
-          "w": 280,
-          "h": 28,
+          "w": 270,
+          "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 10
-        },
+          "zIndex": 20
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1096,11 +1960,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-card-number-3",
-        "isGroup": false,
+        },
+        "id": "teaching-kpi-4-value",
         "key": "Number",
         "chartConfig": {
           "key": "Number",
@@ -1116,25 +1977,28 @@
         "option": {
           "dataset": 8642,
           "from": 0,
-          "dur": 3,
+          "dur": 2.5,
           "precision": 0,
           "showSeparator": true,
-          "numberSize": 40,
-          "numberColor": "#ff9f7a",
+          "numberSize": 30,
+          "numberColor": "#ffbf47",
           "prefixText": "",
           "prefixColor": "#4fd2dd",
-          "suffixText": "次",
+          "suffixText": "",
           "suffixColor": "#8fb8d8"
         },
         "attr": {
-          "x": 1504,
-          "y": 162,
-          "w": 352,
-          "h": 76,
+          "x": 1284,
+          "y": 148,
+          "w": 274,
+          "h": 50,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 11
-        },
+          "zIndex": 21
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1182,11 +2046,86 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "teaching-kpi-5-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1580,
+          "y": 112,
+          "w": 296,
+          "h": 96,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 22
         }
       },
       {
-        "id": "teaching-grade-title",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-kpi-5-label",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -1202,29 +2141,32 @@
         "option": {
           "link": "",
           "linkHead": "http://",
-          "dataset": "各年级平均分",
-          "fontSize": 18,
-          "fontColor": "#4fd2dd",
+          "dataset": "作业提交率（%）",
+          "fontSize": 14,
+          "fontColor": "#8fb8d8",
           "paddingX": 0,
           "paddingY": 0,
           "textAlign": "left",
-          "fontWeight": "bold",
+          "fontWeight": "normal",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
           "backgroundColor": "#00000000"
         },
         "attr": {
-          "x": 40,
-          "y": 300,
-          "w": 400,
-          "h": 30,
+          "x": 1596,
+          "y": 124,
+          "w": 270,
+          "h": 22,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 12
-        },
+          "zIndex": 23
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -1272,11 +2214,262 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "teaching-kpi-5-value",
+        "key": "Number",
+        "chartConfig": {
+          "key": "Number",
+          "chartKey": "VNumber",
+          "conKey": "VCNumber",
+          "title": "数字计数",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Decorates",
+          "chartFrame": "common",
+          "image": "number.png"
+        },
+        "option": {
+          "dataset": 94.6,
+          "from": 0,
+          "dur": 2.5,
+          "precision": 1,
+          "showSeparator": true,
+          "numberSize": 30,
+          "numberColor": "#2ee6b8",
+          "prefixText": "",
+          "prefixColor": "#4fd2dd",
+          "suffixText": "",
+          "suffixColor": "#8fb8d8"
+        },
+        "attr": {
+          "x": 1592,
+          "y": 148,
+          "w": 274,
+          "h": 50,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 24
         }
       },
       {
-        "id": "teaching-grade-bar",
         "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-grade-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 40,
+          "y": 224,
+          "w": 600,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 25
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-grade-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍各年级平均分",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 58,
+          "y": 236,
+          "w": 564,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 26
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-grade-bar",
         "key": "BarCommon",
         "chartConfig": {
           "key": "BarCommon",
@@ -1310,29 +2503,29 @@
             "inverse": false,
             "axisLabel": {
               "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
+              "fontSize": 11,
+              "color": "#8fb8d8",
               "rotate": 0
             },
             "position": "bottom",
             "axisLine": {
               "show": true,
               "lineStyle": {
-                "color": "#B9B8CE",
+                "color": "#2b5a80",
                 "width": 1
               },
               "onZero": true
             },
             "axisTick": {
-              "show": true,
+              "show": false,
               "length": 5
             },
             "splitLine": {
               "show": false,
               "lineStyle": {
-                "color": "#484753",
+                "color": "#16324f",
                 "width": 1,
-                "type": "solid"
+                "type": "dashed"
               }
             },
             "type": "category"
@@ -1348,29 +2541,29 @@
             "inverse": false,
             "axisLabel": {
               "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
+              "fontSize": 11,
+              "color": "#8fb8d8",
               "rotate": 0
             },
             "position": "left",
             "axisLine": {
-              "show": true,
+              "show": false,
               "lineStyle": {
-                "color": "#B9B8CE",
+                "color": "#2b5a80",
                 "width": 1
               },
               "onZero": true
             },
             "axisTick": {
-              "show": true,
+              "show": false,
               "length": 5
             },
             "splitLine": {
               "show": true,
               "lineStyle": {
-                "color": "#484753",
+                "color": "#16324f",
                 "width": 1,
-                "type": "solid"
+                "type": "dashed"
               }
             },
             "type": "value"
@@ -1378,764 +2571,682 @@
           "legend": {
             "show": true,
             "type": "scroll",
-            "x": "center",
+            "x": "right",
             "y": "top",
             "icon": "circle",
             "orient": "horizontal",
             "textStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 18
+              "color": "#8fb8d8",
+              "fontSize": 12
             },
-            "itemHeight": 15,
-            "itemWidth": 15,
+            "itemHeight": 8,
+            "itemWidth": 12,
             "pageTextStyle": {
               "color": "#B9B8CE"
             }
           },
           "grid": {
             "show": false,
-            "left": "10%",
-            "top": "60",
-            "right": "10%",
-            "bottom": "60"
+            "left": "12%",
+            "top": "36",
+            "right": "5%",
+            "bottom": "28"
           },
           "dataset": {
             "dimensions": [
               "年级",
-              "平均分"
+              "语文",
+              "数学",
+              "英语"
             ],
             "source": [
               {
-                "年级": "初一",
-                "平均分": 86
-              },
-              {
-                "年级": "初二",
-                "平均分": 88
-              },
-              {
-                "年级": "初三",
-                "平均分": 90
-              },
-              {
                 "年级": "高一",
-                "平均分": 84
+                "语文": 86,
+                "数学": 82,
+                "英语": 84
               },
               {
                 "年级": "高二",
-                "平均分": 86
+                "语文": 84,
+                "数学": 85,
+                "英语": 82
               },
               {
                 "年级": "高三",
-                "平均分": 89
+                "语文": 88,
+                "数学": 87,
+                "英语": 86
               }
             ]
           },
           "series": [
             {
               "type": "bar",
-              "barWidth": 15,
+              "name": "语文",
+              "barWidth": 16,
               "label": {
-                "show": true,
+                "show": false,
                 "position": "top",
-                "color": "#fff",
-                "fontSize": 12
+                "color": "#cfeeff",
+                "fontSize": 11
               },
               "itemStyle": {
-                "color": null,
-                "borderRadius": 2
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#4fd2dd"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#1d6fd1"
+                    }
+                  ]
+                },
+                "borderRadius": [
+                  3,
+                  3,
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "type": "bar",
+              "name": "数学",
+              "barWidth": 16,
+              "label": {
+                "show": false,
+                "position": "top",
+                "color": "#cfeeff",
+                "fontSize": 11
               },
-              "name": "平均分"
+              "itemStyle": {
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#ffbf47"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#f59a4a"
+                    }
+                  ]
+                },
+                "borderRadius": [
+                  3,
+                  3,
+                  0,
+                  0
+                ]
+              }
+            },
+            {
+              "type": "bar",
+              "name": "英语",
+              "barWidth": 16,
+              "label": {
+                "show": false,
+                "position": "top",
+                "color": "#cfeeff",
+                "fontSize": 11
+              },
+              "itemStyle": {
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#9b7bf0"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#5b3fc4"
+                    }
+                  ]
+                },
+                "borderRadius": [
+                  3,
+                  3,
+                  0,
+                  0
+                ]
+              }
             }
           ]
+        },
+        "attr": {
+          "x": 52,
+          "y": 272,
+          "w": 576,
+          "h": 342,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 27
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-mode-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
         },
         "attr": {
           "x": 40,
-          "y": 340,
-          "w": 560,
-          "h": 320,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 13
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-dept-title",
-        "isGroup": false,
-        "key": "TextCommon",
-        "chartConfig": {
-          "key": "TextCommon",
-          "chartKey": "VTextCommon",
-          "conKey": "VCTextCommon",
-          "title": "文字",
-          "category": "Texts",
-          "categoryName": "文本",
-          "package": "Informations",
-          "chartFrame": "common",
-          "image": "text_static.png"
-        },
-        "option": {
-          "link": "",
-          "linkHead": "http://",
-          "dataset": "各部门课程完成率（%）",
-          "fontSize": 18,
-          "fontColor": "#4fd2dd",
-          "paddingX": 0,
-          "paddingY": 0,
-          "textAlign": "left",
-          "fontWeight": "bold",
-          "borderWidth": 0,
-          "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
-          "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
-        },
-        "attr": {
-          "x": 660,
-          "y": 300,
-          "w": 400,
-          "h": 30,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 14
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-dept-bar",
-        "isGroup": false,
-        "key": "BarCommon",
-        "chartConfig": {
-          "key": "BarCommon",
-          "chartKey": "VBarCommon",
-          "conKey": "VCBarCommon",
-          "title": "柱状图",
-          "category": "Bars",
-          "categoryName": "柱状图",
-          "package": "Charts",
-          "chartFrame": "echarts",
-          "image": "bar_x.png"
-        },
-        "option": {
-          "backgroundColor": "rgba(0,0,0,0)",
-          "tooltip": {
-            "show": true,
-            "trigger": "axis",
-            "axisPointer": {
-              "show": true,
-              "type": "shadow"
-            }
-          },
-          "xAxis": {
-            "show": true,
-            "name": "",
-            "nameGap": 15,
-            "nameTextStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 12
-            },
-            "inverse": false,
-            "axisLabel": {
-              "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
-              "rotate": 0
-            },
-            "position": "bottom",
-            "axisLine": {
-              "show": true,
-              "lineStyle": {
-                "color": "#B9B8CE",
-                "width": 1
-              },
-              "onZero": true
-            },
-            "axisTick": {
-              "show": true,
-              "length": 5
-            },
-            "splitLine": {
-              "show": false,
-              "lineStyle": {
-                "color": "#484753",
-                "width": 1,
-                "type": "solid"
-              }
-            },
-            "type": "category"
-          },
-          "yAxis": {
-            "show": true,
-            "name": "",
-            "nameGap": 15,
-            "nameTextStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 12
-            },
-            "inverse": false,
-            "axisLabel": {
-              "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
-              "rotate": 0
-            },
-            "position": "left",
-            "axisLine": {
-              "show": true,
-              "lineStyle": {
-                "color": "#B9B8CE",
-                "width": 1
-              },
-              "onZero": true
-            },
-            "axisTick": {
-              "show": true,
-              "length": 5
-            },
-            "splitLine": {
-              "show": true,
-              "lineStyle": {
-                "color": "#484753",
-                "width": 1,
-                "type": "solid"
-              }
-            },
-            "type": "value"
-          },
-          "legend": {
-            "show": true,
-            "type": "scroll",
-            "x": "center",
-            "y": "top",
-            "icon": "circle",
-            "orient": "horizontal",
-            "textStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 18
-            },
-            "itemHeight": 15,
-            "itemWidth": 15,
-            "pageTextStyle": {
-              "color": "#B9B8CE"
-            }
-          },
-          "grid": {
-            "show": false,
-            "left": "10%",
-            "top": "60",
-            "right": "10%",
-            "bottom": "60"
-          },
-          "dataset": {
-            "dimensions": [
-              "部门",
-              "完成率"
-            ],
-            "source": [
-              {
-                "部门": "教学部",
-                "完成率": 92
-              },
-              {
-                "部门": "实训中心",
-                "完成率": 88
-              },
-              {
-                "部门": "信息中心",
-                "完成率": 95
-              },
-              {
-                "部门": "学生处",
-                "完成率": 80
-              },
-              {
-                "部门": "图书馆",
-                "完成率": 86
-              }
-            ]
-          },
-          "series": [
-            {
-              "type": "bar",
-              "barWidth": 15,
-              "label": {
-                "show": true,
-                "position": "top",
-                "color": "#fff",
-                "fontSize": 12
-              },
-              "itemStyle": {
-                "color": null,
-                "borderRadius": 2
-              },
-              "name": "完成率"
-            }
-          ]
-        },
-        "attr": {
-          "x": 660,
-          "y": 340,
-          "w": 560,
-          "h": 320,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 15
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-access-title",
-        "isGroup": false,
-        "key": "TextCommon",
-        "chartConfig": {
-          "key": "TextCommon",
-          "chartKey": "VTextCommon",
-          "conKey": "VCTextCommon",
-          "title": "文字",
-          "category": "Texts",
-          "categoryName": "文本",
-          "package": "Informations",
-          "chartFrame": "common",
-          "image": "text_static.png"
-        },
-        "option": {
-          "link": "",
-          "linkHead": "http://",
-          "dataset": "资源访问趋势（动态接口）",
-          "fontSize": 18,
-          "fontColor": "#4fd2dd",
-          "paddingX": 0,
-          "paddingY": 0,
-          "textAlign": "left",
-          "fontWeight": "bold",
-          "borderWidth": 0,
-          "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
-          "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
-        },
-        "attr": {
-          "x": 1280,
-          "y": 300,
-          "w": 500,
-          "h": 30,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 16
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-access-line",
-        "isGroup": false,
-        "key": "LineCommon",
-        "chartConfig": {
-          "key": "LineCommon",
-          "chartKey": "VLineCommon",
-          "conKey": "VCLineCommon",
-          "title": "折线图",
-          "category": "Lines",
-          "categoryName": "折线图",
-          "package": "Charts",
-          "chartFrame": "echarts",
-          "image": "line.png"
-        },
-        "option": {
-          "backgroundColor": "rgba(0,0,0,0)",
-          "tooltip": {
-            "show": true,
-            "trigger": "axis",
-            "axisPointer": {
-              "type": "line"
-            }
-          },
-          "xAxis": {
-            "show": true,
-            "name": "",
-            "nameGap": 15,
-            "nameTextStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 12
-            },
-            "inverse": false,
-            "axisLabel": {
-              "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
-              "rotate": 0
-            },
-            "position": "bottom",
-            "axisLine": {
-              "show": true,
-              "lineStyle": {
-                "color": "#B9B8CE",
-                "width": 1
-              },
-              "onZero": true
-            },
-            "axisTick": {
-              "show": true,
-              "length": 5
-            },
-            "splitLine": {
-              "show": false,
-              "lineStyle": {
-                "color": "#484753",
-                "width": 1,
-                "type": "solid"
-              }
-            },
-            "type": "category"
-          },
-          "yAxis": {
-            "show": true,
-            "name": "",
-            "nameGap": 15,
-            "nameTextStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 12
-            },
-            "inverse": false,
-            "axisLabel": {
-              "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
-              "rotate": 0
-            },
-            "position": "left",
-            "axisLine": {
-              "show": true,
-              "lineStyle": {
-                "color": "#B9B8CE",
-                "width": 1
-              },
-              "onZero": true
-            },
-            "axisTick": {
-              "show": true,
-              "length": 5
-            },
-            "splitLine": {
-              "show": true,
-              "lineStyle": {
-                "color": "#484753",
-                "width": 1,
-                "type": "solid"
-              }
-            },
-            "type": "value"
-          },
-          "legend": {
-            "show": true,
-            "type": "scroll",
-            "x": "center",
-            "y": "top",
-            "icon": "circle",
-            "orient": "horizontal",
-            "textStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 18
-            },
-            "itemHeight": 15,
-            "itemWidth": 15,
-            "pageTextStyle": {
-              "color": "#B9B8CE"
-            }
-          },
-          "grid": {
-            "show": false,
-            "left": "10%",
-            "top": "60",
-            "right": "10%",
-            "bottom": "60"
-          },
-          "dataset": {
-            "dimensions": [
-              "日期",
-              "浏览量",
-              "下载量"
-            ],
-            "source": [
-              {
-                "日期": "周一",
-                "浏览量": 1260,
-                "下载量": 320
-              },
-              {
-                "日期": "周二",
-                "浏览量": 1480,
-                "下载量": 380
-              },
-              {
-                "日期": "周三",
-                "浏览量": 1390,
-                "下载量": 350
-              },
-              {
-                "日期": "周四",
-                "浏览量": 1720,
-                "下载量": 460
-              },
-              {
-                "日期": "周五",
-                "浏览量": 1650,
-                "下载量": 420
-              },
-              {
-                "日期": "周六",
-                "浏览量": 980,
-                "下载量": 210
-              },
-              {
-                "日期": "周日",
-                "浏览量": 860,
-                "下载量": 180
-              }
-            ]
-          },
-          "series": [
-            {
-              "type": "line",
-              "label": {
-                "show": true,
-                "position": "top",
-                "color": "#fff",
-                "fontSize": 12
-              },
-              "symbolSize": 5,
-              "itemStyle": {
-                "color": null,
-                "borderRadius": 0
-              },
-              "lineStyle": {
-                "type": "solid",
-                "width": 3,
-                "color": null
-              },
-              "name": "浏览量"
-            },
-            {
-              "type": "line",
-              "label": {
-                "show": true,
-                "position": "top",
-                "color": "#fff",
-                "fontSize": 12
-              },
-              "symbolSize": 5,
-              "itemStyle": {
-                "color": null,
-                "borderRadius": 0
-              },
-              "lineStyle": {
-                "type": "solid",
-                "width": 3,
-                "color": null
-              },
-              "name": "下载量"
-            }
-          ]
-        },
-        "attr": {
-          "x": 1280,
-          "y": 340,
+          "y": 640,
           "w": 600,
-          "h": 320,
+          "h": 400,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 17
+          "zIndex": 28
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
         },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-mode-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍学习方式占比（%）",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 58,
+          "y": 652,
+          "w": 564,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 29
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-mode-pie",
+        "key": "PieCommon",
+        "chartConfig": {
+          "key": "PieCommon",
+          "chartKey": "VPieCommon",
+          "conKey": "VCPieCommon",
+          "title": "饼图",
+          "category": "Pies",
+          "categoryName": "饼图",
+          "package": "Charts",
+          "chartFrame": "echarts",
+          "image": "pie.png"
+        },
+        "option": {
+          "isCarousel": false,
+          "type": "ring",
+          "backgroundColor": "rgba(0,0,0,0)",
+          "tooltip": {
+            "show": true,
+            "trigger": "item"
+          },
+          "legend": {
+            "show": true,
+            "type": "plain",
+            "x": "center",
+            "y": "bottom",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#8fb8d8",
+              "fontSize": 12
+            },
+            "itemHeight": 8,
+            "itemWidth": 8,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            }
+          },
+          "dataset": {
+            "dimensions": [
+              "方式",
+              "占比"
+            ],
+            "source": [
+              {
+                "方式": "课堂教学",
+                "占比": 42
+              },
+              {
+                "方式": "线上课程",
+                "占比": 26
+              },
+              {
+                "方式": "实训实践",
+                "占比": 18
+              },
+              {
+                "方式": "自主学习",
+                "占比": 14
+              }
+            ]
+          },
+          "series": [
+            {
+              "type": "pie",
+              "radius": [
+                "46%",
+                "68%"
+              ],
+              "center": [
+                "50%",
+                "44%"
+              ],
+              "roseType": false,
+              "itemStyle": {
+                "show": true,
+                "borderRadius": 6,
+                "borderColor": "#071324",
+                "borderWidth": 3
+              },
+              "label": {
+                "show": false,
+                "position": "center",
+                "formatter": "{b}",
+                "fontSize": 14,
+                "color": "#cfeeff"
+              },
+              "emphasis": {
+                "label": {
+                  "show": true,
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "color": "#ffffff",
+                  "formatter": "{b}\n{d}%"
+                }
+              },
+              "labelLine": {
+                "show": false
+              }
+            }
+          ],
+          "color": [
+            "#4fd2dd",
+            "#2f8cff",
+            "#ffbf47",
+            "#9b7bf0"
+          ]
+        },
+        "attr": {
+          "x": 52,
+          "y": 688,
+          "w": 576,
+          "h": 342,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 30
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-visits-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 660,
+          "y": 224,
+          "w": 600,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 31
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-visits-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍资源访问趋势（动态接口）",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 678,
+          "y": 236,
+          "w": 564,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 32
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2183,351 +3294,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-style-title",
-        "isGroup": false,
-        "key": "TextCommon",
-        "chartConfig": {
-          "key": "TextCommon",
-          "chartKey": "VTextCommon",
-          "conKey": "VCTextCommon",
-          "title": "文字",
-          "category": "Texts",
-          "categoryName": "文本",
-          "package": "Informations",
-          "chartFrame": "common",
-          "image": "text_static.png"
         },
-        "option": {
-          "link": "",
-          "linkHead": "http://",
-          "dataset": "学习方式占比",
-          "fontSize": 18,
-          "fontColor": "#4fd2dd",
-          "paddingX": 0,
-          "paddingY": 0,
-          "textAlign": "left",
-          "fontWeight": "bold",
-          "borderWidth": 0,
-          "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
-          "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
-        },
-        "attr": {
-          "x": 40,
-          "y": 700,
-          "w": 400,
-          "h": 30,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 18
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-style-pie",
-        "isGroup": false,
-        "key": "PieCommon",
-        "chartConfig": {
-          "key": "PieCommon",
-          "chartKey": "VPieCommon",
-          "conKey": "VCPieCommon",
-          "title": "饼图",
-          "category": "Pies",
-          "categoryName": "饼图",
-          "package": "Charts",
-          "chartFrame": "echarts",
-          "image": "pie.png"
-        },
-        "option": {
-          "isCarousel": false,
-          "type": "ring",
-          "backgroundColor": "rgba(0,0,0,0)",
-          "tooltip": {
-            "show": true,
-            "trigger": "item"
-          },
-          "legend": {
-            "show": true,
-            "type": "scroll",
-            "x": "center",
-            "y": "top",
-            "icon": "circle",
-            "orient": "horizontal",
-            "textStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 18
-            },
-            "itemHeight": 15,
-            "itemWidth": 15,
-            "pageTextStyle": {
-              "color": "#B9B8CE"
-            }
-          },
-          "dataset": {
-            "dimensions": [
-              "方式",
-              "人数"
-            ],
-            "source": [
-              {
-                "方式": "线上学习",
-                "人数": 42
-              },
-              {
-                "方式": "线下学习",
-                "人数": 35
-              },
-              {
-                "方式": "混合学习",
-                "人数": 23
-              }
-            ]
-          },
-          "series": [
-            {
-              "type": "pie",
-              "radius": [
-                "40%",
-                "65%"
-              ],
-              "center": [
-                "50%",
-                "60%"
-              ],
-              "roseType": false,
-              "avoidLabelOverlap": false,
-              "itemStyle": {
-                "show": true,
-                "borderRadius": 10,
-                "borderColor": "#fff",
-                "borderWidth": 2
-              },
-              "label": {
-                "show": false,
-                "position": "center",
-                "formatter": "{b}",
-                "fontWeight": "normal",
-                "fontSize": 14,
-                "color": "#454E54",
-                "textBorderColor": "#ffffff",
-                "textBorderWidth": 1
-              },
-              "emphasis": {
-                "label": {
-                  "show": true,
-                  "fontSize": 40,
-                  "fontWeight": "bold"
-                }
-              },
-              "labelLine": {
-                "show": false
-              }
-            }
-          ]
-        },
-        "attr": {
-          "x": 40,
-          "y": 740,
-          "w": 560,
-          "h": 300,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 19
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-homework-title",
-        "isGroup": false,
-        "key": "TextCommon",
-        "chartConfig": {
-          "key": "TextCommon",
-          "chartKey": "VTextCommon",
-          "conKey": "VCTextCommon",
-          "title": "文字",
-          "category": "Texts",
-          "categoryName": "文本",
-          "package": "Informations",
-          "chartFrame": "common",
-          "image": "text_static.png"
-        },
-        "option": {
-          "link": "",
-          "linkHead": "http://",
-          "dataset": "作业提交率趋势（%）",
-          "fontSize": 18,
-          "fontColor": "#4fd2dd",
-          "paddingX": 0,
-          "paddingY": 0,
-          "textAlign": "left",
-          "fontWeight": "bold",
-          "borderWidth": 0,
-          "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
-          "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
-        },
-        "attr": {
-          "x": 660,
-          "y": 700,
-          "w": 400,
-          "h": 30,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 20
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-homework-line",
-        "isGroup": false,
+        "id": "teaching-visits-line",
         "key": "LineCommon",
         "chartConfig": {
           "key": "LineCommon",
@@ -2560,29 +3328,510 @@
             "inverse": false,
             "axisLabel": {
               "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
+              "fontSize": 11,
+              "color": "#8fb8d8",
               "rotate": 0
             },
             "position": "bottom",
             "axisLine": {
               "show": true,
               "lineStyle": {
-                "color": "#B9B8CE",
+                "color": "#2b5a80",
                 "width": 1
               },
               "onZero": true
             },
             "axisTick": {
-              "show": true,
+              "show": false,
               "length": 5
             },
             "splitLine": {
               "show": false,
               "lineStyle": {
-                "color": "#484753",
+                "color": "#16324f",
                 "width": 1,
-                "type": "solid"
+                "type": "dashed"
+              }
+            },
+            "type": "category",
+            "boundaryGap": false
+          },
+          "yAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 11,
+              "color": "#8fb8d8",
+              "rotate": 0
+            },
+            "position": "left",
+            "axisLine": {
+              "show": false,
+              "lineStyle": {
+                "color": "#2b5a80",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": false,
+              "length": 5
+            },
+            "splitLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#16324f",
+                "width": 1,
+                "type": "dashed"
+              }
+            },
+            "type": "value"
+          },
+          "legend": {
+            "show": true,
+            "type": "scroll",
+            "x": "right",
+            "y": "top",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#8fb8d8",
+              "fontSize": 12
+            },
+            "itemHeight": 8,
+            "itemWidth": 12,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            }
+          },
+          "grid": {
+            "show": false,
+            "left": "12%",
+            "top": "36",
+            "right": "5%",
+            "bottom": "28"
+          },
+          "dataset": {
+            "dimensions": [
+              "日期",
+              "访问",
+              "下载"
+            ],
+            "source": [
+              {
+                "日期": "周一",
+                "访问": 2860,
+                "下载": 1320
+              },
+              {
+                "日期": "周二",
+                "访问": 3120,
+                "下载": 1480
+              },
+              {
+                "日期": "周三",
+                "访问": 2980,
+                "下载": 1610
+              },
+              {
+                "日期": "周四",
+                "访问": 3410,
+                "下载": 1720
+              },
+              {
+                "日期": "周五",
+                "访问": 3241,
+                "下载": 1590
+              },
+              {
+                "日期": "周六",
+                "访问": 1820,
+                "下载": 860
+              },
+              {
+                "日期": "周日",
+                "访问": 1560,
+                "下载": 720
+              }
+            ]
+          },
+          "series": [
+            {
+              "type": "line",
+              "name": "访问",
+              "smooth": true,
+              "symbolSize": 5,
+              "label": {
+                "show": false,
+                "position": "top",
+                "color": "#cfeeff",
+                "fontSize": 11
+              },
+              "itemStyle": {
+                "color": "#4fd2dd",
+                "borderRadius": 0
+              },
+              "lineStyle": {
+                "type": "solid",
+                "width": 2.5,
+                "color": "#4fd2dd"
+              },
+              "areaStyle": {
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#4fd2dd"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#4fd2dd00"
+                    }
+                  ]
+                },
+                "opacity": 0.72
+              }
+            },
+            {
+              "type": "line",
+              "name": "下载",
+              "smooth": true,
+              "symbolSize": 5,
+              "label": {
+                "show": false,
+                "position": "top",
+                "color": "#cfeeff",
+                "fontSize": 11
+              },
+              "itemStyle": {
+                "color": "#ffbf47",
+                "borderRadius": 0
+              },
+              "lineStyle": {
+                "type": "solid",
+                "width": 2.5,
+                "color": "#ffbf47"
+              },
+              "areaStyle": {
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#ffbf47"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#ffbf4700"
+                    }
+                  ]
+                },
+                "opacity": 0.72
+              }
+            }
+          ]
+        },
+        "attr": {
+          "x": 672,
+          "y": 272,
+          "w": 576,
+          "h": 342,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 33
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-complete-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 660,
+          "y": 640,
+          "w": 600,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 34
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-complete-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍各部门课程完成率（%）",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 678,
+          "y": 652,
+          "w": 564,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 35
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-complete-bar",
+        "key": "BarCommon",
+        "chartConfig": {
+          "key": "BarCommon",
+          "chartKey": "VBarCommon",
+          "conKey": "VCBarCommon",
+          "title": "柱状图",
+          "category": "Bars",
+          "categoryName": "柱状图",
+          "package": "Charts",
+          "chartFrame": "echarts",
+          "image": "bar_x.png"
+        },
+        "option": {
+          "backgroundColor": "rgba(0,0,0,0)",
+          "tooltip": {
+            "show": true,
+            "trigger": "axis",
+            "axisPointer": {
+              "show": true,
+              "type": "shadow"
+            }
+          },
+          "xAxis": {
+            "show": true,
+            "name": "",
+            "nameGap": 15,
+            "nameTextStyle": {
+              "color": "#B9B8CE",
+              "fontSize": 12
+            },
+            "inverse": false,
+            "axisLabel": {
+              "show": true,
+              "fontSize": 11,
+              "color": "#8fb8d8",
+              "rotate": 0
+            },
+            "position": "bottom",
+            "axisLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#2b5a80",
+                "width": 1
+              },
+              "onZero": true
+            },
+            "axisTick": {
+              "show": false,
+              "length": 5
+            },
+            "splitLine": {
+              "show": false,
+              "lineStyle": {
+                "color": "#16324f",
+                "width": 1,
+                "type": "dashed"
               }
             },
             "type": "category"
@@ -2598,121 +3847,136 @@
             "inverse": false,
             "axisLabel": {
               "show": true,
-              "fontSize": 12,
-              "color": "#B9B8CE",
+              "fontSize": 11,
+              "color": "#8fb8d8",
               "rotate": 0
             },
             "position": "left",
             "axisLine": {
-              "show": true,
+              "show": false,
               "lineStyle": {
-                "color": "#B9B8CE",
+                "color": "#2b5a80",
                 "width": 1
               },
               "onZero": true
             },
             "axisTick": {
-              "show": true,
+              "show": false,
               "length": 5
             },
             "splitLine": {
               "show": true,
               "lineStyle": {
-                "color": "#484753",
+                "color": "#16324f",
                 "width": 1,
-                "type": "solid"
+                "type": "dashed"
               }
             },
             "type": "value"
           },
           "legend": {
-            "show": true,
+            "show": false,
             "type": "scroll",
-            "x": "center",
+            "x": "right",
             "y": "top",
             "icon": "circle",
             "orient": "horizontal",
             "textStyle": {
-              "color": "#B9B8CE",
-              "fontSize": 18
+              "color": "#8fb8d8",
+              "fontSize": 12
             },
-            "itemHeight": 15,
-            "itemWidth": 15,
+            "itemHeight": 8,
+            "itemWidth": 12,
             "pageTextStyle": {
               "color": "#B9B8CE"
             }
           },
           "grid": {
             "show": false,
-            "left": "10%",
-            "top": "60",
-            "right": "10%",
-            "bottom": "60"
+            "left": "12%",
+            "top": "36",
+            "right": "5%",
+            "bottom": "28"
           },
           "dataset": {
             "dimensions": [
-              "周次",
-              "提交率"
+              "部门",
+              "完成率"
             ],
             "source": [
               {
-                "周次": "第 1 周",
-                "提交率": 88
+                "部门": "信息工程",
+                "完成率": 96
               },
               {
-                "周次": "第 2 周",
-                "提交率": 91
+                "部门": "机电工程",
+                "完成率": 92
               },
               {
-                "周次": "第 3 周",
-                "提交率": 86
+                "部门": "经济管理",
+                "完成率": 89
               },
               {
-                "周次": "第 4 周",
-                "提交率": 93
+                "部门": "艺术设计",
+                "完成率": 94
               },
               {
-                "周次": "第 5 周",
-                "提交率": 90
-              },
-              {
-                "周次": "第 6 周",
-                "提交率": 95
+                "部门": "基础部",
+                "完成率": 98
               }
             ]
           },
           "series": [
             {
-              "type": "line",
+              "type": "bar",
+              "name": "完成率",
+              "barWidth": 24,
               "label": {
                 "show": true,
                 "position": "top",
-                "color": "#fff",
-                "fontSize": 12
+                "color": "#cfeeff",
+                "fontSize": 11
               },
-              "symbolSize": 5,
               "itemStyle": {
-                "color": null,
-                "borderRadius": 0
-              },
-              "lineStyle": {
-                "type": "solid",
-                "width": 3,
-                "color": null
-              },
-              "name": "提交率"
+                "color": {
+                  "type": "linear",
+                  "x": 0,
+                  "y": 0,
+                  "x2": 0,
+                  "y2": 1,
+                  "colorStops": [
+                    {
+                      "offset": 0,
+                      "color": "#2ee6b8"
+                    },
+                    {
+                      "offset": 1,
+                      "color": "#0f6f6a"
+                    }
+                  ]
+                },
+                "borderRadius": [
+                  3,
+                  3,
+                  0,
+                  0
+                ]
+              }
             }
           ]
         },
         "attr": {
-          "x": 660,
-          "y": 740,
-          "w": 560,
-          "h": 300,
+          "x": 672,
+          "y": 688,
+          "w": 576,
+          "h": 342,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 21
-        },
+          "zIndex": 36
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2760,40 +4024,37 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-note-border",
-        "isGroup": false,
-        "key": "Border01",
+        },
+        "id": "teaching-ability-frame",
+        "key": "Image",
         "chartConfig": {
-          "key": "Border01",
-          "chartKey": "VBorder01",
-          "conKey": "VCBorder01",
-          "title": "边框-01",
-          "category": "Borders",
-          "categoryName": "边框",
-          "package": "Decorates",
-          "chartFrame": "static",
-          "image": "border01.png"
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
         },
         "option": {
-          "dur": 0.5,
-          "colors": [
-            "#235fa7",
-            "#2f8cff"
-          ],
-          "backgroundColor": "rgba(7, 26, 43, 0.6)"
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
         },
         "attr": {
           "x": 1280,
-          "y": 740,
+          "y": 224,
           "w": 600,
-          "h": 300,
+          "h": 400,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 22
-        },
+          "zIndex": 37
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -2841,11 +4102,8 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-note-text",
-        "isGroup": false,
+        },
+        "id": "teaching-ability-title",
         "key": "TextCommon",
         "chartConfig": {
           "key": "TextCommon",
@@ -2861,119 +4119,32 @@
         "option": {
           "link": "",
           "linkHead": "http://",
-          "dataset": "模板备注\n\n「资源访问趋势」已设置为动态请求，requestUrl 目前为空。\n绑定第三方数据后，在该图表的数据请求地址中粘贴接口地址即可。",
-          "fontSize": 17,
-          "fontColor": "#9fc7e2",
-          "paddingX": 0,
+          "dataset": "▍学科核心素养",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
           "paddingY": 0,
           "textAlign": "left",
-          "fontWeight": "normal",
-          "borderWidth": 0,
-          "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 1,
-          "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
-        },
-        "attr": {
-          "x": 1320,
-          "y": 770,
-          "w": 520,
-          "h": 240,
-          "offsetX": 0,
-          "offsetY": 0,
-          "zIndex": 23
-        },
-        "styles": {
-          "filterShow": false,
-          "hueRotate": 0,
-          "saturate": 1,
-          "contrast": 1,
-          "brightness": 1,
-          "opacity": 1,
-          "rotateZ": 0,
-          "rotateX": 0,
-          "rotateY": 0,
-          "skewX": 0,
-          "skewY": 0,
-          "blendMode": "normal",
-          "animations": []
-        },
-        "preview": {
-          "overFlowHidden": false
-        },
-        "status": {
-          "lock": false,
-          "hide": false
-        },
-        "request": {
-          "requestDataType": 0,
-          "requestHttpType": "get",
-          "requestUrl": "",
-          "requestIntervalUnit": "second",
-          "requestContentType": 0,
-          "requestParamsBodyType": "none",
-          "requestSQLContent": {
-            "sql": "select * from  where"
-          },
-          "requestParams": {
-            "Body": {
-              "form-data": {},
-              "x-www-form-urlencoded": {},
-              "json": "",
-              "xml": ""
-            },
-            "Header": {},
-            "Params": {}
-          }
-        },
-        "events": {
-          "baseEvent": {},
-          "advancedEvents": {},
-          "interactEvents": []
-        }
-      },
-      {
-        "id": "teaching-main-title",
-        "isGroup": false,
-        "key": "TextCommon",
-        "chartConfig": {
-          "key": "TextCommon",
-          "chartKey": "VTextCommon",
-          "conKey": "VCTextCommon",
-          "title": "文字",
-          "category": "Texts",
-          "categoryName": "文本",
-          "package": "Informations",
-          "chartFrame": "common",
-          "image": "text_static.png"
-        },
-        "option": {
-          "link": "",
-          "linkHead": "http://",
-          "dataset": "教学数据统计",
-          "fontSize": 36,
-          "fontColor": "#7fe7ff",
-          "paddingX": 0,
-          "paddingY": 0,
-          "textAlign": "center",
           "fontWeight": "bold",
           "borderWidth": 0,
           "borderColor": "#ffffff",
-          "borderRadius": 5,
-          "letterSpacing": 8,
+          "borderRadius": 2,
+          "letterSpacing": 0,
           "writingMode": "horizontal-tb",
-          "backgroundColor": "#00000000"
+          "backgroundColor": "#0d3a6a80"
         },
         "attr": {
-          "x": 660,
-          "y": 20,
-          "w": 600,
-          "h": 60,
+          "x": 1298,
+          "y": 236,
+          "w": 564,
+          "h": 30,
           "offsetX": 0,
           "offsetY": 0,
-          "zIndex": 24
-        },
+          "zIndex": 38
+        }
+      },
+      {
+        "isGroup": false,
         "styles": {
           "filterShow": false,
           "hueRotate": 0,
@@ -3021,6 +4192,501 @@
           "baseEvent": {},
           "advancedEvents": {},
           "interactEvents": []
+        },
+        "id": "teaching-ability-radar",
+        "key": "Radar",
+        "chartConfig": {
+          "key": "Radar",
+          "chartKey": "VRadar",
+          "conKey": "VCRadar",
+          "title": "雷达图",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Charts",
+          "chartFrame": "common",
+          "image": "radar.png"
+        },
+        "option": {
+          "legend": {
+            "show": true,
+            "type": "scroll",
+            "x": "right",
+            "y": "top",
+            "icon": "circle",
+            "orient": "horizontal",
+            "textStyle": {
+              "color": "#8fb8d8",
+              "fontSize": 12
+            },
+            "itemHeight": 8,
+            "itemWidth": 12,
+            "pageTextStyle": {
+              "color": "#B9B8CE"
+            },
+            "data": [
+              "本学期",
+              "上学期"
+            ]
+          },
+          "tooltip": {
+            "show": true
+          },
+          "dataset": {
+            "radarIndicator": [
+              {
+                "name": "知识理解",
+                "max": 100
+              },
+              {
+                "name": "实践应用",
+                "max": 100
+              },
+              {
+                "name": "创新思维",
+                "max": 100
+              },
+              {
+                "name": "协作沟通",
+                "max": 100
+              },
+              {
+                "name": "信息素养",
+                "max": 100
+              },
+              {
+                "name": "自主学习",
+                "max": 100
+              }
+            ],
+            "seriesData": [
+              {
+                "name": "本学期",
+                "value": [
+                  88,
+                  82,
+                  76,
+                  85,
+                  90,
+                  79
+                ]
+              },
+              {
+                "name": "上学期",
+                "value": [
+                  84,
+                  77,
+                  70,
+                  82,
+                  86,
+                  74
+                ]
+              }
+            ]
+          },
+          "radar": {
+            "shape": "polygon",
+            "radius": [
+              "0%",
+              "64%"
+            ],
+            "center": [
+              "50%",
+              "56%"
+            ],
+            "splitArea": {
+              "show": true,
+              "areaStyle": {
+                "color": [
+                  "#0a2a4a33",
+                  "#0a2a4a66"
+                ]
+              }
+            },
+            "splitLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#1e4a72"
+              }
+            },
+            "axisName": {
+              "show": true,
+              "color": "#cfeeff",
+              "fontSize": 12
+            },
+            "axisLine": {
+              "show": true,
+              "lineStyle": {
+                "color": "#1e4a72"
+              }
+            },
+            "axisTick": {
+              "show": true
+            },
+            "indicator": [
+              {
+                "name": "知识理解",
+                "max": 100
+              },
+              {
+                "name": "实践应用",
+                "max": 100
+              },
+              {
+                "name": "创新思维",
+                "max": 100
+              },
+              {
+                "name": "协作沟通",
+                "max": 100
+              },
+              {
+                "name": "信息素养",
+                "max": 100
+              },
+              {
+                "name": "自主学习",
+                "max": 100
+              }
+            ]
+          },
+          "series": [
+            {
+              "name": "radar",
+              "type": "radar",
+              "symbolSize": 4,
+              "areaStyle": {
+                "opacity": 0.25
+              },
+              "data": [
+                {
+                  "name": "本学期",
+                  "value": [
+                    88,
+                    82,
+                    76,
+                    85,
+                    90,
+                    79
+                  ],
+                  "itemStyle": {
+                    "color": "#4fd2dd"
+                  }
+                },
+                {
+                  "name": "上学期",
+                  "value": [
+                    84,
+                    77,
+                    70,
+                    82,
+                    86,
+                    74
+                  ],
+                  "itemStyle": {
+                    "color": "#ffbf47"
+                  }
+                }
+              ]
+            }
+          ],
+          "backgroundColor": "rgba(0,0,0,0)"
+        },
+        "attr": {
+          "x": 1292,
+          "y": 272,
+          "w": 576,
+          "h": 342,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 39
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-rank-frame",
+        "key": "Image",
+        "chartConfig": {
+          "key": "Image",
+          "chartKey": "VImage",
+          "conKey": "VCImage",
+          "title": "图片",
+          "category": "Mores",
+          "categoryName": "更多",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "photo.png"
+        },
+        "option": {
+          "dataset": "{{material:images/border-panel.svg}}",
+          "fit": "fill",
+          "borderRadius": 0
+        },
+        "attr": {
+          "x": 1280,
+          "y": 640,
+          "w": 600,
+          "h": 400,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 40
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-rank-title",
+        "key": "TextCommon",
+        "chartConfig": {
+          "key": "TextCommon",
+          "chartKey": "VTextCommon",
+          "conKey": "VCTextCommon",
+          "title": "文字",
+          "category": "Texts",
+          "categoryName": "文本",
+          "package": "Informations",
+          "chartFrame": "common",
+          "image": "text_static.png"
+        },
+        "option": {
+          "link": "",
+          "linkHead": "http://",
+          "dataset": "▍课程热度排行（选课人数）",
+          "fontSize": 16,
+          "fontColor": "#7fe7ff",
+          "paddingX": 10,
+          "paddingY": 0,
+          "textAlign": "left",
+          "fontWeight": "bold",
+          "borderWidth": 0,
+          "borderColor": "#ffffff",
+          "borderRadius": 2,
+          "letterSpacing": 0,
+          "writingMode": "horizontal-tb",
+          "backgroundColor": "#0d3a6a80"
+        },
+        "attr": {
+          "x": 1298,
+          "y": 652,
+          "w": 564,
+          "h": 30,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 41
+        }
+      },
+      {
+        "isGroup": false,
+        "styles": {
+          "filterShow": false,
+          "hueRotate": 0,
+          "saturate": 1,
+          "contrast": 1,
+          "brightness": 1,
+          "opacity": 1,
+          "rotateZ": 0,
+          "rotateX": 0,
+          "rotateY": 0,
+          "skewX": 0,
+          "skewY": 0,
+          "blendMode": "normal",
+          "animations": []
+        },
+        "preview": {
+          "overFlowHidden": false
+        },
+        "status": {
+          "lock": false,
+          "hide": false
+        },
+        "request": {
+          "requestDataType": 0,
+          "requestHttpType": "get",
+          "requestUrl": "",
+          "requestIntervalUnit": "second",
+          "requestContentType": 0,
+          "requestParamsBodyType": "none",
+          "requestSQLContent": {
+            "sql": "select * from  where"
+          },
+          "requestParams": {
+            "Body": {
+              "form-data": {},
+              "x-www-form-urlencoded": {},
+              "json": "",
+              "xml": ""
+            },
+            "Header": {},
+            "Params": {}
+          }
+        },
+        "events": {
+          "baseEvent": {},
+          "advancedEvents": {},
+          "interactEvents": []
+        },
+        "id": "teaching-rank-list",
+        "key": "TableList",
+        "chartConfig": {
+          "key": "TableList",
+          "chartKey": "VTableList",
+          "conKey": "VCTableList",
+          "title": "滚动排名列表",
+          "category": "Tables",
+          "categoryName": "表格",
+          "package": "Tables",
+          "chartFrame": "common",
+          "image": "tables_list.png"
+        },
+        "option": {
+          "dataset": [
+            {
+              "name": "人工智能导论",
+              "value": 1286
+            },
+            {
+              "name": "Python 程序设计",
+              "value": 1142
+            },
+            {
+              "name": "工业机器人应用",
+              "value": 986
+            },
+            {
+              "name": "数据可视化",
+              "value": 874
+            },
+            {
+              "name": "电子商务实务",
+              "value": 762
+            },
+            {
+              "name": "三维建模",
+              "value": 698
+            },
+            {
+              "name": "网络安全基础",
+              "value": 645
+            },
+            {
+              "name": "数字媒体艺术",
+              "value": 588
+            }
+          ],
+          "rowNum": 6,
+          "waitTime": 2,
+          "unit": "人",
+          "sort": true,
+          "color": "#1d9bd1",
+          "textColor": "#cfeeffff",
+          "borderColor": "#1d9bd180",
+          "carousel": "single",
+          "indexFontSize": 13,
+          "leftFontSize": 14,
+          "rightFontSize": 14
+        },
+        "attr": {
+          "x": 1292,
+          "y": 694,
+          "w": 576,
+          "h": 330,
+          "offsetX": 0,
+          "offsetY": 0,
+          "zIndex": 42
         }
       }
     ]

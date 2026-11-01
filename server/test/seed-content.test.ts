@@ -5,6 +5,8 @@ import {
   readFileSync,
   readdirSync,
   rmSync,
+  symlinkSync,
+  unlinkSync,
   writeFileSync
 } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -24,6 +26,19 @@ import {
 
 const seedDir = fileURLToPath(new URL('../seed-content', import.meta.url));
 
+/** 复制一份可改动的种子目录：两百兆的预置点云不复制，用目录链接指回原目录 */
+function copySeed(target: string): void {
+  const datafiles = path.join(seedDir, 'datafiles');
+  cpSync(seedDir, target, { recursive: true, filter: (source) => source !== datafiles });
+  symlinkSync(datafiles, path.join(target, 'datafiles'), 'junction');
+}
+
+/** 先断开目录链接再删临时目录，保证不会误删原种子目录里的点云 */
+function removeSeedCopy(workDir: string, target: string): void {
+  unlinkSync(path.join(target, 'datafiles'));
+  rmSync(workDir, { recursive: true, force: true });
+}
+
 interface ProjectItem {
   id: string;
   projectName: string;
@@ -37,7 +52,8 @@ interface IdData {
   id: string;
 }
 
-describe('预置内容 F018', () => {
+// 每个用例都会把预置点云（约 200 MB）导入临时数据目录，放宽超时
+describe('预置内容 F018', { timeout: 90_000 }, () => {
   let ctx: TestContext;
   let admin: AuthUser;
 
@@ -73,10 +89,20 @@ describe('预置内容 F018', () => {
     });
   }
 
-  it('导入 30 个素材和 3 个模板，落盘且替换全部占位符，重复执行幂等', async () => {
+  it('导入 30 个素材、1 个预置数据文件和 6 个模板，落盘且替换全部占位符，重复执行幂等', async () => {
     const first = await importContent();
     expect(first.materials).toEqual({ created: 30, updated: 0, skipped: 0 });
-    expect(first.templates).toEqual({ created: 3, updated: 0, skipped: 0 });
+    expect(first.datafiles).toEqual({ created: 1, updated: 0, skipped: 0 });
+    expect(first.templates).toEqual({ created: 6, updated: 0, skipped: 0 });
+
+    const datafiles = await ctx.app.prisma.dataFile.findMany();
+    expect(datafiles).toHaveLength(1);
+    const ship = datafiles[0]!;
+    expect(ship).toMatchObject({ name: '船舶点云', kind: 'tiles3d', status: 'success', ownerId: admin.id });
+    expect(ship.outputUrl).toBe(`/files/datafiles/${ship.id}/3dtiles/tileset.json`);
+    expect(
+      existsSync(path.join(ctx.app.config.dataDir, 'files', 'datafiles', ship.id, '3dtiles', 'tileset.json'))
+    ).toBe(true);
 
     const materials = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
     expect(materials).toHaveLength(30);
@@ -119,14 +145,15 @@ describe('预置内容 F018', () => {
     const projects = await ctx.app.prisma.project.findMany({
       where: { isTemplate: true, deletedAt: null }
     });
-    expect(projects).toHaveLength(3);
+    expect(projects).toHaveLength(6);
     expect(new Set(projects.map((project) => project.templateCategory))).toEqual(
-      new Set(['campus', 'device', 'data'])
+      new Set(['campus', 'device', 'data', 'other'])
     );
 
     const materialIdByUrl = new Map(materials.map((material) => [material.url, material.id]));
     for (const project of projects) {
       expect(project.content).not.toContain('{{material:');
+      expect(project.content).not.toContain('{{datafile:');
       expect(project.content).toContain('/files/materials/');
       const coverUrl = project.indexImage ?? '';
       expect(coverUrl).toMatch(/^\/files\/templates\/[A-Za-z0-9._-]+\.png$/);
@@ -197,6 +224,16 @@ describe('预置内容 F018', () => {
         );
       }
 
+      if (project.projectName === '船舶点云数字孪生') {
+        const scene = content.componentList.find((component) => component.chartConfig.key === 'Scene3D');
+        const layers = (
+          scene!.option as { layerSets: Array<{ layers: Array<{ source: { from?: string; refId?: string; url?: string } }> }> }
+        ).layerSets.flatMap((set) => set.layers);
+        const cloud = layers.find((layer) => layer.source.from === 'datafile');
+        expect(cloud?.source.url).toBe(ship.outputUrl);
+        expect(cloud?.source.refId).toBe(ship.id);
+      }
+
       if (project.projectName === '实训设备监控') {
         const video = content.componentList.find(
           (component) => component.chartConfig.key === 'RtspVideo'
@@ -219,7 +256,8 @@ describe('预置内容 F018', () => {
     const projectIds = projects.map((project) => project.id).sort();
     const second = await importContent();
     expect(second.materials).toEqual({ created: 0, updated: 0, skipped: 30 });
-    expect(second.templates).toEqual({ created: 0, updated: 0, skipped: 3 });
+    expect(second.datafiles).toEqual({ created: 0, updated: 0, skipped: 1 });
+    expect(second.templates).toEqual({ created: 0, updated: 0, skipped: 6 });
     expect(
       (await ctx.app.prisma.material.findMany({ select: { id: true } }))
         .map((material) => material.id)
@@ -236,7 +274,7 @@ describe('预置内容 F018', () => {
     const workDir = mkdtempSync(path.join(tmpdir(), 'seed-update-'));
     const changedSeed = path.join(workDir, 'seed-content');
     try {
-      cpSync(seedDir, changedSeed, { recursive: true });
+      copySeed(changedSeed);
       const options = { dataDir: ctx.app.config.dataDir, seedDir: changedSeed };
       await importSeedContent(ctx.app.prisma, admin, options);
       const before = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
@@ -255,7 +293,7 @@ describe('预置内容 F018', () => {
 
       const result = await importSeedContent(ctx.app.prisma, admin, options);
       expect(result.materials).toEqual({ created: 0, updated: 1, skipped: 29 });
-      expect(result.templates).toEqual({ created: 0, updated: 1, skipped: 2 });
+      expect(result.templates).toEqual({ created: 0, updated: 1, skipped: 5 });
 
       const after = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
       expect(after.map((m) => [m.id, m.url])).toEqual(before.map((m) => [m.id, m.url]));
@@ -274,7 +312,7 @@ describe('预置内容 F018', () => {
       expect(templates.map((item) => item.id).sort()).toEqual(beforeIds.map((item) => item.id).sort());
       expect(templates.find((item) => item.projectName === '智慧校园三维总览')?.remarks).toBe('已更新的备注');
     } finally {
-      rmSync(workDir, { recursive: true, force: true });
+      removeSeedCopy(workDir, changedSeed);
     }
   });
 
@@ -282,7 +320,7 @@ describe('预置内容 F018', () => {
     const workDir = mkdtempSync(path.join(tmpdir(), 'seed-thumb-'));
     const changedSeed = path.join(workDir, 'seed-content');
     try {
-      cpSync(seedDir, changedSeed, { recursive: true });
+      copySeed(changedSeed);
       const options = { dataDir: ctx.app.config.dataDir, seedDir: changedSeed };
       await importSeedContent(ctx.app.prisma, admin, options);
       const before = await ctx.app.prisma.material.findMany({ orderBy: { name: 'asc' } });
@@ -305,7 +343,7 @@ describe('预置内容 F018', () => {
       );
       expect(stored.equals(changed)).toBe(true);
     } finally {
-      rmSync(workDir, { recursive: true, force: true });
+      removeSeedCopy(workDir, changedSeed);
     }
   });
 
@@ -321,11 +359,14 @@ describe('预置内容 F018', () => {
       })
     );
     expect(listed.code).toBe(200);
-    expect(listed.data).toHaveLength(3);
+    expect(listed.data).toHaveLength(6);
     expect(listed.data.map((item) => item.templateCategory).sort()).toEqual([
       'campus',
       'data',
-      'device'
+      'data',
+      'device',
+      'device',
+      'other'
     ]);
 
     const template = listed.data.find((item) => item.projectName === '智慧校园三维总览')!;
