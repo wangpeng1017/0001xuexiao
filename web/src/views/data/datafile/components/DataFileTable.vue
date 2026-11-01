@@ -123,9 +123,10 @@ const columns: DataTableColumns<DataFileItem> = [
                 text: true,
                 type: 'error',
                 size: 'small',
+                disabled: row.preset,
                 onClick: () => confirmDelete(row)
               },
-              { default: () => '删除' }
+              { default: () => (row.preset ? '预置不可删除' : '删除') }
             )
           ]
         }

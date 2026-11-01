@@ -347,6 +347,46 @@ describe('预置内容 F018', { timeout: 90_000 }, () => {
     }
   });
 
+  it('预置点云不能删除（admin 也不行，批量中含预置时整批不删），旧记录重新导入后补上标记', async () => {
+    await importContent();
+    const token = await loginToken(ctx.app, 'admin');
+    const ship = await ctx.app.prisma.dataFile.findFirstOrThrow({ where: { name: '船舶点云' } });
+    expect(ship.preset).toBe(true);
+    const tileset = path.join(ctx.app.config.dataDir, 'files', 'datafiles', ship.id, '3dtiles', 'tileset.json');
+    const ordinary = await ctx.app.prisma.dataFile.create({
+      data: { name: '普通文件', originFormat: 'ZIP', storedPath: 'x', ownerId: admin.id }
+    });
+    const remove = async (ids: string) =>
+      readJson<unknown>(
+        await ctx.app.inject({
+          method: 'DELETE',
+          url: `/api/goview/datafile/delete?ids=${ids}`,
+          headers: authHeaders(token)
+        })
+      );
+
+    expect((await remove(ship.id)).code).toBe(403);
+    expect((await remove(`${ordinary.id},${ship.id}`)).code).toBe(403);
+    expect(await ctx.app.prisma.dataFile.count()).toBe(2);
+    expect(existsSync(tileset)).toBe(true);
+
+    const listed = readJson<Array<{ id: string; preset: boolean }>>(
+      await ctx.app.inject({
+        method: 'GET',
+        url: '/api/goview/datafile/list?page=1&limit=20',
+        headers: authHeaders(token)
+      })
+    );
+    expect(listed.data.find((item) => item.id === ship.id)?.preset).toBe(true);
+    expect(listed.data.find((item) => item.id === ordinary.id)?.preset).toBe(false);
+    expect((await remove(ordinary.id)).code).toBe(200);
+
+    await ctx.app.prisma.dataFile.update({ where: { id: ship.id }, data: { preset: false } });
+    const again = await importContent();
+    expect(again.datafiles).toEqual({ created: 0, updated: 0, skipped: 1 });
+    expect((await ctx.app.prisma.dataFile.findUniqueOrThrow({ where: { id: ship.id } })).preset).toBe(true);
+  });
+
   it('模板可通过 HTTP 接口列出并从模板新建项目', async () => {
     await importContent();
     const token = await loginToken(ctx.app, 'admin');

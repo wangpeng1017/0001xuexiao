@@ -47,6 +47,7 @@ export interface DataFileItem {
   outputUrl: string
   createTime: string
   createUserName: string
+  preset: boolean
 }
 
 export interface FormatItem {

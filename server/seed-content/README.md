@@ -162,7 +162,7 @@ SVG 均使用透明背景和标准矢量元素，不引用外部字体或图片�
 
 ### 预置数据文件
 
-`datafiles/ship-pointcloud/` 是已转换好的船舶点云 3D Tiles（1378 万点，带 RGB，约 200 MB，2555 个文件），在 `manifest.json` 的 `datafiles` 中登记。导入时整目录拷到管理员名下的一条“数据文件”（名称“船舶点云”，状态成功），模板用 `{{datafile:datafiles/ship-pointcloud}}` 引用其 `tileset.json` 地址。按“文件清单 + 大小 + tileset.json 内容”判断是否变化。该目录不计入素材 40 MB 上限，`verify_assets.py` 单独校验（300 MB 上限、必须含 tileset.json）。
+`datafiles/ship-pointcloud/` 是已转换好的船舶点云 3D Tiles（1378 万点，带 RGB，约 200 MB，2555 个文件），在 `manifest.json` 的 `datafiles` 中登记。导入时整目录拷到管理员名下的一条“数据文件”（名称“船舶点云”，状态成功），模板用 `{{datafile:datafiles/ship-pointcloud}}` 引用其 `tileset.json` 地址。该记录 `preset = true`，界面和接口都禁止删除（含管理员），因为由模板新建的项目也引用这个地址。按“文件清单 + 大小 + tileset.json 内容”判断是否变化。该目录不计入素材 40 MB 上限，`verify_assets.py` 单独校验（300 MB 上限、必须含 tileset.json）。
 
 ## 重新生成
 

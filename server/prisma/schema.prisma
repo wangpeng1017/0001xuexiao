@@ -121,6 +121,8 @@ model DataFile {
   outputUrl    String   @default("")
   storedPath   String
   size         BigInt   @default(0)
+  /// 预置数据文件：模板和由模板新建的项目都引用它的地址，禁止删除
+  preset       Boolean  @default(false)
   ownerId      String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

@@ -26,6 +26,7 @@ export interface DataFileItem {
   outputUrl: string;
   createTime: string;
   createUserName: string;
+  preset: boolean;
 }
 
 export interface DataFileListParams {
@@ -101,7 +102,8 @@ export function toDataFileItem(file: DataFileRow): DataFileItem {
     srs: file.srs ?? '',
     outputUrl: file.outputUrl,
     createTime: file.createdAt.toISOString(),
-    createUserName: file.owner.nickname || file.owner.username
+    createUserName: file.owner.nickname || file.owner.username,
+    preset: file.preset
   };
 }
 
@@ -154,11 +156,12 @@ export async function deleteDataFiles(
   if (uniqueIds.length === 0) throw new BizError(400, 'ids 不能为空');
   const files = await prisma.dataFile.findMany({
     where: { id: { in: uniqueIds } },
-    select: { id: true, ownerId: true }
+    select: { id: true, ownerId: true, preset: true }
   });
   if (files.length === 0) throw new BizError(404, '数据文件不存在');
   for (const file of files) {
     if (!canManage(user, file.ownerId)) throw new BizError(403, '无权限删除该数据文件');
+    if (file.preset) throw new BizError(403, '预置数据文件不能删除，模板和由模板新建的项目都在使用它');
   }
   await prisma.dataFile.deleteMany({ where: { id: { in: files.map((file) => file.id) } } });
   for (const file of files) {

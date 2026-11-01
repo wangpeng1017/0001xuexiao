@@ -311,10 +311,14 @@ async function importDataFiles(
     const hash = await hashTilesetDir(sourceDir);
     const existing = await prisma.dataFile.findFirst({
       where: { name: item.name, ownerId: admin.id, kind: item.kind },
-      select: { id: true, outputUrl: true }
+      select: { id: true, outputUrl: true, preset: true }
     });
     const hashFile = (id: string) => path.join(dataFileDirectory(dataDir, id), SEED_HASH_SUFFIX);
     if (existing && (await readStoredHash(hashFile(existing.id))) === hash) {
+      // 内容未变也要补标记：加 preset 字段之前导入的记录默认是 false
+      if (!existing.preset) {
+        await prisma.dataFile.update({ where: { id: existing.id }, data: { preset: true } });
+      }
       datafiles.set(item.dir, { id: existing.id, url: existing.outputUrl });
       skipped += 1;
       continue;
@@ -332,7 +336,8 @@ async function importDataFiles(
       errorMsg: '',
       outputUrl,
       storedPath: path.join(targetDir, 'tileset.json'),
-      size: BigInt(await dirSize(targetDir))
+      size: BigInt(await dirSize(targetDir)),
+      preset: true
     };
     if (existing) {
       await prisma.dataFile.update({ where: { id }, data: record });
