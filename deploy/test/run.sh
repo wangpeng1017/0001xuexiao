@@ -157,6 +157,12 @@ else
   fail "自定义参数 dry-run 应成功退出"
 fi
 
+if grep -q "name 'schema-engine-\*' -exec chmod 0755" "$INSTALL_SCRIPT"; then
+  pass "install.sh 为 schema-engine 补执行位（Windows 打的包不保留执行位）"
+else
+  fail "install.sh 必须为 schema-engine 补执行位"
+fi
+
 if output="$(bash "$INSTALL_SCRIPT" --dry-run --upgrade 2>&1)"; then
   if contains "$output" "读取现有配置" && contains "$output" "回滚"; then
     pass "升级模式 dry-run 包含备份与回滚说明"

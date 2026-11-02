@@ -279,14 +279,16 @@ require_build_inputs() {
   if ! command -v curl >/dev/null 2>&1 && ! command -v wget >/dev/null 2>&1; then
     die "构建机需要 curl 或 wget"
   fi
-  if command -v python3 >/dev/null 2>&1; then
-    PYTHON_BIN="$(command -v python3)"
-  elif command -v python >/dev/null 2>&1; then
-    PYTHON_BIN="$(command -v python)"
-  else
-    die "构建机需要 Python 3 与 pip"
-  fi
-  "$PYTHON_BIN" -m pip --version >/dev/null 2>&1 || die "Python 缺少 pip，请先安装"
+  # 逐个试：Windows 上 python3 可能是应用商店的空壳，命令存在但跑不起来
+  PYTHON_BIN=""
+  local candidate
+  for candidate in python3 python; do
+    if command -v "$candidate" >/dev/null 2>&1 && "$candidate" -m pip --version >/dev/null 2>&1; then
+      PYTHON_BIN="$(command -v "$candidate")"
+      break
+    fi
+  done
+  [[ -n "$PYTHON_BIN" ]] || die "构建机需要 Python 3 与 pip"
   local file
   for file in \
     "${SCRIPT_DIR}/install.sh" \
@@ -565,7 +567,9 @@ resolve_conda_packages() {
   rm -rf "${WORK_DIR}/solve-prefix"
   mkdir -p "${WORK_DIR}/mamba-root"
 
-  if ! MAMBA_ROOT_PREFIX="$mamba_root" "$HOST_MAMBA" --no-rc create \
+  # 按目标机基线解析（与 install.sh 的 glibc >= 2.28 一致）；在非 Linux 构建机上探测不到这两个虚拟包
+  if ! CONDA_OVERRIDE_GLIBC=2.28 CONDA_OVERRIDE_LINUX=4.18 \
+    MAMBA_ROOT_PREFIX="$mamba_root" "$HOST_MAMBA" --no-rc create \
     --dry-run --json \
     --platform "$(conda_platform)" \
     --prefix "$solve_prefix" \

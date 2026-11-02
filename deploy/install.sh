@@ -277,6 +277,9 @@ copy_program_files() {
   chmod 0755 "${INSTALL_DIR}/runtime/node/bin/node"
   chmod 0755 "${INSTALL_DIR}/runtime/ffmpeg/bin/ffmpeg"
   chmod 0755 "${INSTALL_DIR}/runtime/micromamba"
+  # 在 Windows 上打的包不保留执行位，prisma db push 要直接执行 schema-engine
+  find "${INSTALL_DIR}/app/server/tools/node_modules/@prisma/engines" -maxdepth 1 -type f \
+    -name 'schema-engine-*' -exec chmod 0755 {} +
   log "程序文件已复制到 ${INSTALL_DIR}"
 }
 
