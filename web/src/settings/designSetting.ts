@@ -6,7 +6,7 @@ import designColor from './designColor.json'
 export const lang = LangEnum.ZH
 
 // 水印文字
-export const watermarkText = "多源数据融合可视化平台"
+export const watermarkText = "多源数据融合处理软件平台"
 
 // 分组名称
 export const groupTitle = "分组"

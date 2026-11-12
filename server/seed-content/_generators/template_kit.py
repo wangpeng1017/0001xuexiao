@@ -113,7 +113,7 @@ class Canvas:
         if corners:
             self.image("corners", 0, 0, 1920, 1080, "images/border-corners.svg")
         else:
-            self.text("platform", 30, 30, 360, 30, "多源数据融合可视化平台", size=16, color=LABEL, spacing=2)
+            self.text("platform", 30, 30, 360, 30, "多源数据融合处理软件平台", size=16, color=LABEL, spacing=2)
         self.image("title-left", 190, 22, 460, 50, "images/title-decor-left.svg")
         self.image("title-right", 1270, 22, 460, 50, "images/title-decor-right.svg")
         self.add("VTextGradient", "title", 660, 12, 600, 56, {

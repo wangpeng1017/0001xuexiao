@@ -8,7 +8,7 @@
             <AnalyticsIcon></AnalyticsIcon>
           </n-icon>
         </div>
-        <h1 class="brand-title">多源数据融合可视化平台</h1>
+        <h1 class="brand-title">多源数据融合处理软件平台</h1>
         <p class="brand-desc">拖拽搭建 · 多源接入 · 离线部署</p>
       </div>
 
@@ -59,7 +59,7 @@
         </n-form>
       </n-card>
 
-      <div class="go-login-footer">多源数据融合可视化平台</div>
+      <div class="go-login-footer">多源数据融合处理软件平台</div>
     </div>
   </div>
 </template>

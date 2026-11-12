@@ -1,7 +1,7 @@
 <template>
   <div class="go-aside-footer">
     <n-text depth="3" class="footer-text">
-      {{ collapsed ? '融合可视' : '多源数据融合可视化平台' }}
+      {{ collapsed ? '融合处理' : '多源数据融合处理软件平台' }}
     </n-text>
   </div>
 </template>

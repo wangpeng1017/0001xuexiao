@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="88" viewBox="0 0 800 88" fill="none">
   <title>标题栏左侧装饰</title>
-  <desc>启明数据可视化平台预置标题装饰，程序生成。</desc>
+  <desc>多源数据融合处理软件平台预置标题装饰，程序生成。</desc>
   <defs>
     <linearGradient id="tdl-line" x1="20" y1="44" x2="780" y2="44" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#0B5E9C" stop-opacity="0"/>

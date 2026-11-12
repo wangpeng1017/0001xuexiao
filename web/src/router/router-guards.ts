@@ -12,7 +12,7 @@ const routerAllowList = [
   PageEnum.REDIRECT_UN_PUBLISH_NAME
 ]
 
-const PLATFORM_TITLE = '多源数据融合可视化平台'
+const PLATFORM_TITLE = '多源数据融合处理软件平台'
 
 export function createRouterGuards(router: Router) {
   // 前置

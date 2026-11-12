@@ -13,7 +13,7 @@
   </g>
   <g fill="#ffffff" opacity="0.82" font-family="sans-serif" text-anchor="middle">
     <text x="640" y="350" font-size="64" font-weight="bold">离线部署</text>
-    <text x="640" y="410" font-size="24" opacity="0.7">多源数据融合可视化平台</text>
+    <text x="640" y="410" font-size="24" opacity="0.7">多源数据融合处理软件平台</text>
   </g>
   <g fill="#ffffff" opacity="0.5">
     <rect x="470" y="500" width="46" height="90" rx="6"/>
