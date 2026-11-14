@@ -5,7 +5,7 @@ import { BizError } from '../lib/resp.js';
 import type { Role } from '../types.js';
 
 const USERNAME_PATTERN = /^[A-Za-z0-9_]{4,32}$/;
-const CSV_HEADER_MESSAGE = 'CSV 表头必须为 username,nickname,role[,password]';
+const CSV_HEADER_MESSAGE = 'CSV 表头必须为 学号,nickname,role[,password]';
 const CSV_ROLE_MESSAGE = '角色必须为 teacher/student 或 教师/学生';
 
 export interface UserListItem {
@@ -165,7 +165,7 @@ function normalizeHeader(fields: string[]): string[] {
 
 function isValidHeader(fields: string[]): boolean {
   if (fields.length !== 3 && fields.length !== 4) return false;
-  if (fields[0] !== 'username' || fields[1] !== 'nickname' || fields[2] !== 'role') {
+  if ((fields[0] !== '学号' && fields[0] !== 'username') || fields[1] !== 'nickname' || fields[2] !== 'role') {
     return false;
   }
   return fields.length === 3 || fields[3] === 'password';

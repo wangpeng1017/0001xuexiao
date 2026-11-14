@@ -75,7 +75,7 @@ data：`[{ "id", "username", "nickname", "role", "disabled", "createTime" }]` + 
 请求 `{ "id" }` → data `{ "initialPassword" }`；同时设置 `mustChangePwd=true`，并清除锁定
 
 ### POST `/api/goview/user/import`（multipart，字段名 `file`，UTF-8 CSV，≤1MB）
-- 表头：`username,nickname,role[,password]`；role 填 `teacher` / `student`（也接受中文“教师” / “学生”）
+- 表头：`学号,nickname,role[,password]`（第一列学号即登录账号；仍兼容旧表头 `username`）；role 填 `teacher` / `student`（也接受中文“教师” / “学生”）
 - 逐行处理，部分失败不影响其它行
 - data：`[{ "line": 2, "username": "", "ok": true, "reason": "", "initialPassword": "" }]`
 

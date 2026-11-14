@@ -294,7 +294,7 @@ describe('用户管理', () => {
     });
 
     const csv =
-      '\uFEFFusername,nickname,role,password\r\n' +
+      '\uFEFF\u5B66\u53F7,nickname,role,password\r\n' +
       'dup_user,重复用户,teacher,Passw0rd1\r\n' +
       'bad_role,错误角色,admin,Passw0rd1\r\n' +
       'new_teacher,新老师,教师,Passw0rd1\r\n' +

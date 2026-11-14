@@ -10,8 +10,8 @@
     <n-space vertical :size="18">
       <n-alert type="info" :show-icon="false">
         请使用 UTF-8 编码的 CSV 文件，表头为
-        <n-text code>username,nickname,role,password</n-text>
-        ，其中 password 可留空；role 可填 teacher / student 或“教师” / “学生”。文件不超过 1MB。
+        <n-text code>学号,nickname,role,password</n-text>
+        ，其中第一列学号即登录账号（4-32 位字母/数字/下划线），password 可留空；role 可填 teacher / student 或“教师” / “学生”。文件不超过 1MB。
       </n-alert>
 
       <n-space>
@@ -78,7 +78,7 @@ const successCount = computed(() => results.value.filter(item => item.ok).length
 
 const columns: DataTableColumns<ImportUserResult> = [
   { title: '行号', key: 'line', width: 70 },
-  { title: '用户名', key: 'username', width: 140 },
+  { title: '学号', key: 'username', width: 140 },
   {
     title: '结果',
     key: 'ok',
@@ -116,7 +116,7 @@ const downloadCsv = (filename: string, rows: (string | number | boolean)[][]) =>
 
 const downloadTemplate = () => {
   downloadCsv('用户导入模板', [
-    ['username', 'nickname', 'role', 'password'],
+    ['学号', 'nickname', 'role', 'password'],
     ['T2026001', '张三', 'teacher', 'Teacher123'],
     ['S2026001', '李四', 'student', 'Student123']
   ])
@@ -124,7 +124,7 @@ const downloadTemplate = () => {
 
 const downloadResult = () => {
   downloadCsv('用户导入结果', [
-    ['line', 'username', 'ok', 'reason', 'initialPassword'],
+    ['line', '学号', 'ok', 'reason', 'initialPassword'],
     ...results.value.map(item => [
       item.line,
       item.username,
