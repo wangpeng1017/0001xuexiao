@@ -2,12 +2,15 @@
 """为程序生成的 GLB 模型绘制 360x270 等轴测预览图（平面着色、画家算法）。
 
 纯 Python：numpy + Pillow + pygltflib。输出到 server/seed-content/previews/<同名>.png。
-第三方 CC0 模型自带预览图，不在此处理。
+第三方 CC0 模型（Kenney）的 GLB 用调色板贴图上色，原图只有 64x64，这里同样用本脚本
+重新渲染为 720x540（按三角形重心的 UV 取调色板颜色）。
 """
 
 from __future__ import annotations
 
 import math
+import io
+import json
 from pathlib import Path
 
 import numpy as np
@@ -20,6 +23,8 @@ SEED_ROOT = Path(__file__).resolve().parents[1]
 PREVIEW_DIR = SEED_ROOT / "previews"
 WIDTH, HEIGHT = 360, 270
 SUPERSAMPLE = 3
+KENNEY_COLORMAP = Path(__file__).resolve().parent / "kenney-colormap.png"  # CC0，来自 Kenney Watercraft Kit 2.0
+THIRD_PARTY_WIDTH, THIRD_PARTY_HEIGHT = 720, 540
 BACKGROUND = (0x10, 0x18, 0x26)
 MARGIN = 0.12
 LIGHT = np.array([0.45, 0.8, 0.4])
@@ -40,8 +45,20 @@ def _read_accessor(gltf: GLTF2, blob: bytes, index: int) -> np.ndarray:
     return data.reshape(accessor.count, width) if width > 1 else data
 
 
+def _load_texture(gltf: GLTF2, blob: bytes, texture_index: int) -> np.ndarray:
+    image = gltf.images[gltf.textures[texture_index].source]
+    if image.bufferView is not None:
+        view = gltf.bufferViews[image.bufferView]
+        start = view.byteOffset or 0
+        source = io.BytesIO(blob[start : start + view.byteLength])
+    else:
+        # Kenney 的 GLB 引用外部 Textures/colormap.png，素材包未附带，用 _generators 下的同一张调色板
+        source = KENNEY_COLORMAP
+    return np.asarray(Image.open(source).convert("RGB"), dtype=np.float64) / 255
+
+
 def load_triangles(path: Path):
-    """返回 (triangles[N,3,3], colors[N,3])，颜色取材质 baseColorFactor。"""
+    """返回 (triangles[N,3,3], colors[N,3])。颜色取材质 baseColorFactor；有调色板贴图时按重心 UV 取色。"""
     gltf = GLTF2().load_binary(str(path))
     blob = gltf.binary_blob()
     tris, colors = [], []
@@ -54,16 +71,29 @@ def load_triangles(path: Path):
                 idx = np.arange(len(pos))
             tri = pos[idx.reshape(-1, 3)]
             color = (0.8, 0.8, 0.8)
+            pbr = None
             if prim.material is not None:
                 pbr = gltf.materials[prim.material].pbrMetallicRoughness
                 if pbr is not None and pbr.baseColorFactor:
                     color = tuple(pbr.baseColorFactor[:3])
             tris.append(tri)
-            colors.append(np.tile(np.array(color), (len(tri), 1)))
+            tex = pbr.baseColorTexture if pbr is not None else None
+            if tex is not None and prim.attributes.TEXCOORD_0 is not None:
+                uv = _read_accessor(gltf, blob, prim.attributes.TEXCOORD_0).astype(np.float64)
+                centroid = uv[idx.reshape(-1, 3)].mean(axis=1)
+                texture = _load_texture(gltf, blob, tex.index)
+                th, tw = texture.shape[:2]
+                px = np.clip((centroid[:, 0] % 1.0) * tw, 0, tw - 1).astype(int)
+                py = np.clip((centroid[:, 1] % 1.0) * th, 0, th - 1).astype(int)
+                colors.append(texture[py, px] * np.array(color))
+            else:
+                colors.append(np.tile(np.array(color), (len(tri), 1)))
     return np.concatenate(tris), np.concatenate(colors)
 
 
-def render(triangles: np.ndarray, colors: np.ndarray) -> Image.Image:
+def render(
+    triangles: np.ndarray, colors: np.ndarray, width: int = WIDTH, height: int = HEIGHT
+) -> Image.Image:
     yaw, pitch = math.radians(45), math.radians(30)
     cy, sy, cp, sp = math.cos(yaw), math.sin(yaw), math.cos(pitch), math.sin(pitch)
     rot_y = np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
@@ -87,7 +117,7 @@ def render(triangles: np.ndarray, colors: np.ndarray) -> Image.Image:
     xy = pts[:, :, :2]
     lo, hi = xy.reshape(-1, 2).min(axis=0), xy.reshape(-1, 2).max(axis=0)
     span = np.maximum(hi - lo, 1e-9)
-    w, h = WIDTH * SUPERSAMPLE, HEIGHT * SUPERSAMPLE
+    w, h = width * SUPERSAMPLE, height * SUPERSAMPLE
     scale = min(w * (1 - 2 * MARGIN) / span[0], h * (1 - 2 * MARGIN) / span[1])
     offset = np.array([w, h]) / 2 - (lo + hi) / 2 * scale * np.array([1, -1])
     screen = xy * np.array([scale, -scale]) + offset  # 屏幕 y 向下
@@ -98,7 +128,7 @@ def render(triangles: np.ndarray, colors: np.ndarray) -> Image.Image:
     for i in order:
         fill = tuple(int(c * 255 + 0.5) for c in shaded[i])
         draw.polygon([tuple(p) for p in screen[i]], fill=fill)
-    return image.resize((WIDTH, HEIGHT), Image.LANCZOS)
+    return image.resize((width, height), Image.LANCZOS)
 
 
 def main():
@@ -111,6 +141,15 @@ def main():
         triangles, colors = load_triangles(glb)
         render(triangles, colors).save(out, optimize=True)
         print(f"{out.name}: {len(triangles)} tris, {out.stat().st_size / 1024:.1f} KB")
+
+    manifest = json.loads((SEED_ROOT / "manifest.json").read_text(encoding="utf-8"))
+    for asset in manifest["materials"]:
+        if "/third-party/" not in asset["file"] or not asset.get("thumb"):
+            continue
+        out = SEED_ROOT / asset["thumb"]
+        triangles, colors = load_triangles(SEED_ROOT / asset["file"])
+        render(triangles, colors, THIRD_PARTY_WIDTH, THIRD_PARTY_HEIGHT).save(out, optimize=True)
+        print(f"{out.name}: {len(triangles)} tris, {out.stat().st_size / 1024:.1f} KB (third-party)")
 
 
 if __name__ == "__main__":

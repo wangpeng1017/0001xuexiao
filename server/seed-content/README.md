@@ -22,7 +22,7 @@ server/seed-content/
 │       ├── ship-ocean-liner.glb ship-cargo-a.glb ship-large.glb ship-small.glb
 │       └── boat-tug-a.glb boat-sail-a.glb boat-fishing-small.glb boat-speed-a.glb
 │           cargo-container-a.glb buoy.glb
-├── previews/                      # 模型预览图（与 GLB 同名 png；前 4 个 360x270 程序渲染，第三方为 Kenney 原图）
+├── previews/                      # 模型预览图（与 GLB 同名 png；前 4 个 360x270、第三方 10 个 720x540，均由 generate_model_previews.py 渲染（Kenney 原图仅 64x64，已弃用））
 ├── maps/                          # 矢量与离线瓦片
 │   ├── campus-roads.geojson
 │   ├── campus-buildings.geojson
