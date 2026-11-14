@@ -16,6 +16,7 @@
         clearable
         @update:value="changeTeam"
       />
+      <project-layout-create v-if="list.length" class="toolbar-create"></project-layout-create>
     </div>
     <!-- 加载 -->
     <div v-show="loading">
@@ -51,7 +52,11 @@
         v-if="!list.length"
         :description="scope === 'team' && !teamId ? '请先选择团队' : '暂无大屏项目'"
         class="empty-box"
-      />
+      >
+        <template v-if="!(scope === 'team' && !teamId)" #extra>
+          <project-layout-create></project-layout-create>
+        </template>
+      </n-empty>
     </div>
 
     <!-- 分页 -->
@@ -117,6 +122,7 @@
 import { ref } from 'vue'
 import { NRadioButton } from 'naive-ui'
 import draggable from 'vuedraggable'
+import { ProjectLayoutCreate } from '../../../layout/components/ProjectLayoutCreate/index'
 import { ProjectItemsCard } from '../ProjectItemsCard/index'
 import { ProjectItemsModalCard } from '../ProjectItemsModalCard/index'
 import { useModalDataInit } from './hooks/useModal.hook'
@@ -220,6 +226,10 @@ $contentHeight: 250px;
     justify-content: flex-end;
     margin-top: 20px;
   }
+}
+
+.toolbar-create {
+  margin-left: auto;
 }
 
 .list-toolbar {

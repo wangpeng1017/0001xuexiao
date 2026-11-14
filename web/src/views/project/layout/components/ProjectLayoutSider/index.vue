@@ -14,7 +14,9 @@
     <div class="go-project-sider-flex">
       <aside>
         <n-space vertical class="go-project-sider-top">
-          <project-layout-create :collapsed="collapsed"></project-layout-create>
+          <n-text strong class="platform-name">
+            {{ collapsed ? '融合处理' : '多源数据融合处理软件平台' }}
+          </n-text>
         </n-space>
         <n-menu
           :value="menuValue"
@@ -24,18 +26,12 @@
           :default-expanded-keys="defaultExpandedKeys"
        ></n-menu>
       </aside>
-      <!-- 底部提示 -->
-      <div class="sider-bottom">
-        <project-layout-aside-footer :collapsed="collapsed"></project-layout-aside-footer>
-      </div>
     </div>
   </n-layout-sider>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, toRefs } from 'vue'
-import { ProjectLayoutCreate } from '../ProjectLayoutCreate/index'
-import { ProjectLayoutAsideFooter } from '../ProjectLayoutAsideFooter/index'
 import { asideWidth } from '@/settings/designSetting'
 import { useRoute } from 'vue-router'
 import { useSettingStore } from '@/store/modules/settingStore/settingStore'
@@ -80,6 +76,12 @@ $siderHeight: 100vh;
       flex-direction: column;
       margin-top: 30px;
       margin-bottom: 20px;
+      .platform-name {
+        font-size: 15px;
+        letter-spacing: 1px;
+        text-align: center;
+        white-space: nowrap;
+      }
     }
     &-flex {
       display: flex;
