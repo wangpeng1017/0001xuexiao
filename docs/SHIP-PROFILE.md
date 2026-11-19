@@ -43,7 +43,9 @@
 - 当前版本：`1.0.0-rc.2`（代码 `1646b89`，2026-11-14 部署，王老师验证通过）
 
 ## 生产环境（学校内网）
-- **尚未部署**。学校内网是离线服务器，用离线安装包交付（tar.gz + install.sh + systemd，**不用 Docker**）
+- **尚未部署**。学校内网是离线服务器，用离线安装包交付，**不用 Docker**
+- **学校服务器是 Windows Server 2019（10.10.30.207，RDP 端口 23389）**，交付用 Windows 包：`bash deploy/windows/build-package-win.sh --version <版本>`（Git Bash，需联网；`VIS_SKIP_BUILD=1` 沿用已构建的前后端）→ `.tools/deploy-out/vis-platform-<版本>-windows-x64.zip`；目标机管理员 PowerShell 运行 `install.ps1`（WinSW 服务 + 防火墙放行），说明见 `deploy/windows/安装说明.md`。2026-11-17 已在本机 Windows 11 实装验证（服务、健康检查、GDAL、ffmpeg、LAS→3D Tiles 13.8M 点 167 秒转换通过），尚未在 Server 2019 真机验证
+- Linux 包（tar.gz + install.sh + systemd）保留，供 Linux 服务器使用；其 ffmpeg 固定标签已被上游清理，重新打 Linux 包前需更新
 - 交付前必须先在 Linux 测试机实跑一次 `install.sh`（目前只跑过 dry-run）
 - `install.sh --upgrade` 目前不导入预置内容，已安装的系统升级前要先解决这一点
 - 在学校内网部署之前，ship 到“测试环境验证 + 推送 GitHub”为止；需要线上演示时再按上一节部署到阿里云，内网发版一步标记为“不适用”
